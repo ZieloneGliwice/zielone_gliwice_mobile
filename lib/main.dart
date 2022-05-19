@@ -8,6 +8,7 @@ import 'challenges/challenges_page.dart';
 import 'landing/landing_page.dart';
 import 'landing/landing_page_binding.dart';
 import 'start/start_page.dart';
+import 'ui/styles.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
       title: 'Zielone Gliwice',
       theme: ThemeData(
         primarySwatch: Colors.green,
-        
+        backgroundColor: ApplicationColors.background
       ),
       getPages: [
         GetPage(name: LandingPage.path, page: () => LandingPage(), binding: LandingPageBind()),

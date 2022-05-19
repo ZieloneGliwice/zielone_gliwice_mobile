@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zielone_gliwice_mobile/ui/styles.dart';
 
 class ChallengesPage extends StatelessWidget {
   const ChallengesPage({super.key});
@@ -10,7 +11,11 @@ class ChallengesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Wyzwania'),
+        titleTextStyle: ApplicationTextStyles.appBarTitleTextStyle,
+        backgroundColor: ApplicationColors.background,
+        elevation: 0.0,
       ),
+      backgroundColor: ApplicationColors.background,
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
