@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AddTreePage extends StatelessWidget {
   const AddTreePage({super.key});
@@ -16,4 +17,8 @@ class AddTreePage extends StatelessWidget {
       ),
     );
   }
+}
+
+class AddTreeController extends GetxController {
+
 }

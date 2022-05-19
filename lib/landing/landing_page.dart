@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../add_tree/add_tree_page.dart';
+import '../camera/camera_page.dart';
 import '../challenges/challenges_page.dart';
 import '../start/start_page.dart';
 
@@ -15,7 +16,7 @@ class LandingPage extends GetView<LandingPageController> {
       fontWeight: FontWeight.w500,
       fontSize: 12);
 
-  final TextStyle selectedLabelStyle = const TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 12);
+  final TextStyle selectedLabelStyle = const TextStyle(color: Color(0xFF95C122), fontWeight: FontWeight.w500, fontSize: 12);
 
   Widget _buildBottomNavigationMenu(BuildContext context) {
     return Obx(() => BottomNavigationBar(
@@ -63,18 +64,17 @@ class LandingPage extends GetView<LandingPageController> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-          bottomNavigationBar: _buildBottomNavigationMenu(context),
-          body: Obx(() => IndexedStack(
-            index: controller.tabIndex.value,
-            children: const <Widget>[
-              StartPage(),
-              AddTreePage(),
-              ChallengesPage(),
-            ],
-          )),
-        ));
+    return Scaffold(
+      bottomNavigationBar: _buildBottomNavigationMenu(context),
+      body: Obx(() => IndexedStack(
+        index: controller.tabIndex.value,
+        children: const <Widget>[
+          StartPage(),
+          CameraPage(),
+          ChallengesPage(),
+        ],
+      )),
+    );
   }
 }
 

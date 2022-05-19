@@ -11,8 +11,19 @@ class StartPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Moje drzewa'),
       ),
-      body: const Center(
-        child: Text('Nie masz jeszcze dodanych drzew'),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: const <Widget>[
+            Icon(
+                Icons.yard_outlined,
+                color: Colors.green,
+                size: 150.0),
+            SizedBox(height: 8.0,),
+            Text('Nie masz jeszcze dodanych drzew')
+
+          ],
+        ),
       ),
     );
   }

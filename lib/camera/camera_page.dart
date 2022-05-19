@@ -13,6 +13,7 @@ class CameraPage extends GetView<CameraPageController> {
 
   @override
   Widget build(BuildContext context) {
+    Get.snackbar('Wykonaj zdjęcie drzewa', 'Wukonaj je!');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Zielone Gliwice'),

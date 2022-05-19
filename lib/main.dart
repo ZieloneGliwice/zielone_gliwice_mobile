@@ -23,37 +23,16 @@ class MyApp extends StatelessWidget {
       title: 'Zielone Gliwice',
       theme: ThemeData(
         primarySwatch: Colors.green,
+        
       ),
       getPages: [
         GetPage(name: LandingPage.path, page: () => LandingPage(), binding: LandingPageBind()),
         GetPage(name: StartPage.path, page: () => const StartPage()),
         GetPage(name: ChallengesPage.path, page: () => const ChallengesPage()),
         GetPage(name: AddTreePage.path, page: () => const AddTreePage()),
-        GetPage(name: MyHomePage.path, page: () => const MyHomePage()),
         GetPage(name: CameraPage.path, page: () => const CameraPage(), binding: CameraPageBind())
       ],
       initialRoute: LandingPage.path,
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
-  static const String path = '/home';
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Zielone Gliwice'),
-      ),
-      body: Center(
-        child: OutlinedButton(
-            onPressed: () => Get.toNamed(CameraPage.path),
-            child: const Text('Dodaj nowe zdjęcie')
-        ),
-      ),
     );
   }
 }

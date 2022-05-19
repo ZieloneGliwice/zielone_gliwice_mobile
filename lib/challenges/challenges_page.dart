@@ -11,8 +11,18 @@ class ChallengesPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Wyzwania'),
       ),
-      body: const Center(
-        child: Text('Nie masz jeszcze wyzwań'),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: const <Widget>[
+            Icon(
+                Icons.workspace_premium,
+                color: Colors.green,
+                size: 150.0),
+            SizedBox(height: 8.0,),
+            Text('Nie masz jeszcze wyzwań')
+          ],
+        ),
       ),
     );
   }

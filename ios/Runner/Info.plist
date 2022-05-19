@@ -45,5 +45,7 @@
     <string>Camera permission is required to capture tree for image processing</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>Microphone permission is required to record sound</string>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 </dict>
 </plist>
