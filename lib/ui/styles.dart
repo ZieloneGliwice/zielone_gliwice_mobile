@@ -32,10 +32,13 @@ abstract class ApplicationTextStyles {
   static const String _poppinsFont = 'Poppins';
 
   static const TextStyle buttonTextStyle = TextStyle(color: ApplicationColors.white, fontWeight: FontWeight.w600, fontSize: 17.0, fontFamily: _poppinsFont);
-  static const TextStyle appBarTitleTextStyle = TextStyle(color: ApplicationColors.black, fontWeight: FontWeight.w800, fontSize: 17.0, fontFamily: _poppinsFont);
+  static const TextStyle appBarTitleTextStyle = TextStyle(color: ApplicationColors.black, fontWeight: FontWeight.w700, fontSize: 17.0, fontFamily: _poppinsFont);
   static const TextStyle headerTextStyle = TextStyle(color: ApplicationColors.black, fontWeight: FontWeight.w400, fontSize: 25.0, fontFamily: _poppinsFont);
   static const TextStyle bodyBoldTextStyle = TextStyle(color: ApplicationColors.gray, fontWeight: FontWeight.w700, fontSize: 14, fontFamily: _poppinsFont);
   static const TextStyle bodyTextStyle = TextStyle(color: ApplicationColors.gray, fontWeight: FontWeight.w500, fontSize: 14, fontFamily: _poppinsFont);
+
+  static const TextStyle unselectedLabelStyle = TextStyle(color: ApplicationColors.gray, fontWeight: FontWeight.w500, fontSize: 12, fontFamily: _poppinsFont);
+  static const TextStyle selectedLabelStyle = TextStyle(color: ApplicationColors.green, fontWeight: FontWeight.w500, fontSize: 12, fontFamily: _poppinsFont);
 }
 
 // Colors
