@@ -12,11 +12,17 @@ class ApplicationTranslations extends Translations {
     'my_trees_title': 'My trees',
     'add_tree_title': 'Add tree',
     'challenges_title': 'Challenges',
+    'welcome_name': 'Welcome @name!',
+    'you_dont_have_tree_yet': "You don't have any added tree yet.",
+    'add_your_first_tree': 'Add your first tree and help us improve green areas in our city',
   };
 
   final Map<String, String> _plPL = <String, String>{
     'my_trees_title': 'Moje drzewa',
     'add_tree_title': 'Dodaj drzewo',
     'challenges_title': 'Wyzwania',
+    'welcome_name': 'Cześć @name!',
+    'you_dont_have_tree_yet': 'Nie masz jeszcze dodanego żadnego drzewa.',
+    'add_your_first_tree': 'Dodaj swoje pierwsze drzewo i pomóż nam poprawić stan zieleni Naszego miasta',
   };
 }
