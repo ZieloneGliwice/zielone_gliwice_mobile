@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'add_tree/add_tree_page.dart';
 import 'bottom_bar/bottom_bar_page.dart';
 import 'bottom_bar/bottom_bar_page_bind.dart';
+import 'camera/camera_page.dart';
+import 'camera/camera_page_bind.dart';
 import 'challenges/challenges_page.dart';
 import 'internationalization/translations.dart';
 import 'my_trees/my_trees_page.dart';
@@ -28,6 +30,7 @@ class MyApp extends StatelessWidget {
         GetPage<MyTreesPage>(name: MyTreesPage.path, page: () => const MyTreesPage()),
         GetPage<ChallengesPage>(name: ChallengesPage.path, page: () => const ChallengesPage()),
         GetPage<AddTreePage>(name: AddTreePage.path, page: () => const AddTreePage()),
+        GetPage<CameraPage>(name: CameraPage.path, page: () => const CameraPage(), binding: CameraPageBind()),
       ],
       initialRoute: BottomBarPage.path,
     );

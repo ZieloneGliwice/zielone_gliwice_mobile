@@ -15,6 +15,11 @@ class ApplicationTranslations extends Translations {
     'welcome_name': 'Welcome @name!',
     'you_dont_have_tree_yet': "You don't have any added tree yet.",
     'add_your_first_tree': 'Add your first tree and help us improve green areas in our city',
+    'next': 'Next',
+    'reset_uppercased': 'RESET',
+    'retake': 'Retake',
+    'ready': 'Ready',
+    'no_photo_selected': 'No photo selected',
   };
 
   final Map<String, String> _plPL = <String, String>{
@@ -24,5 +29,10 @@ class ApplicationTranslations extends Translations {
     'welcome_name': 'Cześć @name!',
     'you_dont_have_tree_yet': 'Nie masz jeszcze dodanego żadnego drzewa.',
     'add_your_first_tree': 'Dodaj swoje pierwsze drzewo i pomóż nam poprawić stan zieleni Naszego miasta',
+    'next': 'Dalej',
+    'reset_uppercased': 'RESET',
+    'retake': 'Powtórz',
+    'ready': 'Gotowe',
+    'no_photo_selected': 'Nie wybrano zdjęcia',
   };
 }
