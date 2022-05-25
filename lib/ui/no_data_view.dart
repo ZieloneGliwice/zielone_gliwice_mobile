@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'dimen.dart';
 import 'styles.dart';
 
 class NoDataView extends StatelessWidget {
-  const NoDataView({super.key, this.iconSize = 80, this.spacing = 16, this.minButtonHeight = 40, this.icon, this.header, this.title, this.message, this.buttonTitle, this.onPressed});
+  const NoDataView({super.key, this.iconSize = 80, this.spacing = Dimen.marginNormal, this.minButtonHeight = 40, this.icon, this.header, this.title, this.message, this.buttonTitle, this.onPressed});
 
   final double iconSize;
   final double spacing;
@@ -68,7 +69,7 @@ class NoDataView extends StatelessWidget {
       return Padding(
         padding: EdgeInsets.only(top: spacing),
         child: ConstrainedBox(
-            constraints: const BoxConstraints(minHeight: 41),
+            constraints: const BoxConstraints(minHeight: Dimen.smallButtonHeight),
             child: OutlinedButton(
                 onPressed: onPressed,
                 style: GreenOvalButtonStyle(),
