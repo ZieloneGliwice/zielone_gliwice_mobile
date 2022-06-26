@@ -21,17 +21,25 @@ class AddTreePage extends GetView<AddTreePageController> {
       backgroundColor: ApplicationColors.background,
       body: Padding(
         padding: const EdgeInsets.all(Dimen.marginNormal),
-        child: Column(
-          children: <Widget>[
-            const Expanded(child: PhotoPickerWidget(TreePhotoType.tree)),
-            _space(),
-            const Expanded(child: PhotoPickerWidget(TreePhotoType.leaf)),
-            _space(),
-            const Expanded(child: PhotoPickerWidget(TreePhotoType.bark)),
-            _space(),
-            const Spacer(),
-            _button()
-          ],
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: <SliverFillRemaining>[
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                children: <Widget>[
+                  PhotoPickerWidget(TreePhotoType.tree, 'take_tree_photo_title'.tr, 'take_tree_photo_body'.tr),
+                  _space(),
+                  PhotoPickerWidget(TreePhotoType.leaf, 'take_leaf_photo_title'.tr, 'take_leaf_photo_body'.tr),
+                  _space(),
+                  PhotoPickerWidget(TreePhotoType.bark, 'take_bark_photo_title'.tr, 'take_bark_photo_body'.tr),
+                  _space(),
+                  const Spacer(),
+                  _button()
+                ],
+              ),
+            )
+          ]
         ),
       ),
     );
@@ -46,10 +54,11 @@ class AddTreePage extends GetView<AddTreePageController> {
         constraints: const BoxConstraints(
             minHeight: Dimen.buttonHeight, minWidth: double.infinity),
         child: Obx(() {
-          final bool isEnabled = controller.treePhotoPath.isNotEmpty;
+          final bool isEnabled = controller.treePhotoPath.isNotEmpty && controller.leafPhotoPath.isNotEmpty;
           return OutlinedButton(
               onPressed: isEnabled ? proceed : null,
               style: GreenOvalButtonStyle(isEnabled: isEnabled),
+              clipBehavior: Clip.hardEdge,
               child: Text('next'.tr)
           );
         })

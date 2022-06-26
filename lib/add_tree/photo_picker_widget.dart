@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../camera/camera_page.dart';
+import '../ui/dimen.dart';
 import '../ui/styles.dart';
 import 'add_tree_page.dart';
 import 'tree_photo_type.dart';
 
 class PhotoPickerWidget extends StatelessWidget {
-  const PhotoPickerWidget(this.photoType, {super.key});
+  const PhotoPickerWidget(this.photoType, this.descriptionTitle, this.descriptionBody, {super.key});
 
   final TreePhotoType photoType;
+  final String descriptionTitle;
+  final String descriptionBody;
 
   @override
   Widget build(BuildContext context) {
@@ -23,24 +26,32 @@ class PhotoPickerWidget extends StatelessWidget {
         },
         clipBehavior: Clip.hardEdge,
         style: PhotoPlaceholderButtonStyle(),
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(minHeight: 70, minWidth: double.infinity),
-          child: Obx(() {
-            if (controller.photoPath.value.isNotEmpty) {
-              return Image.file(
-                File(controller.photoPath.value),
-                fit: BoxFit.fitWidth,
-              );
-            } else {
-              return const Center(
-                child: Icon(Icons.camera_alt_outlined,
-                  color: ApplicationColors.white,
-                  size: 50,
+        child: Obx(() {
+          if (controller.photoPath.value.isNotEmpty) {
+            return Image.file(
+              File(controller.photoPath.value),
+              fit: BoxFit.fitWidth,
+            );
+          } else {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(Dimen.marginNormal),
+                child: Column(
+                  children: <Widget>[
+                    const Icon(Icons.camera_alt_outlined,
+                      color: ApplicationColors.white,
+                      size: 40,
+                    ),
+                    const SizedBox(height: Dimen.marginSmall),
+                    Text(descriptionTitle, style: ApplicationTextStyles.placeholderHeaderTextStyle, textAlign: TextAlign.center,),
+                    const SizedBox(height: Dimen.marginTiny),
+                    Text(descriptionBody, style: ApplicationTextStyles.placeholderContentTextStyle, textAlign: TextAlign.center,),
+                  ],
                 ),
-              );
-            }
-          }),
-        )
+              ),
+            );
+          }
+        })
     );
   }
 }
