@@ -20,6 +20,15 @@ class ApplicationTranslations extends Translations {
     'retake': 'Retake',
     'ready': 'Ready',
     'no_photo_selected': 'No photo selected',
+    'add_tree_photos_description': 'Take @mandatory_items, and optionally @optional_items',
+    'add_tree_photos_description_mandatory_items': 'photos of the tree, leaf',
+    'add_tree_photos_description_optional_items': 'the tree bark',
+    'take_tree_photo_title': 'Take a photo of the entire tree',
+    'take_tree_photo_body': 'A photo showing the crown and the tree trunk in the broadest possible perspective',
+    'take_leaf_photo_title': 'Take a photo of the tree leaf',
+    'take_leaf_photo_body': 'A photo with an approximately visible leaf of the tree',
+    'take_bark_photo_title': 'Take a photo of the tree bark',
+    'take_bark_photo_body': 'A photo showing the bark of the tree approximately',
   };
 
   final Map<String, String> _plPL = <String, String>{
@@ -34,5 +43,14 @@ class ApplicationTranslations extends Translations {
     'retake': 'Powtórz',
     'ready': 'Gotowe',
     'no_photo_selected': 'Nie wybrano zdjęcia',
+    'add_tree_photos_description': 'Wykonaj kolejno @mandatory_items oraz opcjonalnie zdjęcie @optional_items',
+    'add_tree_photos_description_mandatory_items': 'zdjęcia drzewa, liścia',
+    'add_tree_photos_description_optional_items': 'zdjęcia drzewa, liścia',
+    'take_tree_photo_title': 'Wykonaj zdjęcie całego drzewa',
+    'take_tree_photo_body' : 'Zdjęcie na którym widoczna będzie korona oraz pień drzewa w możliwie w jaknajszerszej perspektywie',
+    'take_leaf_photo_title': 'Wykonaj zdjęcie liścia drzewa',
+    'take_leaf_photo_body': 'Zdjęcie, na którym widoczny będzie liść drzewa w przybliżeniu',
+    'take_bark_photo_title': 'Wykonaj zdjęcie kory drzewa',
+    'take_bark_photo_body': 'Zdjęcie, na którym widoczna będzie kora drzewa w przybliżeniu',
   };
 }

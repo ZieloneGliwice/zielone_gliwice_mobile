@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 class GreenOvalButtonStyle extends ButtonStyle {
   GreenOvalButtonStyle({this.isEnabled = true}) : super(
       textStyle: MaterialStateProperty.all<TextStyle>(ApplicationTextStyles.buttonTextStyle),
-      foregroundColor: MaterialStateProperty.all<Color>(isEnabled ? ApplicationColors.white : ApplicationColors.disabledWhite),
+      foregroundColor: MaterialStateProperty.all<Color>(ApplicationColors.white),
       backgroundColor: MaterialStateProperty.all<Color>(isEnabled ? ApplicationColors.green : ApplicationColors.disabledGreen),
+
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50.0),
-              side: BorderSide(color: isEnabled ? ApplicationColors.green : ApplicationColors.disabledGreen)
+              borderRadius: BorderRadius.circular(50.0)
           )
       ));
   final bool isEnabled;
@@ -49,6 +49,8 @@ abstract class ApplicationTextStyles {
   static const TextStyle buttonTextStyle = TextStyle(color: ApplicationColors.white, fontWeight: FontWeight.w600, fontSize: 17.0, fontFamily: _poppinsFont);
   static const TextStyle appBarTitleTextStyle = TextStyle(color: ApplicationColors.black, fontWeight: FontWeight.w700, fontSize: 17.0, fontFamily: _poppinsFont);
   static const TextStyle headerTextStyle = TextStyle(color: ApplicationColors.black, fontWeight: FontWeight.w400, fontSize: 25.0, fontFamily: _poppinsFont);
+  static const TextStyle placeholderHeaderTextStyle = TextStyle(color: ApplicationColors.black, fontWeight: FontWeight.w400, fontSize: 14.0, fontFamily: _poppinsFont);
+  static const TextStyle placeholderContentTextStyle = TextStyle(color: ApplicationColors.gray, fontWeight: FontWeight.w400, fontSize: 10.0, fontFamily: _poppinsFont);
   static const TextStyle bodyBoldTextStyle = TextStyle(color: ApplicationColors.gray, fontWeight: FontWeight.w700, fontSize: 14, fontFamily: _poppinsFont);
   static const TextStyle bodyTextStyle = TextStyle(color: ApplicationColors.gray, fontWeight: FontWeight.w500, fontSize: 14, fontFamily: _poppinsFont);
 

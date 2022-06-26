@@ -7,4 +7,5 @@ abstract class Dimen {
   static const double marginNormalPlus = 20;
   static const double marginNormal = 16;
   static const double marginSmall = 8;
+  static const double marginTiny = 4;
 }
