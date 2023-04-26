@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../new_tree/new_tree_page.dart';
 import '../ui/dimen.dart';
 import '../ui/gray_app_bar.dart';
+import '../ui/primary_button.dart';
 import '../ui/styles.dart';
 import 'photo_picker_widget.dart';
 import 'tree_photo_type.dart';
@@ -50,28 +54,23 @@ class AddTreePage extends GetView<AddTreePageController> {
   }
 
   Widget _button() {
-    return ConstrainedBox(
-        constraints: const BoxConstraints(
-            minHeight: Dimen.buttonHeight, minWidth: double.infinity),
-        child: Obx(() {
-          final bool isEnabled = controller.treePhotoPath.isNotEmpty && controller.leafPhotoPath.isNotEmpty;
-          return OutlinedButton(
-              onPressed: isEnabled ? proceed : null,
-              style: GreenOvalButtonStyle(isEnabled: isEnabled),
-              clipBehavior: Clip.hardEdge,
-              child: Text('next'.tr)
-          );
-        })
-    );
+    return Obx(() {
+      final bool isEnabled = controller.hasRequiredPhotos();
+      return PrimaryButton(title: 'next'.tr, isEnabled: isEnabled, onTap: proceed,);
+    });
   }
 
   void proceed() {
-
+      Get.toNamed(NewTreePage.path);
   }
 }
 
 class AddTreePageController extends GetxController {
-  RxString treePhotoPath = ''.obs;
-  RxString leafPhotoPath = ''.obs;
-  RxString barkPhotoPath = ''.obs;
+  Rxn<File> treePhoto = Rxn<File>();
+  Rxn<File> leafPhoto = Rxn<File>();
+  Rxn<File> barkPhoto = Rxn<File>();
+
+  bool hasRequiredPhotos() {
+    return treePhoto.value != null && leafPhoto.value != null;
+  }
 }
