@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'dimen.dart';
+import 'primary_button.dart';
 import 'styles.dart';
 
 class NoDataView extends StatelessWidget {
-  const NoDataView({super.key, this.iconSize = 80, this.spacing = Dimen.marginNormal, this.minButtonHeight = 40, this.icon, this.header, this.title, this.message, this.buttonTitle, this.onPressed});
+  const NoDataView({super.key, this.iconSize = Dimen.placeholderSize, this.spacing = Dimen.marginNormal, this.minButtonHeight = 40, this.icon, this.header, this.title, this.message, this.buttonTitle, this.onPressed});
 
   final double iconSize;
   final double spacing;
@@ -48,13 +49,13 @@ class NoDataView extends StatelessWidget {
       return RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
-            style: ApplicationTextStyles.bodyTextStyle,
+            style: ApplicationTextStyles.descriptionTextStyle,
             children: <TextSpan>[
-              if (title != null) ... {
-                TextSpan(text: '$title\n', style: ApplicationTextStyles.bodyBoldTextStyle)
+              if (title != null) ... <TextSpan>{
+                TextSpan(text: '$title\n', style: ApplicationTextStyles.descriptionBoldTextStyle)
               },
-              if (message != null) ... {
-                TextSpan(text: message!)
+              if (message != null) ... <TextSpan>{
+                TextSpan(text: message)
               }
             ]
         ),
@@ -68,14 +69,7 @@ class NoDataView extends StatelessWidget {
     if (buttonTitle != null && onPressed != null) {
       return Padding(
         padding: EdgeInsets.only(top: spacing),
-        child: ConstrainedBox(
-            constraints: const BoxConstraints(minHeight: Dimen.smallButtonHeight),
-            child: OutlinedButton(
-                onPressed: onPressed,
-                style: GreenOvalButtonStyle(),
-                child: Text(buttonTitle!)
-            )
-        ),
+        child: PrimaryButton(title: buttonTitle!, isEnabled: true, onTap: onPressed)
       );
     } else {
       return null;

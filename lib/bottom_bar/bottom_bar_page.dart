@@ -3,8 +3,11 @@ import 'package:get/get.dart';
 
 import '../add_tree/add_tree_page.dart';
 import '../challenges/challenges_page.dart';
+import '../log_in/log_in_page.dart';
+import '../model/signed_user.dart';
 import '../my_trees/my_trees_page.dart';
 import '../ui/styles.dart';
+import '../utils/session_storage.dart';
 
 class BottomBarPage extends GetView<BottomBarPageController> {
   const BottomBarPage({super.key, this.iconSize = 25});
@@ -75,16 +78,47 @@ class BottomBarPage extends GetView<BottomBarPageController> {
           AddTreePage(),
           ChallengesPage(),
         ],
-      )
+      ),
       ),
     );
   }
 }
 
 class BottomBarPageController extends GetxController {
+  BottomBarPageController(this.sessionStorage);
+
   RxInt tabIndex = 0.obs;
+  RxString userName = ''.obs;
+  RxString photoUrl = ''.obs;
+  RxString title = ''.obs;
+
+  final List<String> titles = <String>['my_trees_title'.tr, '', 'challenges_title'.tr];
+
+  final SessionStorage sessionStorage;
+
+  SignedUser? signedUser;
+
+  @override
+  void onInit() {
+    super.onInit();
+    title.value = titles[0];
+    readUser();
+  }
+
+  Future<void> readUser() async {
+    final SignedUser? storedUser = await sessionStorage.restoreSession();
+
+    if (storedUser != null) {
+      signedUser = storedUser;
+      userName.value = signedUser?.details.name ?? '';
+      photoUrl.value = signedUser?.details.photoUrl ?? '';
+    } else {
+      Get.offAllNamed(LogInPage.path);
+    }
+  }
 
   void changeTabIndex(int index) {
     tabIndex.value = index;
+    title.value = titles[index];
   }
 }

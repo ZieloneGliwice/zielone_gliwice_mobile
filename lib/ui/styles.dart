@@ -6,10 +6,9 @@ class GreenOvalButtonStyle extends ButtonStyle {
       textStyle: MaterialStateProperty.all<TextStyle>(ApplicationTextStyles.buttonTextStyle),
       foregroundColor: MaterialStateProperty.all<Color>(ApplicationColors.white),
       backgroundColor: MaterialStateProperty.all<Color>(isEnabled ? ApplicationColors.green : ApplicationColors.disabledGreen),
-
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50.0)
+              borderRadius: BorderRadius.circular(50.0),
           )
       ));
   final bool isEnabled;
@@ -51,11 +50,32 @@ abstract class ApplicationTextStyles {
   static const TextStyle headerTextStyle = TextStyle(color: ApplicationColors.black, fontWeight: FontWeight.w400, fontSize: 25.0, fontFamily: _poppinsFont);
   static const TextStyle placeholderHeaderTextStyle = TextStyle(color: ApplicationColors.black, fontWeight: FontWeight.w400, fontSize: 14.0, fontFamily: _poppinsFont);
   static const TextStyle placeholderContentTextStyle = TextStyle(color: ApplicationColors.gray, fontWeight: FontWeight.w400, fontSize: 10.0, fontFamily: _poppinsFont);
-  static const TextStyle bodyBoldTextStyle = TextStyle(color: ApplicationColors.gray, fontWeight: FontWeight.w700, fontSize: 14, fontFamily: _poppinsFont);
-  static const TextStyle bodyTextStyle = TextStyle(color: ApplicationColors.gray, fontWeight: FontWeight.w500, fontSize: 14, fontFamily: _poppinsFont);
+  static const TextStyle bodyBoldTextStyle = TextStyle(color: ApplicationColors.black, fontWeight: FontWeight.w700, fontSize: 14, fontFamily: _poppinsFont);
+  static const TextStyle bodyTextStyle = TextStyle(color: ApplicationColors.black, fontWeight: FontWeight.w500, fontSize: 14, fontFamily: _poppinsFont);
+  static const TextStyle titleTextStyle = TextStyle(color: ApplicationColors.black, fontWeight: FontWeight.w500, fontSize: 14, fontFamily: _poppinsFont);
+  static const TextStyle descriptionBoldTextStyle = TextStyle(color: ApplicationColors.gray, fontWeight: FontWeight.w700, fontSize: 15, fontFamily: _poppinsFont);
+  static const TextStyle descriptionTextStyle = TextStyle(color: ApplicationColors.gray, fontWeight: FontWeight.w400, fontSize: 15, fontFamily: _poppinsFont);
+  static const TextStyle hintTextStyle = TextStyle(color: ApplicationColors.silver, fontWeight: FontWeight.w400, fontSize: 15, fontFamily: _poppinsFont);
+  static const TextStyle searchHintTextStyle = TextStyle(color: ApplicationColors.gray, fontWeight: FontWeight.w400, fontSize: 17, fontFamily: _poppinsFont);
+  static const TextStyle searchTextStyle = TextStyle(color: ApplicationColors.black, fontWeight: FontWeight.w600, fontSize: 17, fontFamily: _poppinsFont);
 
   static const TextStyle unselectedLabelStyle = TextStyle(color: ApplicationColors.gray, fontWeight: FontWeight.w500, fontSize: 12, fontFamily: _poppinsFont);
   static const TextStyle selectedLabelStyle = TextStyle(color: ApplicationColors.green, fontWeight: FontWeight.w500, fontSize: 12, fontFamily: _poppinsFont);
+
+  static const TextStyle valueInputStyle = TextStyle(color: ApplicationColors.black, fontWeight: FontWeight.w600, fontSize: 70, fontFamily: _poppinsFont);
+  static const TextStyle valueHintInputStyle = TextStyle(color: ApplicationColors.silver, fontWeight: FontWeight.w600, fontSize: 70, fontFamily: _poppinsFont);
+  static const TextStyle valueInputUnitStyle = TextStyle(color: ApplicationColors.gray, fontWeight: FontWeight.w400, fontSize: 35, fontFamily: _poppinsFont);
+
+  static const TextStyle toggleDeselectedLabelStyle = TextStyle(color: ApplicationColors.white, fontWeight: FontWeight.w500, fontSize: 13, fontFamily: _poppinsFont);
+  static const TextStyle toggleSelectedLabelStyle = TextStyle(color: ApplicationColors.black, fontWeight: FontWeight.w500, fontSize: 13, fontFamily: _poppinsFont);
+
+  static const TextStyle bottomSheetTitleTextStyle = TextStyle(color: ApplicationColors.gray, fontWeight: FontWeight.w700, fontSize: 12, fontFamily: _poppinsFont);
+  static const TextStyle bottomSheetTextStyle = TextStyle(color: ApplicationColors.black, fontWeight: FontWeight.w500, fontSize: 14, fontFamily: _poppinsFont);
+  static const TextStyle bottomSheetCancelTextStyle = TextStyle(color: ApplicationColors.red, fontWeight: FontWeight.w500, fontSize: 14, fontFamily: _poppinsFont);
+
+  static const TextStyle subTitleTextStyle = TextStyle(color: ApplicationColors.gray, fontWeight: FontWeight.w400, fontSize: 12, fontFamily: _poppinsFont);
+
+  static const TextStyle overlayTextAtyle = TextStyle(color: ApplicationColors.white, fontWeight: FontWeight.w600, fontSize: 12, fontFamily: _poppinsFont);
 }
 
 // Colors
@@ -72,5 +92,6 @@ abstract class ApplicationColors {
   static const Color orange = Color(0xFFFF7A00);
   static const Color lightSilver = Color(0xFFD9D9D9);
   static const Color yellow = Color(0xFFFFD600);
+  static const Color inputBackground = Color(0x1F767680);
+  static const Color silver = Color(0xFFD7D2D2);
 }
-
