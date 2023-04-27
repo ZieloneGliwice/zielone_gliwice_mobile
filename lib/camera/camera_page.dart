@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../model/errors.dart';
+import '../services/photos_service.dart';
 import '../ui/activity_indicator.dart';
 import '../ui/dimen.dart';
 import '../ui/error_view.dart';
@@ -29,7 +31,11 @@ class CameraPage extends GetView<CameraPageController> {
         }
       },
           onLoading: const ActivityIndicator(),
-          onError: (String? error) => ErrorView.from(CameraDeniedError(), controller.goBack, buttonTitle: 'go_back'.tr,),
+          onError: (String? error) => ErrorView.from(
+                CameraDeniedError(),
+                controller.goBack,
+                buttonTitle: 'go_back'.tr,
+              ),
           onEmpty: _noPhotoSelected()),
     );
   }
@@ -181,12 +187,12 @@ class CameraPage extends GetView<CameraPageController> {
 }
 
 class CameraPageController extends GetxController with StateMixin<String> {
-  CameraPageController(this._picker);
+  CameraPageController(this._picker, this._photosService);
 
   final ImagePicker _picker;
+  final PhotosService _photosService;
   CropController? croppingController;
 
-  String _filePath = '';
 
   @override
   void onInit() {
@@ -200,12 +206,9 @@ class CameraPageController extends GetxController with StateMixin<String> {
     try {
       croppingController = CropController();
       final XFile? selectedImage =
-          await _picker.pickImage(source: ImageSource.camera, imageQuality: 100, maxHeight: 1800, maxWidth: 1800);
-      _filePath = selectedImage?.path ?? '';
+          await _picker.pickImage(source: ImageSource.camera);
       change(selectedImage?.path, status: RxStatus.success());
-    } on PlatformException
-
-    catch (error) {
+    } on PlatformException catch (error) {
       change(null, status: RxStatus.error(error.toString()));
     }
   }
@@ -215,21 +218,19 @@ class CameraPageController extends GetxController with StateMixin<String> {
 
     if (context != null) {
       change(null, status: RxStatus.loading());
-      //await cropAndStorePhoto();
-      Get.back(result: _filePath);
+      final String imagePath = await cropAndStorePhoto();
+      Get.back(result: imagePath);
     } else {
       change(null,
           status: RxStatus.error('Something went wrong please try again'));
     }
   }
 
-  Future<void> cropAndStorePhoto() async {
+  Future<String> cropAndStorePhoto() async {
+    final String filaName = Get.arguments as String? ?? 'image';
     final ui.Image? image = await croppingController?.croppedBitmap();
-    final ByteData? data = await image?.toByteData();
-    final Uint8List? bytes = data?.buffer.asUint8List();
 
-    final File imgFile = File(_filePath);
-    await imgFile.writeAsBytes(bytes!);
+    return _photosService.storePhoto(filaName, image);
   }
 
   void resetCropping() {

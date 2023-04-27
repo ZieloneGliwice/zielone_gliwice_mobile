@@ -7,6 +7,7 @@ import '../model/dictionary_object.dart';
 import '../model/errors.dart';
 import '../network/api_dio.dart';
 import '../network/dictionary_data_provider.dart';
+import '../services/photos_service.dart';
 import '../ui/activity_indicator.dart';
 import '../ui/dimen.dart';
 import '../ui/error_view.dart';
@@ -175,7 +176,7 @@ class AddTreeConditionPage extends GetView<AddTreeConditionPageController> {
 class AddTreeConditionPageController extends SessionController
     with StateMixin<bool> {
   AddTreeConditionPageController(
-      this._dictionaryDataProvider, this._textEditingController, SessionStorage sessionStorage) : super(sessionStorage);
+      this._dictionaryDataProvider, this._textEditingController, SessionStorage sessionStorage, PhotosService photosService) : super(sessionStorage, photosService);
 
   final DictionaryDataProvider _dictionaryDataProvider;
   final TextEditingController _textEditingController;

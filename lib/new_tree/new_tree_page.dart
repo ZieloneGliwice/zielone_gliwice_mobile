@@ -15,6 +15,7 @@ import '../model/dictionary_object.dart';
 import '../model/errors.dart';
 import '../model/new_tree.dart';
 import '../network/api_dio.dart';
+import '../services/photos_service.dart';
 import '../species_selection/species_selection_page.dart';
 import '../tree_description/tree_description_page.dart';
 import '../ui/dimen.dart';
@@ -247,7 +248,7 @@ class NewTreePage extends GetView<NewTreeController> {
 }
 
 class NewTreeController extends SessionController with StateMixin<bool> {
-  NewTreeController(this.addTreePageController, this.newTreeRequest, SessionStorage sessionStorage) : super(sessionStorage);
+  NewTreeController(this.addTreePageController, this.newTreeRequest, SessionStorage sessionStorage, PhotosService photosService) : super(sessionStorage, photosService);
 
   AddTreePageController addTreePageController;
   NewTreeRequest newTreeRequest;
@@ -364,6 +365,7 @@ class NewTreeController extends SessionController with StateMixin<bool> {
         }
       });
 
+      await photosService.clearCachedPhotos();
       Get.offAllNamed(BottomBarPage.path);
     } on UnauthorizedException catch (_) {
       unauthorized();

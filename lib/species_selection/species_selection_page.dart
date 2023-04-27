@@ -8,6 +8,7 @@ import '../model/dictionary_object.dart';
 import '../model/errors.dart';
 import '../network/api_dio.dart';
 import '../network/dictionary_data_provider.dart';
+import '../services/photos_service.dart';
 import '../ui/activity_indicator.dart';
 import '../ui/error_view.dart';
 import '../ui/gray_app_bar.dart';
@@ -114,7 +115,7 @@ class SpeciesSelectionPage extends GetView<SpeciesSelectionController> {
 }
 
 class SpeciesSelectionController extends SessionController with StateMixin<bool> {
-  SpeciesSelectionController(this._speciesProvider, this.searchController, SessionStorage sessionStorage) : super(sessionStorage);
+  SpeciesSelectionController(this._speciesProvider, this.searchController, SessionStorage sessionStorage, PhotosService photosService) : super(sessionStorage, photosService);
 
   RxList<DictionaryObject> filteredSpecies = RxList<DictionaryObject>();
   List<DictionaryObject> _allSpecies = <DictionaryObject>[];
