@@ -9,11 +9,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../add_circumference_page/add_circumference_page.dart';
 import '../add_tree/add_tree_page.dart';
 import '../add_tree_condition/add_tree_condition_page.dart';
-import '../bottom_bar/bottom_bar_page.dart';
 import '../map/map_page.dart';
 import '../model/dictionary_object.dart';
 import '../model/errors.dart';
 import '../model/new_tree.dart';
+import '../my_trees/my_trees_page.dart';
 import '../network/api_dio.dart';
 import '../services/photos_service.dart';
 import '../species_selection/species_selection_page.dart';
@@ -366,7 +366,7 @@ class NewTreeController extends SessionController with StateMixin<bool> {
       });
 
       await photosService.clearCachedPhotos();
-      Get.offAllNamed(BottomBarPage.path);
+      Get.offAllNamed(MyTreesPage.path);
     } on UnauthorizedException catch (_) {
       unauthorized();
     } on NoInternetConnectionException catch (_) {
