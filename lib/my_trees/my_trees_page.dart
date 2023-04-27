@@ -10,6 +10,7 @@ import '../model/signed_user.dart';
 import '../my_tree_details/my_tree_details_page.dart';
 import '../network/api_dio.dart';
 import '../network/my_trees_provider.dart';
+import '../services/photos_service.dart';
 import '../ui/activity_indicator.dart';
 import '../ui/date.dart';
 import '../ui/error_view.dart';
@@ -133,7 +134,7 @@ class MyTreesPage extends GetView<MyTreesController> {
 }
 
 class MyTreesController extends SessionController with StateMixin<MyTrees> {
-  MyTreesController(this._myTreesProvider, SessionStorage sessionStorage) : super(sessionStorage);
+  MyTreesController(this._myTreesProvider, SessionStorage sessionStorage, PhotosService photosService) : super(sessionStorage, photosService);
   final MyTreesProvider _myTreesProvider;
 
   RxString photoURL = ''.obs;
@@ -177,7 +178,8 @@ class MyTreesController extends SessionController with StateMixin<MyTrees> {
     }
   }
 
-  void addNewTree() {
+  Future<void> addNewTree() async {
+    await photosService.clearCachedPhotos();
     Get.toNamed(AddTreePage.path);
   }
 

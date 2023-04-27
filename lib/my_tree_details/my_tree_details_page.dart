@@ -7,6 +7,7 @@ import '../model/my_tree.dart';
 import '../model/tree_details.dart';
 import '../network/api_dio.dart';
 import '../network/my_tree_details_provider.dart';
+import '../services/photos_service.dart';
 import '../ui/activity_indicator.dart';
 import '../ui/date.dart';
 import '../ui/dimen.dart';
@@ -129,7 +130,7 @@ class MyTreeDetailsPage extends GetView<MyTreeDetailsController> {
                   const SizedBox(height: Dimen.marginNormal,),
                   Text(
                     details.stateDescription ?? '',
-                    style: ApplicationTextStyles.bodyTextStyle,
+                    style: ApplicationTextStyles.placeholderHeaderTextStyle,
                   ),
                 ],
               ),
@@ -141,7 +142,7 @@ class MyTreeDetailsPage extends GetView<MyTreeDetailsController> {
 }
 
 class MyTreeDetailsController extends SessionController with StateMixin<TreeDetails> {
-  MyTreeDetailsController(this._myTreeDetailsProvider, SessionStorage sessionStorage) : super(sessionStorage);
+  MyTreeDetailsController(this._myTreeDetailsProvider, SessionStorage sessionStorage, PhotosService photosService) : super(sessionStorage, photosService);
   final MyTreeDetailsProvider _myTreeDetailsProvider;
 
   MyTree? myTree;

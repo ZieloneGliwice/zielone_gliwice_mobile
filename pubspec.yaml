@@ -25,6 +25,7 @@ dependencies:
   intl: ^0.17.0
   collection: ^1.17.0
   dio: ^5.1.1
+  path_provider: ^2.0.14
 
 dev_dependencies:
   flutter_test:
