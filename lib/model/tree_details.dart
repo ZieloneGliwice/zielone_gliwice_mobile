@@ -57,4 +57,8 @@ class TreeDetails {
 
     return null;
   }
+
+  List<String> photos() {
+    return <String?>[treeImageUrl(), leafImageUrl(), barkImageUrl()].whereType<String>().toList();
+  }
 }
