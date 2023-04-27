@@ -7,8 +7,6 @@ import 'add_tree/add_tree_bind.dart';
 import 'add_tree/add_tree_page.dart';
 import 'add_tree_condition/add_tree_condition_bind.dart';
 import 'add_tree_condition/add_tree_condition_page.dart';
-import 'bottom_bar/bottom_bar_page.dart';
-import 'bottom_bar/bottom_bar_page_bind.dart';
 import 'camera/camera_page.dart';
 import 'camera/camera_page_bind.dart';
 import 'challenges/challenges_page.dart';
@@ -46,9 +44,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(),
       getPages: <GetPage<StatelessWidget>>[
         GetPage<LogInPage>(name: LogInPage.path, page: () => const LogInPage(), bindings: <Bindings>[LogInPageBind(), AddTreePageBind()], transition: Transition.fade),
-        GetPage<BottomBarPage>(name: BottomBarPage.path, page: () => const BottomBarPage(), binding: BottomBarPageBind(), transition: Transition.fade),
-        GetPage<MyTreesPage>(name: MyTreesPage.path, page: () => const MyTreesPage(), binding: MyTreesPageBind(), transition: Transition.fade),
-        GetPage<MyTreeDetailsPage>(name: MyTreeDetailsPage.path, page: () => const MyTreeDetailsPage(), binding: MyTreeDetailsPageBind(), transition: Transition.fade),
+        GetPage<MyTreesPage>(name: MyTreesPage.path, page: () => const MyTreesPage(), binding: MyTreesPageBind()),
+        GetPage<MyTreeDetailsPage>(name: MyTreeDetailsPage.path, page: () => const MyTreeDetailsPage(), binding: MyTreeDetailsPageBind()),
         GetPage<ChallengesPage>(name: ChallengesPage.path, page: () => const ChallengesPage()),
         GetPage<AddTreePage>(name: AddTreePage.path, page: () => const AddTreePage(), binding: AddTreePageBind()),
         GetPage<NewTreePage>(name: NewTreePage.path, page: () => const NewTreePage(), binding: NewTreeBind()),
