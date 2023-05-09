@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../analytics/analytics.dart';
 import '../camera/camera_page.dart';
 import '../ui/dimen.dart';
 import '../ui/styles.dart';
@@ -87,6 +88,8 @@ class PhotoPickerWidgetController extends GetxController {
   final AddTreePageController addTreePageController;
 
   Future<void> takePhoto(TreePhotoType photoType) async {
+    Analytics.logEvent('Take photo', parameters: <String, String>{'type': photoType.name});
+
     final String photoPath =
         await Get.toNamed(CameraPage.path, arguments: photoType.name)
             as String? ?? '';

@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
+import '../analytics/analytics.dart';
 import '../model/session.dart';
 import '../model/signed_user.dart';
 import '../model/user_data.dart';
@@ -25,6 +26,7 @@ class LogInPage extends GetView<LogInPageController> {
 
   @override
   Widget build(BuildContext context) {
+    Analytics.visitedScreen(LogInPage.path);
     return Scaffold(
         body: Column(
           children: <Widget>[
@@ -115,6 +117,7 @@ class LogInPageController extends GetxController with StateMixin<bool> {
 
       final Session session = await socialAuthenticationProvider.googleAuthenticate(idToken, user?.serverAuthCode);
       await storeSession(session, user?.displayName, user?.photoUrl, user?.email);
+      Analytics.loginWithGoogle();
       Get.offAllNamed(MyTreesPage.path);
 
     } on SocketException catch (_) {
@@ -145,6 +148,7 @@ class LogInPageController extends GetxController with StateMixin<bool> {
 
       final Session session = await socialAuthenticationProvider.appleAuthenticate(idToken, authCode);
       await storeSession(session, credential.givenName, null, credential.email);
+      Analytics.loginWithApple();
       Get.offAllNamed(MyTreesPage.path);
     } on SocketException catch (_) {
       noInternetConnection();
@@ -167,6 +171,7 @@ class LogInPageController extends GetxController with StateMixin<bool> {
 
   void failedToLogIn() {
     Get.defaultDialog(title: 'error'.tr, middleText: 'authorization_failed'.tr, confirm: PrimaryButton(title: 'ok'.tr, isEnabled: true, onTap: () { Get.back(); },));
+    Analytics.loginFailed();
     change(false, status: RxStatus.success());
   }
 }

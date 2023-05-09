@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../add_tree/add_tree_page.dart';
+import '../analytics/analytics.dart';
 import '../model/errors.dart';
 import '../model/my_tree.dart';
 import '../model/my_trees.dart';
@@ -27,6 +28,7 @@ class MyTreesPage extends GetView<MyTreesController> {
 
   @override
   Widget build(BuildContext context) {
+    Analytics.visitedScreen(MyTreesPage.path);
     return Scaffold(
       appBar: GrayAppBar(
         title: Text('my_trees_title'.tr),
@@ -54,12 +56,14 @@ class MyTreesPage extends GetView<MyTreesController> {
   }
 
   Widget _errorView(String? error) {
+    Analytics.visitedErrorScreen(MyTreesPage.path);
     final ZGError zgError = ZGError.from(error);
 
     return ErrorView.from(zgError, controller.getTrees);
   }
 
   Widget _noData() {
+    Analytics.visitedNoDataScreen(MyTreesPage.path);
     return NoDataView(
       icon: Icons.energy_savings_leaf,
       header: 'welcome_name'
@@ -72,6 +76,7 @@ class MyTreesPage extends GetView<MyTreesController> {
   }
 
   Widget _myTrees(List<MyTree> trees) {
+    Analytics.visitedScreen(MyTreesPage.path);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 14),
       child: ListView.separated(
@@ -179,6 +184,7 @@ class MyTreesController extends SessionController with StateMixin<MyTrees> {
   }
 
   Future<void> addNewTree() async {
+    Analytics.buttonPressed('Add tree');
     await photosService.clearCachedPhotos();
     Get.toNamed(AddTreePage.path);
   }
@@ -191,6 +197,7 @@ class MyTreesController extends SessionController with StateMixin<MyTrees> {
   }
 
   void viewDetails(MyTree myTree) {
+    Analytics.buttonPressed('Tree details');
     Get.toNamed(MyTreeDetailsPage.path, arguments: myTree);
   }
 }

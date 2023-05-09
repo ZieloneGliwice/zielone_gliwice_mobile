@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 
+import '../analytics/analytics.dart';
 import '../model/errors.dart';
 import '../services/photos_service.dart';
 import '../ui/activity_indicator.dart';
@@ -22,25 +22,31 @@ class CameraPage extends GetView<CameraPageController> {
 
   @override
   Widget build(BuildContext context) {
+    Analytics.visitedScreen(CameraPage.path);
     return Scaffold(
-      body: controller.obx((String? path) {
-        if (path != null) {
-          return _cropping(path);
-        } else {
-          return _noPhotoSelected();
-        }
-      },
+      body: controller.obx(
+          (String? path) {
+            if (path != null) {
+              return _cropping(path);
+            } else {
+              return _noPhotoSelected();
+            }
+          },
           onLoading: const ActivityIndicator(),
-          onError: (String? error) => ErrorView.from(
-                CameraDeniedError(),
-                controller.goBack,
-                buttonTitle: 'go_back'.tr,
-              ),
+          onError: (String? error) {
+            Analytics.logEvent('${CameraPage.path}: Camera permission denied');
+            return ErrorView.from(
+              CameraDeniedError(),
+              controller.goBack,
+              buttonTitle: 'go_back'.tr,
+            );
+          },
           onEmpty: _noPhotoSelected()),
     );
   }
 
   Widget _noPhotoSelected() {
+    Analytics.logEvent('${CameraPage.path}: No Photos Selected');
     return _noPhoto('no_photo_selected'.tr);
   }
 
@@ -152,6 +158,7 @@ class CameraPage extends GetView<CameraPageController> {
           constraints: const BoxConstraints(minHeight: Dimen.buttonHeight),
           child: ElevatedButton(
               onPressed: () {
+                Analytics.buttonPressed('Retake');
                 controller.getFromCamera();
               },
               style: style,
@@ -165,6 +172,7 @@ class CameraPage extends GetView<CameraPageController> {
           constraints: const BoxConstraints(minHeight: Dimen.buttonHeight),
           child: ElevatedButton(
               onPressed: () {
+                Analytics.buttonPressed('Ready');
                 controller.finished();
               },
               style: GreenOvalButtonStyle(),
@@ -178,6 +186,7 @@ class CameraPage extends GetView<CameraPageController> {
           constraints: const BoxConstraints(minHeight: Dimen.buttonHeight),
           child: ElevatedButton(
               onPressed: () {
+                Analytics.buttonPressed('Back');
                 controller.goBack();
               },
               style: WhiteOvalButtonStyle(),
@@ -193,7 +202,6 @@ class CameraPageController extends GetxController with StateMixin<String> {
   final PhotosService _photosService;
   CropController? croppingController;
 
-
   @override
   void onInit() {
     change(null, status: RxStatus.loading());
@@ -202,6 +210,7 @@ class CameraPageController extends GetxController with StateMixin<String> {
   }
 
   Future<void> getFromCamera() async {
+    Analytics.logEvent('${CameraPage.path}: Take photo');
     change(null, status: RxStatus.loading());
     try {
       croppingController = CropController();
@@ -219,6 +228,7 @@ class CameraPageController extends GetxController with StateMixin<String> {
     if (context != null) {
       change(null, status: RxStatus.loading());
       final String imagePath = await cropAndStorePhoto();
+      Analytics.logEvent('${CameraPage.path}: Photo taken');
       Get.back(result: imagePath);
     } else {
       change(null,
@@ -234,10 +244,12 @@ class CameraPageController extends GetxController with StateMixin<String> {
   }
 
   void resetCropping() {
+    Analytics.logEvent('${CameraPage.path}: Reset cropping');
     croppingController?.crop = const Rect.fromLTWH(0, 0, 1, 1);
   }
 
   void goBack() {
+    Analytics.logEvent('${CameraPage.path}: Back');
     Get.back();
   }
 }

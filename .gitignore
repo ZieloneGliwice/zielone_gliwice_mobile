@@ -123,3 +123,4 @@ app.*.symbols
 /ios/Runner/GoogleService-Info.plist
 /lib/firebase_options.dart
 /lib/env/keys.dart
+/my-release-key.keystore

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
+import '../analytics/analytics.dart';
 import '../api.dart';
 
 class ApiDio {
@@ -35,14 +36,19 @@ class AppInterceptors extends Interceptor {
       case DioErrorType.badResponse:
         switch (err.response?.statusCode) {
           case 400:
+            Analytics.logEvent('Error: Bad Request');
             throw BadRequestException(err.requestOptions);
           case 401:
+            Analytics.logEvent('Error: Unauthorized');
             throw UnauthorizedException(err.requestOptions);
           case 404:
+            Analytics.logEvent('Error: Not Found');
             throw NotFoundException(err.requestOptions);
           case 409:
+            Analytics.logEvent('Error: Conflict');
             throw ConflictException(err.requestOptions);
           case 500:
+            Analytics.logEvent('Error: Internal Server Error');
             throw InternalServerErrorException(err.requestOptions);
         }
         break;
@@ -51,6 +57,7 @@ class AppInterceptors extends Interceptor {
       case DioErrorType.unknown:
       case DioErrorType.badCertificate:
       case DioErrorType.connectionError:
+        Analytics.logEvent('No Internet Connection');
         throw NoInternetConnectionException(err.requestOptions);
     }
 

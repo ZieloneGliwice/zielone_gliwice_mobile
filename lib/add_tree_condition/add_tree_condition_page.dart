@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../analytics/analytics.dart';
 import '../api.dart';
 import '../model/dictionary_object.dart';
 import '../model/errors.dart';
@@ -38,6 +39,7 @@ class AddTreeConditionPage extends GetView<AddTreeConditionPageController> {
   }
 
   Widget _body() {
+    Analytics.visitedScreen(AddTreeConditionPage.path);
     return SafeArea(
       child: CustomScrollView(
         physics: const BouncingScrollPhysics(),
@@ -75,6 +77,9 @@ class AddTreeConditionPage extends GetView<AddTreeConditionPageController> {
                                         '',
                                     controller.selectedState.value == i, () {
                                   controller.select(i);
+                                  Analytics.buttonPressed(controller.treeStates[i].name?.capitalize ??
+                                      '');
+                                  Analytics.logEvent('${AddTreeConditionPage.path}: Condition changed');
                                 })
                               ]
                             ],
@@ -167,6 +172,7 @@ class AddTreeConditionPage extends GetView<AddTreeConditionPageController> {
   }
 
   Widget _errorView(String? error) {
+    Analytics.visitedErrorScreen(AddTreeConditionPage.path);
     final ZGError zgError = ZGError.from(error);
 
     return ErrorView.from(zgError, controller.fetchData);
@@ -330,6 +336,9 @@ class AddTreeConditionPageController extends SessionController
   }
 
   void save() {
+    Analytics.buttonPressed('Save');
+    Analytics.logEvent('${AddTreeConditionPage.path}: Save condition');
+
     final DictionaryObject state = treeStates[selectedState.value];
     final String? comment = _textEditingController.text.isNotEmpty == true
         ? _textEditingController.text

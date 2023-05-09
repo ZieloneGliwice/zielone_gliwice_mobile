@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../analytics/analytics.dart';
 import '../api.dart';
 import '../model/dictionary_object.dart';
 import '../model/errors.dart';
@@ -31,6 +32,7 @@ class SpeciesSelectionPage extends GetView<SpeciesSelectionController> {
         backgroundColor: ApplicationColors.white,
         body: controller.obx(
           (bool? state) {
+            Analytics.visitedScreen(SpeciesSelectionPage.path);
             return SafeArea(
               child: Column(
                 children: <Widget>[
@@ -108,6 +110,7 @@ class SpeciesSelectionPage extends GetView<SpeciesSelectionController> {
   }
 
   Widget _errorView(String? error) {
+    Analytics.visitedErrorScreen(SpeciesSelectionPage.path);
     final ZGError zgError = ZGError.from(error);
 
     return ErrorView.from(zgError, controller.fetchSpecies);
@@ -162,6 +165,8 @@ class SpeciesSelectionController extends SessionController with StateMixin<bool>
   }
 
   void save() {
+    Analytics.buttonPressed('Save');
+    Analytics.logEvent('${SpeciesSelectionPage.path}: Save selected specie', parameters: <String, String>{'vale': selectedSpecie.value?.name ?? ''});
     Get.back(result: selectedSpecie.value);
   }
 

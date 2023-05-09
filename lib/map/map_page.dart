@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
+import '../analytics/analytics.dart';
 import '../ui/activity_indicator.dart';
 import '../ui/gray_app_bar.dart';
 import '../ui/primary_button.dart';
@@ -17,6 +18,7 @@ class MapPage extends GetView<MapPageController> {
 
   @override
   Widget build(BuildContext context) {
+    Analytics.visitedScreen(MapPage.path);
     return Scaffold(
       appBar: GrayAppBar(
         title: Text('tree_location'.tr),
@@ -109,6 +111,7 @@ class MapPageController extends GetxController with StateMixin<bool>{
 
     serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
+      Analytics.logEvent('${MapPage.path}: Enable location service');
       serviceEnabled = await location.requestService();
       if (!serviceEnabled) {
         change(true, status: RxStatus.success());
@@ -118,8 +121,10 @@ class MapPageController extends GetxController with StateMixin<bool>{
 
     permissionGranted = await location.hasPermission();
     if (permissionGranted == PermissionStatus.denied) {
+      Analytics.logEvent('${MapPage.path}: Location permission denied');
       permissionGranted = await location.requestPermission();
       if (permissionGranted != PermissionStatus.granted) {
+        Analytics.logEvent('${MapPage.path}: Location permission granted');
         treeLocation.value = defaultLocation;
         change(true, status: RxStatus.success());
         return;
@@ -152,6 +157,7 @@ class MapPageController extends GetxController with StateMixin<bool>{
   }
 
   void captureTreeLocation(LatLng? location) {
+    Analytics.logEvent('${MapPage.path}: Capture location');
     treeLocation.value = location;
   }
 
@@ -169,6 +175,8 @@ class MapPageController extends GetxController with StateMixin<bool>{
   }
 
   void save() {
+    Analytics.buttonPressed('Save');
+    Analytics.logEvent('${MapPage.path}: Save location');
     return Get.back(result: treeLocation.value);
   }
 }

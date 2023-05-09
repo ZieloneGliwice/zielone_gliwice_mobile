@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../analytics/analytics.dart';
 import '../new_tree/new_tree_page.dart';
 import '../ui/dimen.dart';
 import '../ui/gray_app_bar.dart';
@@ -18,6 +19,7 @@ class AddTreePage extends GetView<AddTreePageController> {
 
   @override
   Widget build(BuildContext context) {
+    Analytics.visitedScreen(AddTreePage.path);
     return Scaffold(
       appBar: GrayAppBar(
         title: Text('add_tree_title'.tr),
@@ -61,7 +63,9 @@ class AddTreePage extends GetView<AddTreePageController> {
   }
 
   void proceed() {
-      Get.toNamed(NewTreePage.path);
+    Analytics.buttonPressed('Proceed');
+    Analytics.logEvent('${AddTreePage.path}: Proceed');
+    Get.toNamed(NewTreePage.path);
   }
 }
 

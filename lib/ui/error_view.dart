@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../analytics/analytics.dart';
 import '../model/errors.dart';
 import 'dimen.dart';
 import 'primary_button.dart';
@@ -66,7 +67,10 @@ class ErrorView extends StatelessWidget {
     if (onPressed != null) {
       return Padding(
         padding: EdgeInsets.only(top: spacing),
-        child: PrimaryButton(title: buttonTitle ?? 'retry'.tr, isEnabled: true, onTap: onPressed,)
+        child: PrimaryButton(title: buttonTitle ?? 'retry'.tr, isEnabled: true, onTap: () {
+          Analytics.buttonPressed('Retry');
+          onPressed!();
+        })
       );
     } else {
       return null;
