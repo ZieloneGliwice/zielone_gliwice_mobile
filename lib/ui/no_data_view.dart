@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../analytics/analytics.dart';
 import 'dimen.dart';
 import 'primary_button.dart';
 import 'styles.dart';
@@ -69,7 +70,10 @@ class NoDataView extends StatelessWidget {
     if (buttonTitle != null && onPressed != null) {
       return Padding(
         padding: EdgeInsets.only(top: spacing),
-        child: PrimaryButton(title: buttonTitle!, isEnabled: true, onTap: onPressed)
+        child: PrimaryButton(title: buttonTitle!, isEnabled: true, onTap: () {
+          Analytics.buttonPressed('No data action');
+          onPressed!();
+        })
       );
     } else {
       return null;

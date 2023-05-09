@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../analytics/analytics.dart';
 import '../ui/dimen.dart';
 import '../ui/gray_app_bar.dart';
 import '../ui/primary_button.dart';
@@ -13,6 +14,7 @@ class AddTreeCircumferencePage extends GetView<AddTreeCircumferenceController> {
 
   @override
   Widget build(BuildContext context) {
+    Analytics.visitedScreen(AddTreeCircumferencePage.path);
     return Scaffold(
       appBar: GrayAppBar(
         title: Text('add_circumference_title'.tr),
@@ -91,6 +93,8 @@ class AddTreeCircumferenceController extends GetxController {
   }
 
   void save() {
+    Analytics.buttonPressed('Save');
+    Analytics.logEvent('${AddTreeCircumferencePage.path}: Save circumference');
     Get.back(result: inputController.text);
   }
 }

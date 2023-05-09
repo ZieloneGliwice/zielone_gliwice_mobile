@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../analytics/analytics.dart';
 import '../ui/dimen.dart';
 import '../ui/gray_app_bar.dart';
 import '../ui/primary_button.dart';
@@ -13,6 +14,7 @@ class TreeDescriptionPage extends GetView<TreeDescriptionController> {
 
   @override
   Widget build(BuildContext context) {
+    Analytics.visitedScreen(TreeDescriptionPage.path);
     return Scaffold(
       appBar: GrayAppBar(
         title: Text('tree_description_title'.tr),
@@ -91,6 +93,8 @@ class TreeDescriptionController extends GetxController {
   }
 
   void save() {
+    Analytics.buttonPressed('Save');
+    Analytics.logEvent('${TreeDescriptionPage.path}: Save description');
     Get.back(result: _descriptionController.text);
   }
 }

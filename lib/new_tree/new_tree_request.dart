@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
+import '../analytics/analytics.dart';
 import '../api.dart';
 import '../model/new_tree.dart';
 import '../model/signed_user.dart';
@@ -31,6 +32,10 @@ class NewTreeRequest {
     );
 
     await _apiDio.dio.post(API.trees, data: body, options: options, onSendProgress: progress);
+
+    final String properties = body.fields.map((MapEntry<String, String> field) => field.key).toList().join(', ');
+    Analytics.logEvent('Tree created', parameters: <String, String>{'properties': properties});
+
     return newTree;
   }
 }

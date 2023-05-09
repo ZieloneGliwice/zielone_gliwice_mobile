@@ -40,11 +40,21 @@
 				<string>com.googleusercontent.apps.264926277135-dbbo5uhhpns293l93e9t5isafimol2ho</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.264926277135-0o78h5ccu07gg5285f7g1pj7f4e1hvga</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MapAPIKey</key>
+	<string>$(MAPS_API_KEY)</string>
 	<key>NSCameraUsageDescription</key>
 	<string>To take tree photos</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
@@ -70,7 +80,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>MapAPIKey</key>
-	<string>$(MAPS_API_KEY)</string>
 </dict>
 </plist>

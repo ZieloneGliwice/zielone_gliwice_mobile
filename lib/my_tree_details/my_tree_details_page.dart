@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../analytics/analytics.dart';
 import '../model/errors.dart';
 import '../model/my_tree.dart';
 import '../model/tree_details.dart';
@@ -44,12 +45,14 @@ class MyTreeDetailsPage extends GetView<MyTreeDetailsController> {
   }
 
   Widget _errorView(String? error) {
+    Analytics.visitedErrorScreen(MyTreeDetailsPage.path);
     final ZGError zgError = ZGError.from(error);
 
     return ErrorView.from(zgError, controller.getDetails);
   }
 
   Widget _detailsContent(MyTree myTree, TreeDetails details) {
+    Analytics.visitedScreen(MyTreeDetailsPage.path);
     return CustomScrollView(physics: const BouncingScrollPhysics(), slivers: <
         SliverFillRemaining>[
       SliverFillRemaining(

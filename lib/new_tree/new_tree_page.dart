@@ -9,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../add_circumference_page/add_circumference_page.dart';
 import '../add_tree/add_tree_page.dart';
 import '../add_tree_condition/add_tree_condition_page.dart';
+import '../analytics/analytics.dart';
 import '../map/map_page.dart';
 import '../model/dictionary_object.dart';
 import '../model/errors.dart';
@@ -33,6 +34,7 @@ class NewTreePage extends GetView<NewTreeController> {
 
   @override
   Widget build(BuildContext context) {
+    Analytics.visitedScreen(NewTreePage.path);
     return Scaffold(
       appBar: GrayAppBar(
         title: Text('my_tree_title'.tr),
@@ -97,6 +99,8 @@ class NewTreePage extends GetView<NewTreeController> {
           for (int i = 0; i < controller.thumbnails.length; i++) ...<Widget>[
             GestureDetector(
               onTap: () {
+                Analytics.buttonPressed('Take Photo Thumbnail');
+                Analytics.logEvent('${NewTreePage.path}: Change photo preview');
                 controller.focusOnPhoto(controller.thumbnails[i]);
               },
               child: SizedBox(
