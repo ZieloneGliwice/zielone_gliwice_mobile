@@ -29,23 +29,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.264926277135-9bf5f7vrpb0sk3es8h34mcc5jre6fll6</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.264926277135-dbbo5uhhpns293l93e9t5isafimol2ho</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.264926277135-0o78h5ccu07gg5285f7g1pj7f4e1hvga</string>
+				<string>com.googleusercontent.apps.97732799004-e19ftrsdk31kc6vjg4ohfqd7q4ai6lmi</string>
 			</array>
 		</dict>
 	</array>
@@ -61,8 +45,8 @@
 	<string>Application required location access to set initial tree location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Application required location access to set initial tree location</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Application requires photo library access to select required photos from it</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Application requires photo library access to select required photos from it</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
