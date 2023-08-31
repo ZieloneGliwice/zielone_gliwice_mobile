@@ -124,3 +124,8 @@ app.*.symbols
 /lib/firebase_options.dart
 /lib/env/keys.dart
 /my-release-key.keystore
+GoogleService-Info.plist
+google-services.json
+/ios/Flutter/Debug.xcconfig
+/ios/Flutter/Release.xcconfig
+firebase_app_id_file.json
