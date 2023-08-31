@@ -68,9 +68,9 @@ class NewTree {
         'description': description,
         'perimeter': perimeter,
         'state': state,
-        'state-description': stateDescription ?? '',
+        if (stateDescription != null) 'state-description': stateDescription,
         'lat-long': location,
-        'bad-state': badState ?? '',
+        if (badState != null) 'bad-state': badState,
       });
 
       final MultipartFile? treeFile = await multipartFile(tree, 'tree');

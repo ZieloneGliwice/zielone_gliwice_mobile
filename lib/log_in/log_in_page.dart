@@ -8,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../analytics/analytics.dart';
+import '../api.dart';
 import '../model/session.dart';
 import '../model/signed_user.dart';
 import '../model/user_data.dart';
@@ -58,12 +59,15 @@ class LogInPage extends GetView<LogInPageController> {
           },
         ),
         const SizedBox(height: 30,),
-        SignInButton(
-          Buttons.AppleDark,
-          onPressed: (){
-            controller.appleLogIn();
-          },
-        ),
+        if (Platform.isIOS) ... {
+          SignInButton(
+            Buttons.AppleDark,
+            onPressed: (){
+              controller.appleLogIn();
+            },
+          ),
+        }
+
       ],
     );
   }
@@ -138,9 +142,10 @@ class LogInPageController extends GetxController with StateMixin<bool> {
             AppleIDAuthorizationScopes.fullName,
           ],
           webAuthenticationOptions: WebAuthenticationOptions(
-              clientId: 'pl.zielonegliwice',
+              clientId: 'pl.zielonegliwice.zgid',
+
               redirectUri: Uri.parse(
-                  'https://fa-greengliwice.azurewebsites.net/api/.auth/login/apple/callback'))
+                  'https://fa-greengliwice-prod.azurewebsites.net/.auth/login/apple/callback'))
       );
 
       final String? idToken = credential.identityToken;

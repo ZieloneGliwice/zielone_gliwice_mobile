@@ -14,7 +14,6 @@ import 'add_tree_condition/add_tree_condition_page.dart';
 import 'camera/camera_page.dart';
 import 'camera/camera_page_bind.dart';
 import 'challenges/challenges_page.dart';
-import 'firebase_options.dart';
 import 'internationalization/translations.dart';
 import 'log_in/log_in_page.dart';
 import 'log_in/log_in_page_bind.dart';
@@ -33,8 +32,8 @@ import 'tree_description/tree_description_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
   );
 
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;

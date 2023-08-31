@@ -100,7 +100,7 @@ class MyTreeDetailsPage extends GetView<MyTreeDetailsController> {
                 ],
               ),
             ),
-            if (details.latLong != null) ...<Widget>{
+            if (details.location != null) ...<Widget>{
               AspectRatio(
                 aspectRatio: 1.85,
                 child: Padding(
@@ -114,7 +114,7 @@ class MyTreeDetailsPage extends GetView<MyTreeDetailsController> {
                     child: GoogleMap(
                       myLocationButtonEnabled: false,
                       initialCameraPosition:
-                          CameraPosition(target: details.latLong!, zoom: 15),
+                          CameraPosition(target: details.location!, zoom: 15),
                       markers: controller.markers,
                     ),
                   ),
@@ -158,7 +158,7 @@ class MyTreeDetailsPage extends GetView<MyTreeDetailsController> {
           aspectRatio: 1.85,
           enableInfiniteScroll: false,
           enlargeCenterPage: true),
-      items: details.photos().map((String photo) {
+      items: details.photos.map((String photo) {
         return Builder(
           builder: (BuildContext context) {
             return Container(
@@ -232,10 +232,11 @@ class MyTreeDetailsController extends SessionController
   }
 
   Future<void> updateLocationMarker() async {
-    if (details?.latLong != null) {
+    final LatLng? location = details?.location;
+    if (location != null) {
       final Marker marker = Marker(
           markerId: const MarkerId('1'),
-          position: details!.latLong!,
+          position: location,
           icon: await BitmapDescriptor.fromAssetImage(
               const ImageConfiguration(size: Size(15, 15)),
               'assets/images/map_marker.png'));

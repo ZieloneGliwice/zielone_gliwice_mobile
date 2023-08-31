@@ -7,15 +7,15 @@ abstract class Analytics {
   }
 
   static void visitedNoDataScreen(String name) {
-    FirebaseAnalytics.instance.logScreenView(screenName: '$name - no data');
+    FirebaseAnalytics.instance.logScreenView(screenName: '${name}_no_data');
   }
 
   static void visitedErrorScreen(String name) {
-    FirebaseAnalytics.instance.logScreenView(screenName: '$name - no data');
+    FirebaseAnalytics.instance.logScreenView(screenName: '${name}_no_data');
   }
 
   static void buttonPressed(String title) {
-    FirebaseAnalytics.instance.logEvent(name: 'Button Pressed: $title');
+    FirebaseAnalytics.instance.logEvent(name: 'button_pressed_$title');
   }
 
   static void loginWithGoogle() {
@@ -27,7 +27,7 @@ abstract class Analytics {
   }
 
   static void loginFailed() {
-    FirebaseAnalytics.instance.logEvent(name: 'LogIn Failed');
+    FirebaseAnalytics.instance.logEvent(name: 'log_in_failed');
   }
 
   static void logEvent(String name, {Map<String, Object>? parameters}) {

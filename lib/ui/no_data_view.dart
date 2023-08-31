@@ -22,17 +22,20 @@ class NoDataView extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Widget> content = <Widget?>[_image(), _header(), _message(), _button()].whereType<Widget>().toList();
 
-    return Center(
-      child: ListView.separated(
-          shrinkWrap: true,
-          itemBuilder: (BuildContext context, int index) => Padding(
-              padding: EdgeInsets.zero,
-              child: Center(child: content[index])
-          ),
-          separatorBuilder: (BuildContext context, int index) => SizedBox(
-            height: spacing,
-          ),
-          itemCount: content.length
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: Dimen.marginNormal),
+      child: Center(
+        child: ListView.separated(
+            shrinkWrap: true,
+            itemBuilder: (BuildContext context, int index) => Padding(
+                padding: EdgeInsets.zero,
+                child: Center(child: content[index])
+            ),
+            separatorBuilder: (BuildContext context, int index) => SizedBox(
+              height: spacing,
+            ),
+            itemCount: content.length
+        ),
       ),
     );
   }

@@ -89,45 +89,30 @@ class AddTreeConditionPage extends GetView<AddTreeConditionPageController> {
                       const SizedBox(
                         height: Dimen.marginSmall,
                       ),
-                      if (controller.selectedBadState != null) ...<Widget>{
-                        if (controller.isDifferentCondition()) ...<Widget>{
-                          Text('add_tree_condition_input_title'.tr,
-                              style: ApplicationTextStyles
-                                  .descriptionBoldTextStyle),
-                          Expanded(
-                            child: TextField(
-                              textCapitalization: TextCapitalization.sentences,
-                              controller: controller._textEditingController,
-                              decoration: InputDecoration(
-                                  hintText: 'tree_description_hint'.tr,
-                                  hintStyle:
-                                      ApplicationTextStyles.hintTextStyle,
-                                  enabledBorder: _underlineDecorator(),
-                                  errorBorder: _underlineDecorator(),
-                                  focusedBorder: _underlineDecorator(),
-                                  border: _underlineDecorator()),
-                              keyboardType: TextInputType.multiline,
-                              style: ApplicationTextStyles.bodyTextStyle,
-                              maxLines: null,
-                              expands: true,
-                            ),
-                          ),
-                        } else ...<Widget>{
-                          const SizedBox(
-                            height: Dimen.marginNormal,
-                          ),
-                          Text(
-                              controller.selectedBadState.value?.name
-                                      ?.capitalize ??
-                                  '',
-                              style: ApplicationTextStyles
-                                  .descriptionBoldTextStyle),
-                        }
-                      },
+                      Text('add_tree_condition_input_title'.tr,
+                          style: ApplicationTextStyles
+                              .descriptionBoldTextStyle),
+                      Expanded(
+                        child: TextField(
+                          textCapitalization: TextCapitalization.sentences,
+                          controller: controller._textEditingController,
+                          decoration: InputDecoration(
+                              hintText: 'tree_description_hint'.tr,
+                              hintStyle:
+                              ApplicationTextStyles.hintTextStyle,
+                              enabledBorder: _underlineDecorator(),
+                              errorBorder: _underlineDecorator(),
+                              focusedBorder: _underlineDecorator(),
+                              border: _underlineDecorator()),
+                          keyboardType: TextInputType.multiline,
+                          style: ApplicationTextStyles.bodyTextStyle,
+                          maxLines: null,
+                          expands: true,
+                        ),
+                      ),
                       const SizedBox(
                         height: Dimen.marginSmall,
                       ),
-                      const Spacer(),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 22),
                         child: PrimaryButton(
@@ -255,11 +240,6 @@ class AddTreeConditionPageController extends SessionController
     }
   }
 
-  bool isDifferentCondition() {
-    return selectedBadState.value != null &&
-        selectedBadState.value == treeBadStates.lastOrNull;
-  }
-
   Future<void> showBadState() async {
     final DictionaryObject? result = await Get.bottomSheet(
         Container(
@@ -300,13 +280,9 @@ class AddTreeConditionPageController extends SessionController
     if (result != null) {
       selectedBadState.value = result;
 
-      if (!isDifferentCondition()) {
-        _textEditingController.text = '';
-      }
     } else if (selectedBadState.value == null) {
       // Return to health state
       selectedState.value = 0;
-      _textEditingController.text = '';
     }
   }
 

@@ -26,7 +26,7 @@ class AddTreePage extends GetView<AddTreePageController> {
       ),
       backgroundColor: ApplicationColors.background,
       body: Padding(
-        padding: const EdgeInsets.all(Dimen.marginNormal),
+        padding: const EdgeInsets.symmetric(horizontal: Dimen.marginNormal),
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: <SliverFillRemaining>[
@@ -34,6 +34,25 @@ class AddTreePage extends GetView<AddTreePageController> {
               hasScrollBody: false,
               child: Column(
                 children: <Widget>[
+                  const SizedBox(
+                    height: Dimen.marginNormalPlus,
+                  ),
+                  Text.rich(TextSpan(
+                      style: ApplicationTextStyles.descriptionTextStyle,
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: 'add_tree_photos_description_1'.tr),
+                        TextSpan(
+                            text: 'add_tree_photos_description_2'.tr,
+                            style:
+                            ApplicationTextStyles.descriptionBoldTextStyle),
+                        TextSpan(text: 'add_tree_photos_description_3'.tr),
+                        TextSpan(
+                            text: 'add_tree_photos_description_4'.tr,
+                            style:
+                            ApplicationTextStyles.descriptionBoldTextStyle),
+                      ])),
+                  _space(),
                   PhotoPickerWidget(TreePhotoType.tree, 'take_tree_photo_title'.tr, 'take_tree_photo_body'.tr),
                   _space(),
                   PhotoPickerWidget(TreePhotoType.leaf, 'take_leaf_photo_title'.tr, 'take_leaf_photo_body'.tr),
@@ -41,7 +60,10 @@ class AddTreePage extends GetView<AddTreePageController> {
                   PhotoPickerWidget(TreePhotoType.bark, 'take_bark_photo_title'.tr, 'take_bark_photo_body'.tr),
                   _space(),
                   const Spacer(),
-                  _button()
+                  _button(),
+                  const SizedBox(
+                    height: Dimen.marginNormalPlus,
+                  ),
                 ],
               ),
             )

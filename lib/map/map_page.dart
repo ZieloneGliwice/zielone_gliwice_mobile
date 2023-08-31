@@ -7,6 +7,7 @@ import 'package:location/location.dart';
 
 import '../analytics/analytics.dart';
 import '../ui/activity_indicator.dart';
+import '../ui/dimen.dart';
 import '../ui/gray_app_bar.dart';
 import '../ui/primary_button.dart';
 import '../ui/styles.dart';
@@ -33,7 +34,9 @@ class MapPage extends GetView<MapPageController> {
     return Stack(
       children: [
         GoogleMap(
+          padding: const EdgeInsets.all(Dimen.marginSmall),
         myLocationEnabled: true,
+        myLocationButtonEnabled: false,
         initialCameraPosition: controller.mainSquarePosition,
           onMapCreated: (GoogleMapController controller) {
             this.controller.mapController = controller;
@@ -51,13 +54,13 @@ class MapPage extends GetView<MapPageController> {
               color: ApplicationColors.black,
               clipBehavior: Clip.hardEdge,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                padding: const EdgeInsets.symmetric(horizontal: Dimen.marginSmall, vertical: Dimen.marginTiny),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Icon(Icons.pin_drop, color: ApplicationColors.white,),
                     const SizedBox(width: 12,),
-                    Text('add_tree_location'.tr, style: ApplicationTextStyles.overlayTextAtyle)
+                    Expanded(child: Text('add_tree_location'.tr, style: ApplicationTextStyles.overlayTextAtyle))
                   ],
                 ),
               ),
@@ -65,10 +68,13 @@ class MapPage extends GetView<MapPageController> {
           ),
         ),
         Positioned.fill(
-          child: Align(
-              alignment: Alignment.bottomCenter,
-              child: PrimaryButton(title: 'save'.tr, isEnabled: controller.treeLocation.value != null, onTap: controller.save),
-        ))
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: Dimen.marginNormalPlus),
+            child: Align(
+                alignment: Alignment.bottomCenter,
+                child: PrimaryButton(title: 'save'.tr, isEnabled: controller.treeLocation.value != null, onTap: controller.save),
+        ),
+          ))
       ]
     );
   }
@@ -164,8 +170,8 @@ class MapPageController extends GetxController with StateMixin<bool>{
   void updateMarkers() {
     treeLocation.listen((LatLng? position) async {
       if (position != null) {
-        final marker = Marker(markerId: const MarkerId('1'), position: position, icon: await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(size: Size(15, 15)), 'assets/images/map_marker.png'));
+        final Marker marker = Marker(markerId: const MarkerId('1'), position: position, icon: await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(size: Size(15, 15)), 'assets/images/map_marker.png'));
         markers.value = { marker };
       } else {
         markers.value = {};

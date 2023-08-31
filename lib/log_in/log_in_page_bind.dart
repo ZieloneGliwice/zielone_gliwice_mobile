@@ -14,7 +14,7 @@ class LogInPageBind extends Bindings {
       'https://www.googleapis.com/auth/userinfo.email',
       'https://www.googleapis.com/auth/userinfo.profile',
     ],
-        serverClientId: Keys.SERVER_ID_KET,
+        serverClientId: Keys.SERVER_ID_KEY,
     ), fenix: true);
     Get.lazyPut(() => ApiDio(), fenix: true);
     Get.lazyPut(() => SocialAuthenticationProvider(Get.find()), fenix: true);

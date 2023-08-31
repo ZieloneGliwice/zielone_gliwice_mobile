@@ -64,14 +64,16 @@ class MyTreesPage extends GetView<MyTreesController> {
 
   Widget _noData() {
     Analytics.visitedNoDataScreen(MyTreesPage.path);
-    return NoDataView(
-      icon: Icons.energy_savings_leaf,
-      header: 'welcome_name'
-          .trParams(<String, String>{'name': controller.userName.value}),
-      title: 'you_dont_have_tree_yet'.tr,
-      message: 'add_your_first_tree'.tr,
-      buttonTitle: 'add_tree_title'.tr,
-      onPressed: controller.addNewTree,
+    return Obx(
+      () => NoDataView(
+        icon: Icons.energy_savings_leaf,
+        header: 'welcome_name'
+            .trParams(<String, String>{'name': controller.userName.value}),
+        title: 'you_dont_have_tree_yet'.tr,
+        message: 'add_your_first_tree'.tr,
+        buttonTitle: 'add_tree_title'.tr,
+        onPressed: controller.addNewTree,
+      ),
     );
   }
 
@@ -150,8 +152,12 @@ class MyTreesController extends SessionController with StateMixin<MyTrees> {
   @override
   void onInit() {
     super.onInit();
-    loadUser();
-    getTrees();
+    getData();
+  }
+
+  Future<void> getData() async {
+    await loadUser();
+    await getTrees();
   }
 
   Future<void> getTrees() async {

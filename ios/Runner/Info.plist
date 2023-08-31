@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Zielone Gliwice Mobile</string>
+	<string>Zielone Gliwice</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -56,11 +56,13 @@
 	<key>MapAPIKey</key>
 	<string>$(MAPS_API_KEY)</string>
 	<key>NSCameraUsageDescription</key>
-	<string>To take tree photos</string>
+	<string>Application requires camera access to take photos of tree, leaf and bark</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Aplikacja potrzebuje dostępu, zeby zlokalizować dodane drzewo</string>
+	<string>Application required location access to set initial tree location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Aplikacja potrzebuje dostępu, zeby zlokalizować dodane drzewo</string>
+	<string>Application required location access to set initial tree location</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Application requires photo library access to select required photos from it</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
