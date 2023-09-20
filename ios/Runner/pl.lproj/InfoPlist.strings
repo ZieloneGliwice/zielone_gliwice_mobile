@@ -5,7 +5,7 @@
   Created by Jakub Mirota on 31/08/2023.
   
 */
-"NSPhotoLibraryUsageDescription" = "Aplikacja wymaga dostępu do biblioteki zdjęć, aby umożliwić wybór wymaganych zdjęć";
-"NSCameraUsageDescription" = "Aplikacja wymaga dostępu do aparatu, aby umożliwić zrobienie zdjęcia drzewa, liścia i kory";
+"NSPhotoLibraryUsageDescription" = "Aplikacja wymaga dostępu do biblioteki zdjęć, aby umożliwić wybór wymaganych zdjęć. Wybrane zdjęcia zostaną użyte w procesie dodawania nowego drzewa";
+"NSCameraUsageDescription" = "Aplikacja wymaga dostępu do aparatu, aby umożliwić zrobienie zdjęcia drzewa, liścia i kory. Zrobione zdjęcia zostaną użyte w procesie dodawania nowego drzewa";
 "NSLocationAlwaysAndWhenInUseUsageDescription" = "Aplikacja wymaga dostępu do lokalizacji, aby przypisać ją jako możliwą lokalizację dodawanego drzewa";
 "NSLocationWhenInUseUsageDescription" = "Aplikacja wymaga dostępu do lokalizacji, aby przypisać ją jako możliwą lokalizację dodawanego drzewa";

@@ -5,7 +5,7 @@
   Created by Jakub Mirota on 31/08/2023.
   
 */
-"NSPhotoLibraryUsageDescription" = "Application requires photo library access to select required photos from it";
-"NSCameraUsageDescription" = "Application requires camera access to take photos of tree, leaf and bark";
+"NSPhotoLibraryUsageDescription" = "Application uses photos library to select photos of tree, leaf and bark. Photos will be used in adding new tree page. They are required to create new tree";
+"NSCameraUsageDescription" = "Application uses camera to take photos of tree, leaf and bark. Photos will be used in adding new tree process. They are required to create new tree";
 "NSLocationAlwaysAndWhenInUseUsageDescription" = "Application required location access to set initial tree location";
 "NSLocationWhenInUseUsageDescription" = "Application required location access to set initial tree location";
