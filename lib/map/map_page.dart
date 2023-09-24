@@ -26,75 +26,83 @@ class MapPage extends GetView<MapPageController> {
       ),
       backgroundColor: ApplicationColors.white,
       body:
-      controller.obx((_) => _body(), onLoading: const ActivityIndicator()),
+          controller.obx((_) => _body(), onLoading: const ActivityIndicator()),
     );
   }
 
   Widget _body() {
-    return Stack(
-      children: [
-        GoogleMap(
-          padding: const EdgeInsets.all(Dimen.marginSmall),
+    return Stack(children: [
+      GoogleMap(
+        padding: const EdgeInsets.all(Dimen.marginSmall),
         myLocationEnabled: true,
         myLocationButtonEnabled: false,
         initialCameraPosition: controller.mainSquarePosition,
-          onMapCreated: (GoogleMapController controller) {
-            this.controller.mapController = controller;
-            this.controller.goToTreeLocation();
-          },
+        onMapCreated: (GoogleMapController controller) {
+          this.controller.mapController = controller;
+          this.controller.goToTreeLocation();
+        },
         onLongPress: controller.captureTreeLocation,
-          markers: controller.markers.value,
+        markers: controller.markers.value,
       ),
-        Positioned.fill(
-          top: 30,
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: Card(
-              elevation: 8,
-              color: ApplicationColors.black,
-              clipBehavior: Clip.hardEdge,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: Dimen.marginSmall, vertical: Dimen.marginTiny),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(Icons.pin_drop, color: ApplicationColors.white,),
-                    const SizedBox(width: 12,),
-                    Expanded(child: Text('add_tree_location'.tr, style: ApplicationTextStyles.overlayTextAtyle))
-                  ],
-                ),
+      Positioned.fill(
+        top: 30,
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: Card(
+            elevation: 8,
+            color: ApplicationColors.black,
+            clipBehavior: Clip.hardEdge,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: Dimen.marginSmall, vertical: Dimen.marginTiny),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    Icons.pin_drop,
+                    color: ApplicationColors.white,
+                  ),
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  Expanded(
+                      child: Text('add_tree_location'.tr,
+                          style: ApplicationTextStyles.overlayTextStyle))
+                ],
               ),
             ),
           ),
         ),
-        Positioned.fill(
+      ),
+      Positioned.fill(
           child: Padding(
-            padding: const EdgeInsets.only(bottom: Dimen.marginNormalPlus),
-            child: Align(
-                alignment: Alignment.bottomCenter,
-                child: PrimaryButton(title: 'save'.tr, isEnabled: controller.treeLocation.value != null, onTap: controller.save),
+        padding: const EdgeInsets.only(bottom: Dimen.marginNormalPlus),
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: PrimaryButton(
+              title: 'save'.tr,
+              isEnabled: controller.treeLocation.value != null,
+              onTap: controller.save),
         ),
-          ))
-      ]
-    );
+      ))
+    ]);
   }
 }
 
-class MapPageController extends GetxController with StateMixin<bool>{
+class MapPageController extends GetxController with StateMixin<bool> {
   MapPageController(this.location);
 
   GoogleMapController? mapController; // = Completer<GoogleMapController>();
-  final Location location;// = Location();
+  final Location location; // = Location();
 
-  final LatLng defaultLocation = const LatLng(50.2938871, 18.6652026); // Main square
+  final LatLng defaultLocation =
+      const LatLng(50.2938871, 18.6652026); // Main square
 
   Rxn<LatLng> treeLocation = Rxn<LatLng>();
   RxSet<Marker> markers = RxSet<Marker>();
 
-  CameraPosition mainSquarePosition = const CameraPosition(
-      target: LatLng(50.2938871, 18.6652026),
-      zoom: 22);
-
+  CameraPosition mainSquarePosition =
+      const CameraPosition(target: LatLng(50.2938871, 18.6652026), zoom: 22);
 
   @override
   void onInit() {
@@ -152,10 +160,10 @@ class MapPageController extends GetxController with StateMixin<bool>{
 
   Future<void> goToTreeLocation() async {
     if (treeLocation.value != null) {
-      final CameraPosition treePosition = CameraPosition(
-          target: treeLocation.value!,
-          zoom: 16);
-      mapController?.animateCamera(CameraUpdate.newCameraPosition(treePosition));
+      final CameraPosition treePosition =
+          CameraPosition(target: treeLocation.value!, zoom: 16);
+      mapController
+          ?.animateCamera(CameraUpdate.newCameraPosition(treePosition));
       change(true, status: RxStatus.success());
     } else {
       change(true, status: RxStatus.success());
@@ -170,9 +178,13 @@ class MapPageController extends GetxController with StateMixin<bool>{
   void updateMarkers() {
     treeLocation.listen((LatLng? position) async {
       if (position != null) {
-        final Marker marker = Marker(markerId: const MarkerId('1'), position: position, icon: await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(size: Size(15, 15)), 'assets/images/map_marker.png'));
-        markers.value = { marker };
+        final Marker marker = Marker(
+            markerId: const MarkerId('1'),
+            position: position,
+            icon: await BitmapDescriptor.fromAssetImage(
+                const ImageConfiguration(size: Size(15, 15)),
+                'assets/images/map_marker.png'));
+        markers.value = {marker};
       } else {
         markers.value = {};
       }

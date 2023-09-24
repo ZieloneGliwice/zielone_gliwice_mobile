@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +17,7 @@ import '../ui/error_view.dart';
 import '../ui/gray_app_bar.dart';
 import '../ui/no_data_view.dart';
 import '../ui/styles.dart';
+import '../ui/white_app_bar.dart';
 import '../utils/session_controller.dart';
 import '../utils/session_storage.dart';
 
@@ -30,21 +30,24 @@ class MyTreesPage extends GetView<MyTreesController> {
   Widget build(BuildContext context) {
     Analytics.visitedScreen(MyTreesPage.path);
     return Scaffold(
-      appBar: GrayAppBar(
+      appBar: WhiteAppBar(
         title: Text('my_trees_title'.tr),
-        photoURL: controller.photoURL.value,
+        photoURL: controller.photoURL,
       ),
       backgroundColor: ApplicationColors.background,
-      body: controller.obx((MyTrees? myTrees) {
-        if (myTrees?.trees?.isNotEmpty ?? false) {
-          return _myTrees(myTrees!.trees!);
-        } else {
-          return _noData();
-        }
-      },
-          onLoading: const ActivityIndicator(),
-          onError: (String? error) => _errorView(error),
-          onEmpty: _noData()),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 12.0),
+        child: controller.obx((MyTrees? myTrees) {
+          if (myTrees?.trees?.isNotEmpty ?? false) {
+            return _myTrees(myTrees!.trees!);
+          } else {
+            return _noData();
+          }
+        },
+            onLoading: const ActivityIndicator(),
+            onError: (String? error) => _errorView(error),
+            onEmpty: _noData()),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         backgroundColor: ApplicationColors.green,
@@ -83,11 +86,12 @@ class MyTreesPage extends GetView<MyTreesController> {
       padding: const EdgeInsets.symmetric(horizontal: 14),
       child: ListView.separated(
           shrinkWrap: true,
-          itemBuilder: (BuildContext context, int index) =>
-              InkWell(onTap: () {
+          itemBuilder: (BuildContext context, int index) => InkWell(
+              onTap: () {
                 final MyTree myTree = trees[index];
                 controller.viewDetails(myTree);
-              }, child: _myTree(trees[index])),
+              },
+              child: _myTree(trees[index])),
           separatorBuilder: (BuildContext context, int index) => const SizedBox(
                 height: 5,
               ),
@@ -129,7 +133,7 @@ class MyTreesPage extends GetView<MyTreesController> {
                   const SizedBox(
                     height: 8,
                   ),
-                  Date(dateString:  tree.formattedTimeStamp())
+                  Date(dateString: tree.formattedTimeStamp())
                 ],
               ),
               const Spacer(),
@@ -141,7 +145,9 @@ class MyTreesPage extends GetView<MyTreesController> {
 }
 
 class MyTreesController extends SessionController with StateMixin<MyTrees> {
-  MyTreesController(this._myTreesProvider, SessionStorage sessionStorage, PhotosService photosService) : super(sessionStorage, photosService);
+  MyTreesController(this._myTreesProvider, SessionStorage sessionStorage,
+      PhotosService photosService)
+      : super(sessionStorage, photosService);
   final MyTreesProvider _myTreesProvider;
 
   RxString photoURL = ''.obs;

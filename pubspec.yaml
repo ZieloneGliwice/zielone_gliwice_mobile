@@ -29,6 +29,9 @@ dependencies:
   firebase_crashlytics: ^3.3.4
   firebase_core: ^2.15.0
   firebase_auth: ^4.7.2
+  package_info_plus: ^4.1.0
+  localstorage: ^4.0.0+1
+  shared_preferences: ^2.0.6
 
 dev_dependencies:
   flutter_test:
@@ -42,48 +45,48 @@ flutter:
   fonts:
     - family: Poppins
       fonts:
-      - asset: fonts/Poppins/Poppins-Thin.ttf
-        weight: 100
-      - asset: fonts/Poppins/Poppins-ThinItalic.ttf
-        weight: 100
-        style: italic
-      - asset: fonts/Poppins/Poppins-ExtraLight.ttf
-        weight: 200
-      - asset: fonts/Poppins/Poppins-ExtraLightItalic.ttf
-        weight: 200
-        style: italic
-      - asset: fonts/Poppins/Poppins-Light.ttf
-        weight: 300
-      - asset: fonts/Poppins/Poppins-LightItalic.ttf
-        weight: 300
-        style: italic
-      - asset: fonts/Poppins/Poppins-Regular.ttf
-        weight: 400
-      - asset: fonts/Poppins/Poppins-Italic.ttf
-        weight: 400
-        style: italic
-      - asset: fonts/Poppins/Poppins-Medium.ttf
-        weight: 500
-      - asset: fonts/Poppins/Poppins-MediumItalic.ttf
-        weight: 500
-        style: italic
-      - asset: fonts/Poppins/Poppins-SemiBold.ttf
-        weight: 600
-      - asset: fonts/Poppins/Poppins-SemiBoldItalic.ttf
-        weight: 600
-        style: italic
-      - asset: fonts/Poppins/Poppins-Bold.ttf
-        weight: 700
-      - asset: fonts/Poppins/Poppins-BoldItalic.ttf
-        weight: 700
-        style: italic
-      - asset: fonts/Poppins/Poppins-ExtraBold.ttf
-        weight: 800
-      - asset: fonts/Poppins/Poppins-ExtraBoldItalic.ttf
-        weight: 800
-        style: italic
-      - asset: fonts/Poppins/Poppins-Black.ttf
-        weight: 900
-      - asset: fonts/Poppins/Poppins-BlackItalic.ttf
-        weight: 900
-        style: italic
+        - asset: fonts/Poppins/Poppins-Thin.ttf
+          weight: 100
+        - asset: fonts/Poppins/Poppins-ThinItalic.ttf
+          weight: 100
+          style: italic
+        - asset: fonts/Poppins/Poppins-ExtraLight.ttf
+          weight: 200
+        - asset: fonts/Poppins/Poppins-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+        - asset: fonts/Poppins/Poppins-Light.ttf
+          weight: 300
+        - asset: fonts/Poppins/Poppins-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: fonts/Poppins/Poppins-Regular.ttf
+          weight: 400
+        - asset: fonts/Poppins/Poppins-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: fonts/Poppins/Poppins-Medium.ttf
+          weight: 500
+        - asset: fonts/Poppins/Poppins-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: fonts/Poppins/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: fonts/Poppins/Poppins-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: fonts/Poppins/Poppins-Bold.ttf
+          weight: 700
+        - asset: fonts/Poppins/Poppins-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: fonts/Poppins/Poppins-ExtraBold.ttf
+          weight: 800
+        - asset: fonts/Poppins/Poppins-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+        - asset: fonts/Poppins/Poppins-Black.ttf
+          weight: 900
+        - asset: fonts/Poppins/Poppins-BlackItalic.ttf
+          weight: 900
+          style: italic
