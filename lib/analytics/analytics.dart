@@ -37,4 +37,8 @@ abstract class Analytics {
     FirebaseAnalytics.instance
         .setUserProperty(name: 'user_school', value: school);
   }
+
+  static void treeAdded() {
+    FirebaseAnalytics.instance.logEvent(name: 'tree_added');
+  }
 }

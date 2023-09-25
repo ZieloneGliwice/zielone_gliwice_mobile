@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../personal_info/personal_info_page.dart';
 import '../settings/settings_page.dart';
 import 'styles.dart';
 
@@ -36,7 +37,7 @@ class WhiteAppBar extends AppBar {
 Widget _photo(RxString? photoURL) {
   if (photoURL != null && photoURL.isNotEmpty) {
     return InkWell(
-      onTap: () => Get.toNamed(SettingsPage.path),
+      onTap: () => viewSettings(),
       child: Container(
         width: 43,
         height: 43,
@@ -51,7 +52,7 @@ Widget _photo(RxString? photoURL) {
     );
   } else {
     return InkWell(
-      onTap: () => Get.toNamed(SettingsPage.path),
+      onTap: () => viewSettings(),
       child: const SizedBox(
         width: 43,
         height: 43,
@@ -71,4 +72,9 @@ Widget _logo() {
     width: 40,
     height: 40,
   );
+}
+
+void viewSettings() {
+  // Get.toNamed(SettingsPage.path);
+  Get.toNamed(PersonalInfoPage.path);
 }

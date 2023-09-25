@@ -1,7 +1,5 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:localstorage/localstorage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../analytics/analytics.dart';
@@ -29,7 +27,7 @@ class SchoolsSelectionPage extends GetView<SchoolsSelectionController> {
           children: <Widget>[
             Expanded(
               child: ListView.separated(
-                padding: const EdgeInsets.only(top: 25),
+                padding: const EdgeInsets.only(top: 10, bottom: 50),
                 itemCount: controller.schools.length,
                 itemBuilder: (BuildContext context, int index) => InkWell(
                   onTap: () => controller.selectedSchool.value = index,
