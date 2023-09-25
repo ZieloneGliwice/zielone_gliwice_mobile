@@ -30,8 +30,8 @@ dependencies:
   firebase_core: ^2.15.0
   firebase_auth: ^4.7.2
   package_info_plus: ^4.1.0
-  localstorage: ^4.0.0+1
   shared_preferences: ^2.0.6
+  url_launcher: ^6.1.14
 
 dev_dependencies:
   flutter_test:

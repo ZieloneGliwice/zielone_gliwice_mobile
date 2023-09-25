@@ -5,6 +5,8 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'about_app/about_app_bind.dart';
+import 'about_app/about_app_page.dart';
 import 'add_circumference_page/add_circumference_bind.dart';
 import 'add_circumference_page/add_circumference_page.dart';
 import 'add_tree/add_tree_bind.dart';
@@ -27,6 +29,10 @@ import 'new_tree/new_tree_bind.dart';
 import 'new_tree/new_tree_page.dart';
 import 'personal_info/personal_info_bind.dart';
 import 'personal_info/personal_info_page.dart';
+import 'privacy_policy/privacy_policy_bind.dart';
+import 'privacy_policy/privacy_policy_page.dart';
+import 'rules/rules_bind.dart';
+import 'rules/rules_page.dart';
 import 'schools_selection/schools_selection_page.dart';
 import 'schools_selection/schools_selection_page_bind.dart';
 import 'settings/settings_bind.dart';
@@ -123,6 +129,18 @@ class MyApp extends StatelessWidget {
             name: SchoolsSelectionPage.path,
             page: () => const SchoolsSelectionPage(),
             binding: SchoolsSelectionBind()),
+        GetPage<AboutAppPage>(
+            name: AboutAppPage.path,
+            page: () => const AboutAppPage(),
+            binding: AboutAppBind()),
+        GetPage<PrivacyPolicyPage>(
+            name: PrivacyPolicyPage.path,
+            page: () => const PrivacyPolicyPage(),
+            binding: PrivacyPolicyBind()),
+        GetPage<RulesPage>(
+            name: RulesPage.path,
+            page: () => const RulesPage(),
+            binding: RulesBind()),
       ],
       initialRoute: LogInPage.path,
       initialBinding: LogInPageBind(),

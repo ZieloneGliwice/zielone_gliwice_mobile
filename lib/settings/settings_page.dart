@@ -1,9 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../about_app/about_app_page.dart';
 import '../model/signed_user.dart';
 import '../personal_info/personal_info_page.dart';
+import '../privacy_policy/privacy_policy_page.dart';
+import '../rules/rules_page.dart';
 import '../ui/dimen.dart';
 import '../ui/gray_app_bar.dart';
 import '../ui/styles.dart';
@@ -126,66 +132,85 @@ class SettingsPage extends GetView<SettingsPageController> {
       ),
       child: Column(
         children: <Widget>[
-          _settingsRow(
-              const Icon(
-                Icons.help_outline,
-                color: ApplicationColors.green,
-                size: 24,
-              ),
-              Text('about_app'.tr,
-                  style: ApplicationTextStyles.settingsTextStyle)),
+          InkWell(
+            onTap: () => Get.toNamed(AboutAppPage.path),
+            child: _settingsRow(
+                const Icon(
+                  Icons.help_outline,
+                  color: ApplicationColors.green,
+                  size: 24,
+                ),
+                Text('about_app'.tr,
+                    style: ApplicationTextStyles.settingsTextStyle)),
+          ),
           _line(),
-          _settingsRow(
-              const Icon(
-                Icons.feedback_outlined,
-                color: ApplicationColors.green,
-                size: 24,
-              ),
-              Text('send_feedback'.tr,
-                  style: ApplicationTextStyles.settingsTextStyle)),
+          InkWell(
+            onTap: () => controller.sendFeedback(),
+            child: _settingsRow(
+                const Icon(
+                  Icons.feedback_outlined,
+                  color: ApplicationColors.green,
+                  size: 24,
+                ),
+                Text('send_feedback'.tr,
+                    style: ApplicationTextStyles.settingsTextStyle)),
+          ),
           _line(),
-          _settingsRow(
-              const Icon(
-                Icons.star_outline,
-                color: ApplicationColors.green,
-                size: 24,
-              ),
-              Text('rate_us'.tr,
-                  style: ApplicationTextStyles.settingsTextStyle)),
+          InkWell(
+            onTap: () => controller.rateUs(),
+            child: _settingsRow(
+                const Icon(
+                  Icons.star_outline,
+                  color: ApplicationColors.green,
+                  size: 24,
+                ),
+                Text('rate_us'.tr,
+                    style: ApplicationTextStyles.settingsTextStyle)),
+          ),
           _line(),
-          _settingsRow(
-              const Icon(
-                Icons.folder_outlined,
-                color: ApplicationColors.green,
-                size: 24,
-              ),
-              Text('privacy_policy'.tr,
-                  style: ApplicationTextStyles.settingsTextStyle)),
+          InkWell(
+            onTap: () => Get.toNamed(PrivacyPolicyPage.path),
+            child: _settingsRow(
+                const Icon(
+                  Icons.folder_outlined,
+                  color: ApplicationColors.green,
+                  size: 24,
+                ),
+                Text('privacy_policy'.tr,
+                    style: ApplicationTextStyles.settingsTextStyle)),
+          ),
           _line(),
-          _settingsRow(
-              const Icon(
-                Icons.folder_outlined,
-                color: ApplicationColors.green,
-                size: 24,
-              ),
-              Text('rules'.tr, style: ApplicationTextStyles.settingsTextStyle)),
+          InkWell(
+            onTap: () => Get.toNamed(RulesPage.path),
+            child: _settingsRow(
+                const Icon(
+                  Icons.folder_outlined,
+                  color: ApplicationColors.green,
+                  size: 24,
+                ),
+                Text('rules'.tr,
+                    style: ApplicationTextStyles.settingsTextStyle)),
+          ),
           _line(),
-          SizedBox(
-            height: 50,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: <Widget>[
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Expanded(
-                    child: Text('logout'.tr,
-                        style: ApplicationTextStyles.settingsLogoutTextStyle),
-                  ),
-                  const Icon(Icons.arrow_forward_ios_outlined)
-                ],
-              ), //
+          InkWell(
+            onTap: () => controller.logout(),
+            child: SizedBox(
+              height: 50,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: <Widget>[
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Expanded(
+                      child: Text('logout'.tr,
+                          style: ApplicationTextStyles.settingsLogoutTextStyle),
+                    ),
+                    const Icon(Icons.arrow_forward_ios_outlined),
+                  ],
+                ),
+              ),
             ),
           )
         ],
@@ -210,7 +235,7 @@ class SettingsPage extends GetView<SettingsPageController> {
             ),
             const Icon(Icons.arrow_forward_ios_outlined)
           ],
-        ), //
+        ),
       ),
     );
   }
@@ -238,6 +263,10 @@ class SettingsPageController extends GetxController {
     getData();
   }
 
+  void logout() {
+    print('xd :) super Ci idzie Filip');
+  }
+
   Future<void> getData() async {
     await loadUser();
     // await getVersion();
@@ -248,6 +277,46 @@ class SettingsPageController extends GetxController {
 
     userName.value = signedUser?.details.name ?? '';
     photoURL.value = signedUser?.details.photoUrl ?? '';
+  }
+
+  void rateUs() {
+    if (Platform.isAndroid || Platform.isIOS) {
+      final String appId = Platform.isAndroid
+          ? 'pl.zielonegliwice.zielone_gliwice_mobile'
+          : 'pl.zielonegliwice';
+      final Uri url = Uri.parse(
+        Platform.isAndroid
+            ? 'market://details?id=$appId'
+            : 'https://apps.apple.com/app/id$appId',
+      );
+      launchUrl(
+        url,
+        mode: LaunchMode.externalApplication,
+      );
+    }
+  }
+
+  void sendFeedback() {
+    String? encodeQueryParameters(Map<String, String> params) {
+      return params.entries
+          .map((MapEntry<String, String> e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+          .join('&');
+    }
+
+    const String mail = 'kontakt@media30.pl';
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: mail,
+      query: encodeQueryParameters(
+        <String, String>{
+          'subject': 'Zielone Gliwice feedback',
+          'body': 'mail_body'.tr,
+        },
+      ),
+    );
+
+    launchUrl(emailUri);
   }
 
   // to do, appversion on the bottom

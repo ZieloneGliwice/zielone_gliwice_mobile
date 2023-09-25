@@ -75,6 +75,6 @@ Widget _logo() {
 }
 
 void viewSettings() {
-  // Get.toNamed(SettingsPage.path);
-  Get.toNamed(PersonalInfoPage.path);
+  Get.toNamed(SettingsPage.path);
+  //Get.toNamed(PersonalInfoPage.path);
 }
