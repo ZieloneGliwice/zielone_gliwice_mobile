@@ -66,7 +66,7 @@ class PersonalInfoPage extends GetView<PersonalInfoPageController> {
                         InkWell(
                           onTap: controller.selectSchools,
                           child: SizedBox(
-                            height: 75,
+                            height: 150,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
@@ -74,24 +74,25 @@ class PersonalInfoPage extends GetView<PersonalInfoPageController> {
                                   const SizedBox(
                                     width: 20,
                                   ),
-                                  Expanded(
+                                  Flexible(
                                       child: Container(
-                                    height: 50,
+                                    height: 120,
                                     decoration: BoxDecoration(
                                       color: ApplicationColors.inputBackground,
                                       borderRadius: BorderRadius.circular(7),
                                     ),
                                     child: Row(
-                                      children: [
+                                      children: <Widget>[
                                         const SizedBox(width: 15),
-                                        Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Obx(() => _schoolName())),
+                                        Expanded(
+                                          child: Obx(() => _schoolName()),
+                                        ),
+                                        const SizedBox(width: 15),
                                       ],
                                     ),
                                   )),
                                   const SizedBox(
-                                    width: 15,
+                                    width: 20,
                                   ),
                                 ],
                               ), //
@@ -115,9 +116,11 @@ class PersonalInfoPage extends GetView<PersonalInfoPageController> {
         controller.school.value.isNotEmpty &&
         controller.school.value != '') {
       return Text(controller.school.value,
+          textAlign: TextAlign.center,
           style: ApplicationTextStyles.personalInfoFieldsTextStyle);
     } else {
       return Text('choose_school'.tr,
+          textAlign: TextAlign.center,
           style: ApplicationTextStyles.personalInfoFieldsTextStyle);
     }
   }
