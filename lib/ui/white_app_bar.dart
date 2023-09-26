@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../personal_info/personal_info_page.dart';
 import '../settings/settings_page.dart';
 import 'styles.dart';
 
@@ -76,5 +75,4 @@ Widget _logo() {
 
 void viewSettings() {
   Get.toNamed(SettingsPage.path);
-  //Get.toNamed(PersonalInfoPage.path);
 }

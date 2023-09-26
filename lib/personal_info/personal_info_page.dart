@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../analytics/analytics.dart';
+import '../model/errors.dart';
 import '../model/signed_user.dart';
+import '../network/api_dio.dart';
 import '../schools_selection/schools_selection_page.dart';
+import '../ui/activity_indicator.dart';
 import '../ui/dimen.dart';
+import '../ui/error_view.dart';
 import '../ui/gray_app_bar.dart';
 import '../ui/styles.dart';
-import '../utils/session_storage.dart';
+import '../utils/session_controller.dart';
 
 class PersonalInfoPage extends GetView<PersonalInfoPageController> {
   const PersonalInfoPage({super.key});
@@ -18,94 +23,102 @@ class PersonalInfoPage extends GetView<PersonalInfoPageController> {
     return Scaffold(
       appBar: GrayAppBar(),
       backgroundColor: ApplicationColors.background,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: Dimen.marginNormal),
-        child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: <SliverFillRemaining>[
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: Column(
-                children: <Widget>[
-                  Obx(() => _userPhoto()),
-                  const SizedBox(
-                    height: 15,
+      body: controller.obx(
+        (_) => _body(),
+        onLoading: const ActivityIndicator(),
+        onError: (String? error) => _errorView(error),
+      ),
+    );
+  }
+
+  Widget _body() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: Dimen.marginNormal),
+      child: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: <SliverFillRemaining>[
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Column(
+              children: <Widget>[
+                Obx(() => _userPhoto()),
+                const SizedBox(
+                  height: 15,
+                ),
+                Obx(() => _userName()),
+                const SizedBox(
+                  height: 70,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: ApplicationColors.white,
+                    borderRadius: BorderRadius.circular(7),
                   ),
-                  Obx(() => _userName()),
-                  const SizedBox(
-                    height: 70,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: ApplicationColors.white,
-                      borderRadius: BorderRadius.circular(7),
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 50,
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 50,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: <Widget>[
+                              const Icon(Icons.settings_outlined),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Expanded(
+                                child: Text('personal_info'.tr,
+                                    style: ApplicationTextStyles
+                                        .settingsTextStyle),
+                              ),
+                            ],
+                          ), //
+                        ),
+                      ),
+                      _line(),
+                      InkWell(
+                        onTap: controller.selectSchools,
+                        child: SizedBox(
+                          height: 150,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
                               children: <Widget>[
-                                const Icon(Icons.settings_outlined),
                                 const SizedBox(
-                                  width: 15,
+                                  width: 20,
                                 ),
-                                Expanded(
-                                  child: Text('personal_info'.tr,
-                                      style: ApplicationTextStyles
-                                          .settingsTextStyle),
+                                Flexible(
+                                    child: Container(
+                                  height: 120,
+                                  decoration: BoxDecoration(
+                                    color: ApplicationColors.inputBackground,
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
+                                  child: Row(
+                                    children: <Widget>[
+                                      const SizedBox(width: 15),
+                                      Expanded(
+                                        child: Obx(() => _schoolName()),
+                                      ),
+                                      const SizedBox(width: 15),
+                                    ],
+                                  ),
+                                )),
+                                const SizedBox(
+                                  width: 20,
                                 ),
                               ],
                             ), //
                           ),
                         ),
-                        _line(),
-                        InkWell(
-                          onTap: controller.selectSchools,
-                          child: SizedBox(
-                            height: 150,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: <Widget>[
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                  Flexible(
-                                      child: Container(
-                                    height: 120,
-                                    decoration: BoxDecoration(
-                                      color: ApplicationColors.inputBackground,
-                                      borderRadius: BorderRadius.circular(7),
-                                    ),
-                                    child: Row(
-                                      children: <Widget>[
-                                        const SizedBox(width: 15),
-                                        Expanded(
-                                          child: Obx(() => _schoolName()),
-                                        ),
-                                        const SizedBox(width: 15),
-                                      ],
-                                    ),
-                                  )),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                ],
-                              ), //
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                      )
+                    ],
+                  ),
+                )
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -160,22 +173,27 @@ class PersonalInfoPage extends GetView<PersonalInfoPageController> {
       );
     }
   }
+
+  Widget _errorView(String? error) {
+    Analytics.visitedErrorScreen(PersonalInfoPage.path);
+    final ZGError zgError = ZGError.from(error);
+
+    return ErrorView.from(zgError, controller.getData);
+  }
+
+  Widget _line() {
+    return Container(
+      height: 0.2,
+      color: Colors.black,
+    );
+  }
 }
 
-Widget _line() {
-  return Container(
-    height: 0.2,
-    color: Colors.black,
-  );
-}
-
-class PersonalInfoPageController extends GetxController {
-  PersonalInfoPageController(this._sessionStorage);
-
-  final SessionStorage _sessionStorage;
+class PersonalInfoPageController extends SessionController
+    with StateMixin<bool> {
+  PersonalInfoPageController(super.sessionStorage, super.photosService);
   SharedPreferences? prefs;
 
-  // RxString version = ''.obs;
   RxString photoURL = ''.obs;
   RxString userName = ''.obs;
   RxString school = ''.obs;
@@ -187,9 +205,24 @@ class PersonalInfoPageController extends GetxController {
   }
 
   Future<void> getData() async {
-    await loadUser();
-    await loadSchool();
-    // await getVersion();
+    change(null, status: RxStatus.loading());
+
+    try {
+      await loadUser();
+      await loadSchool();
+
+      if (userName.isNotEmpty && photoURL.isNotEmpty) {
+        change(true, status: RxStatus.success());
+      } else {
+        handleError(CommonError());
+      }
+    } on UnauthorizedException catch (_) {
+      unauthorized();
+    } on NoInternetConnectionException catch (_) {
+      handleError(ConnectionError());
+    } catch (_) {
+      handleError(CommonError());
+    }
   }
 
   Future<void> loadSchool() async {
@@ -199,7 +232,7 @@ class PersonalInfoPageController extends GetxController {
   }
 
   Future<void> loadUser() async {
-    final SignedUser? signedUser = await _sessionStorage.restoreSession();
+    final SignedUser? signedUser = await sessionStorage.restoreSession();
 
     userName.value = signedUser?.details.name ?? '';
     photoURL.value = signedUser?.details.photoUrl ?? '';
@@ -207,5 +240,9 @@ class PersonalInfoPageController extends GetxController {
 
   Future<void> selectSchools() async {
     school.value = await Get.toNamed(SchoolsSelectionPage.path) as String;
+  }
+
+  void handleError(ZGError error) {
+    change(null, status: RxStatus.error(error.identifier));
   }
 }

@@ -6,14 +6,20 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../about_app/about_app_page.dart';
+import '../analytics/analytics.dart';
+import '../model/errors.dart';
 import '../model/signed_user.dart';
+import '../network/api_dio.dart';
 import '../personal_info/personal_info_page.dart';
 import '../privacy_policy/privacy_policy_page.dart';
 import '../rules/rules_page.dart';
+import '../ui/activity_indicator.dart';
 import '../ui/dimen.dart';
+import '../ui/error_view.dart';
 import '../ui/gray_app_bar.dart';
 import '../ui/styles.dart';
-import '../utils/session_storage.dart';
+
+import '../utils/session_controller.dart';
 
 class SettingsPage extends GetView<SettingsPageController> {
   const SettingsPage({super.key});
@@ -24,51 +30,62 @@ class SettingsPage extends GetView<SettingsPageController> {
     return Scaffold(
       appBar: GrayAppBar(),
       backgroundColor: ApplicationColors.background,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: Dimen.marginNormal),
-        child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: <SliverFillRemaining>[
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: Column(
-                children: <Widget>[
-                  Obx(() => _userPhoto()),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Obx(() => _userName()),
-                  const SizedBox(
-                    height: 70,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: ApplicationColors.white,
-                      borderRadius: BorderRadius.circular(7),
-                    ),
-                    child: InkWell(
-                      onTap: () => Get.toNamed(PersonalInfoPage.path),
-                      child: _settingsRow(
-                          const Icon(Icons.settings_outlined),
-                          Text('personal_info'.tr,
-                              style: ApplicationTextStyles.settingsTextStyle)),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 35,
-                  ),
-                  _settingsColumn(),
-                ],
-              ),
-            ),
-          ],
-        ),
+      body: controller.obx(
+        (_) => _body(),
+        onLoading: const ActivityIndicator(),
+        onError: (String? error) => _errorView(error),
       ),
+
       //not working
       //   bottomNavigationBar: BottomAppBar(
       //       elevation: 0,
       //       color: Colors.transparent,
       //       child: Obx(() => _appVersion())),
+    );
+  }
+
+  Widget _body() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: Dimen.marginNormal),
+      child: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: <SliverFillRemaining>[
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Column(
+              children: <Widget>[
+                Obx(
+                  () => _userPhoto(),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Obx(() => _userName()),
+                const SizedBox(
+                  height: 70,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: ApplicationColors.white,
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  child: InkWell(
+                    onTap: () => Get.toNamed(PersonalInfoPage.path),
+                    child: _settingsRow(
+                        const Icon(Icons.settings_outlined),
+                        Text('personal_info'.tr,
+                            style: ApplicationTextStyles.settingsTextStyle)),
+                  ),
+                ),
+                const SizedBox(
+                  height: 35,
+                ),
+                _settingsColumn(),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -239,19 +256,24 @@ class SettingsPage extends GetView<SettingsPageController> {
       ),
     );
   }
+
+  Widget _errorView(String? error) {
+    Analytics.visitedErrorScreen(SettingsPage.path);
+    final ZGError zgError = ZGError.from(error);
+
+    return ErrorView.from(zgError, controller.getData);
+  }
+
+  Widget _line() {
+    return Container(
+      height: 0.2,
+      color: Colors.black,
+    );
+  }
 }
 
-Widget _line() {
-  return Container(
-    height: 0.2,
-    color: Colors.black,
-  );
-}
-
-class SettingsPageController extends GetxController {
-  SettingsPageController(this._sessionStorage);
-
-  final SessionStorage _sessionStorage;
+class SettingsPageController extends SessionController with StateMixin<bool> {
+  SettingsPageController(super.sessionStorage, super.photosService);
 
   // RxString version = ''.obs;
   RxString photoURL = ''.obs;
@@ -263,17 +285,31 @@ class SettingsPageController extends GetxController {
     getData();
   }
 
-  void logout() {
-    print('xd :) super Ci idzie Filip');
-  }
-
   Future<void> getData() async {
+    change(null, status: RxStatus.loading());
+
     await loadUser();
     // await getVersion();
+
+    try {
+      await loadUser();
+
+      if (userName.isNotEmpty && photoURL.isNotEmpty) {
+        change(true, status: RxStatus.success());
+      } else {
+        handleError(CommonError());
+      }
+    } on UnauthorizedException catch (_) {
+      unauthorized();
+    } on NoInternetConnectionException catch (_) {
+      handleError(ConnectionError());
+    } catch (_) {
+      handleError(CommonError());
+    }
   }
 
   Future<void> loadUser() async {
-    final SignedUser? signedUser = await _sessionStorage.restoreSession();
+    final SignedUser? signedUser = await sessionStorage.restoreSession();
 
     userName.value = signedUser?.details.name ?? '';
     photoURL.value = signedUser?.details.photoUrl ?? '';
@@ -310,13 +346,17 @@ class SettingsPageController extends GetxController {
       path: mail,
       query: encodeQueryParameters(
         <String, String>{
-          'subject': 'Zielone Gliwice feedback',
+          'subject': 'mail_subject'.tr,
           'body': 'mail_body'.tr,
         },
       ),
     );
 
     launchUrl(emailUri);
+  }
+
+  void handleError(ZGError error) {
+    change(null, status: RxStatus.error(error.identifier));
   }
 
   // to do, appversion on the bottom

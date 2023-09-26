@@ -87,7 +87,8 @@ class ApplicationTranslations extends Translations {
     'version': 'Version @current_version',
     'your_account': 'Your Account',
     'choose_school': 'Choose your school',
-    'mail_body': 'Let us know what you think\n'
+    'mail_subject': 'Zielone Gliwice feedback',
+    'mail_body': 'Let us know what you think about Zielone Gliwice\n'
   };
 
   final Map<String, String> _plPL = <String, String>{
@@ -169,6 +170,7 @@ class ApplicationTranslations extends Translations {
     'version': 'Wersja @current_version',
     'your_account': 'Twoje Konto',
     'choose_school': 'Wybierz swoją szkołę',
-    'mail_body': 'Daj nam znać co uważasz\n'
+    'mail_subject': 'Zielone Gliwice feedback',
+    'mail_body': 'Daj nam znać co uważasz o Zielone Gliwice\n'
   };
 }
