@@ -213,6 +213,24 @@ abstract class ApplicationTextStyles {
       fontWeight: FontWeight.w400,
       fontSize: 16,
       fontFamily: _poppinsFont);
+
+  static const TextStyle popupDialogTitleTextStyle = TextStyle(
+      color: ApplicationColors.black,
+      fontWeight: FontWeight.w500,
+      fontSize: 22,
+      fontFamily: _poppinsFont);
+
+  static const TextStyle popupDialogContentTextStyle = TextStyle(
+      color: ApplicationColors.black,
+      fontWeight: FontWeight.w400,
+      fontSize: 16,
+      fontFamily: _poppinsFont);
+
+  static const TextStyle popupDialogActionTextStyle = TextStyle(
+      color: ApplicationColors.green,
+      fontWeight: FontWeight.w600,
+      fontSize: 18,
+      fontFamily: _poppinsFont);
 }
 
 // Colors

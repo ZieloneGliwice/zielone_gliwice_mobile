@@ -42,8 +42,14 @@ Widget _photo(RxString? photoURL) {
         height: 43,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
+          border: const Border(
+            top: BorderSide(color: ApplicationColors.black),
+            left: BorderSide(color: ApplicationColors.black),
+            right: BorderSide(color: ApplicationColors.black),
+            bottom: BorderSide(color: ApplicationColors.black),
+          ),
           image: DecorationImage(
-            fit: BoxFit.fill,
+            fit: BoxFit.contain,
             image: NetworkImage(photoURL.value),
           ),
         ),

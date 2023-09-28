@@ -107,9 +107,15 @@ class SettingsPage extends GetView<SettingsPageController> {
         width: 100,
         height: 100,
         decoration: BoxDecoration(
+          border: const Border(
+            top: BorderSide(color: ApplicationColors.black),
+            left: BorderSide(color: ApplicationColors.black),
+            right: BorderSide(color: ApplicationColors.black),
+            bottom: BorderSide(color: ApplicationColors.black),
+          ),
           shape: BoxShape.circle,
           image: DecorationImage(
-            fit: BoxFit.fill,
+            fit: BoxFit.contain,
             image: NetworkImage(controller.photoURL.value),
           ),
         ),
@@ -149,18 +155,18 @@ class SettingsPage extends GetView<SettingsPageController> {
       ),
       child: Column(
         children: <Widget>[
-          InkWell(
-            onTap: () => Get.toNamed(AboutAppPage.path),
-            child: _settingsRow(
-                const Icon(
-                  Icons.help_outline,
-                  color: ApplicationColors.green,
-                  size: 24,
-                ),
-                Text('about_app'.tr,
-                    style: ApplicationTextStyles.settingsTextStyle)),
-          ),
-          _line(),
+          // InkWell(
+          //   onTap: () => Get.toNamed(AboutAppPage.path),
+          //   child: _settingsRow(
+          //       const Icon(
+          //         Icons.help_outline,
+          //         color: ApplicationColors.green,
+          //         size: 24,
+          //       ),
+          //       Text('about_app'.tr,
+          //           style: ApplicationTextStyles.settingsTextStyle)),
+          // ),
+          // _line(),
           InkWell(
             onTap: () => controller.sendFeedback(),
             child: _settingsRow(
@@ -184,30 +190,30 @@ class SettingsPage extends GetView<SettingsPageController> {
                 Text('rate_us'.tr,
                     style: ApplicationTextStyles.settingsTextStyle)),
           ),
-          _line(),
-          InkWell(
-            onTap: () => Get.toNamed(PrivacyPolicyPage.path),
-            child: _settingsRow(
-                const Icon(
-                  Icons.folder_outlined,
-                  color: ApplicationColors.green,
-                  size: 24,
-                ),
-                Text('privacy_policy'.tr,
-                    style: ApplicationTextStyles.settingsTextStyle)),
-          ),
-          _line(),
-          InkWell(
-            onTap: () => Get.toNamed(RulesPage.path),
-            child: _settingsRow(
-                const Icon(
-                  Icons.folder_outlined,
-                  color: ApplicationColors.green,
-                  size: 24,
-                ),
-                Text('rules'.tr,
-                    style: ApplicationTextStyles.settingsTextStyle)),
-          ),
+          // _line(),
+          // InkWell(
+          //   onTap: () => Get.toNamed(PrivacyPolicyPage.path),
+          //   child: _settingsRow(
+          //       const Icon(
+          //         Icons.folder_outlined,
+          //         color: ApplicationColors.green,
+          //         size: 24,
+          //       ),
+          //       Text('privacy_policy'.tr,
+          //           style: ApplicationTextStyles.settingsTextStyle)),
+          // ),
+          // _line(),
+          // InkWell(
+          //   onTap: () => Get.toNamed(RulesPage.path),
+          //   child: _settingsRow(
+          //       const Icon(
+          //         Icons.folder_outlined,
+          //         color: ApplicationColors.green,
+          //         size: 24,
+          //       ),
+          //       Text('rules'.tr,
+          //           style: ApplicationTextStyles.settingsTextStyle)),
+          // ),
           _line(),
           InkWell(
             onTap: () => controller.logout(),

@@ -88,7 +88,12 @@ class ApplicationTranslations extends Translations {
     'your_account': 'Your Account',
     'choose_school': 'Choose your school',
     'mail_subject': 'Zielone Gliwice feedback',
-    'mail_body': 'Let us know what you think about Zielone Gliwice\n'
+    'mail_body': 'Let us know what you think about Zielone Gliwice\n',
+    'popup_title': 'Competition for schools',
+    'popup_content':
+        'Zielone Gliwice runs a competition for schools.\nThe school whose students add the most trees wins.',
+    'popup_skip': 'Skip',
+    'popup_choose_school': 'Choose school'
   };
 
   final Map<String, String> _plPL = <String, String>{
@@ -171,6 +176,11 @@ class ApplicationTranslations extends Translations {
     'your_account': 'Twoje Konto',
     'choose_school': 'Wybierz swoją szkołę',
     'mail_subject': 'Zielone Gliwice feedback',
-    'mail_body': 'Daj nam znać co uważasz o Zielone Gliwice\n'
+    'mail_body': 'Daj nam znać co uważasz o Zielone Gliwice\n',
+    'popup_title': 'Konkurs dla szkół',
+    'popup_content':
+        'Zielone Gliwice prowadzą konkurs dla szkół.\nWygrywa szkoła, której uczniowie dodadzą najwięcej drzew.',
+    'popup_skip': 'Pomiń',
+    'popup_choose_school': 'Wybierz szkołę'
   };
 }
