@@ -313,7 +313,7 @@ class MyTreesController extends SessionController with StateMixin<MyTrees> {
 
   Future<void> checkPopup() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.clear();
+    // prefs.clear();
     popupDialogOn.value = prefs.getBool('showPopup') ?? true;
   }
 
