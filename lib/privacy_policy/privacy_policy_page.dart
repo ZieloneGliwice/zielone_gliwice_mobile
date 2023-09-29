@@ -12,30 +12,38 @@ class PrivacyPolicyPage extends GetView<PrivacyPolicyPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GrayAppBar(),
+      appBar: GrayAppBar(
+        title: Text('privacy_policy'.tr),
+      ),
       backgroundColor: ApplicationColors.background,
-      body: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: Dimen.marginNormal),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: Dimen.marginBig),
         child: CustomScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           slivers: <SliverFillRemaining>[
             SliverFillRemaining(
               hasScrollBody: false,
               child: Column(
                 children: <Widget>[
-                  Text('test privacy'),
+                  const SizedBox(height: 30),
+                  _logo(),
+                  const SizedBox(height: 20),
+                  Text(
+                    'privacy_policy_content'.tr,
+                    style: ApplicationTextStyles.privacyPolicyContentTextStyle,
+                  ),
                 ],
               ),
             ),
           ],
         ),
       ),
-      //not working
-      //   bottomNavigationBar: BottomAppBar(
-      //       elevation: 0,
-      //       color: Colors.transparent,
-      //       child: Obx(() => _appVersion())),
     );
+  }
+
+  Widget _logo() {
+    const String assetName = 'assets/images/full_logo.png';
+    return const Image(image: AssetImage(assetName));
   }
 }
 

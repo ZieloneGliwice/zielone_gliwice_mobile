@@ -12,30 +12,38 @@ class AboutAppPage extends GetView<AboutAppPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GrayAppBar(),
+      appBar: GrayAppBar(
+        title: Text('about_app'.tr),
+      ),
       backgroundColor: ApplicationColors.background,
-      body: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: Dimen.marginNormal),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: Dimen.marginBig),
         child: CustomScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           slivers: <SliverFillRemaining>[
             SliverFillRemaining(
               hasScrollBody: false,
               child: Column(
                 children: <Widget>[
-                  Text('test about'),
+                  const SizedBox(height: 30),
+                  _logo(),
+                  const SizedBox(height: 30),
+                  Text(
+                    'about_app_content'.tr,
+                    style: ApplicationTextStyles.aboutappContentTextStyle,
+                  ),
                 ],
               ),
             ),
           ],
         ),
       ),
-      //not working
-      //   bottomNavigationBar: BottomAppBar(
-      //       elevation: 0,
-      //       color: Colors.transparent,
-      //       child: Obx(() => _appVersion())),
     );
+  }
+
+  Widget _logo() {
+    const String assetName = 'assets/images/full_logo.png';
+    return const Image(image: AssetImage(assetName));
   }
 }
 

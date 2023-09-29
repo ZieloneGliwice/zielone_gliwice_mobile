@@ -231,6 +231,24 @@ abstract class ApplicationTextStyles {
       fontWeight: FontWeight.w600,
       fontSize: 18,
       fontFamily: _poppinsFont);
+
+  static const TextStyle aboutappContentTextStyle = TextStyle(
+      color: ApplicationColors.black,
+      fontWeight: FontWeight.w400,
+      fontSize: 18,
+      fontFamily: _poppinsFont);
+
+  static const TextStyle privacyPolicyContentTextStyle = TextStyle(
+      color: ApplicationColors.black,
+      fontWeight: FontWeight.w400,
+      fontSize: 16,
+      fontFamily: _poppinsFont);
+
+  static const TextStyle rulesContentTextStyle = TextStyle(
+      color: ApplicationColors.black,
+      fontWeight: FontWeight.w400,
+      fontSize: 16,
+      fontFamily: _poppinsFont);
 }
 
 // Colors
