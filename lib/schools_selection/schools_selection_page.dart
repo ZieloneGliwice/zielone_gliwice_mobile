@@ -25,34 +25,32 @@ class SchoolsSelectionPage extends GetView<SchoolsSelectionController> {
       body: SafeArea(
         child: Stack(
           children: <Widget>[
-            Expanded(
-              child: ListView.separated(
-                padding: const EdgeInsets.only(top: 10, bottom: 50),
-                itemCount: controller.schools.length,
-                itemBuilder: (BuildContext context, int index) => InkWell(
-                  onTap: () => controller.selectedSchool.value = index,
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(minHeight: 50),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                      child: Align(
-                        child: Obx(
-                          () => Text(
-                            controller.schools[index],
-                            style: index == controller.selectedSchool.value
-                                ? ApplicationTextStyles.bodyBoldTextStyle
-                                : ApplicationTextStyles.titleTextStyle,
-                            textAlign: TextAlign.center,
-                          ),
+            ListView.separated(
+              padding: const EdgeInsets.only(top: 10, bottom: 50),
+              itemCount: controller.schools.length,
+              itemBuilder: (BuildContext context, int index) => InkWell(
+                onTap: () => controller.selectedSchool.value = index,
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: 50),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    child: Align(
+                      child: Obx(
+                        () => Text(
+                          controller.schools[index],
+                          style: index == controller.selectedSchool.value
+                              ? ApplicationTextStyles.bodyBoldTextStyle
+                              : ApplicationTextStyles.titleTextStyle,
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
                   ),
                 ),
-                separatorBuilder: (BuildContext context, int index) =>
-                    const Divider(
-                  thickness: 2,
-                ),
+              ),
+              separatorBuilder: (BuildContext context, int index) =>
+                  const Divider(
+                thickness: 2,
               ),
             ),
             Obx(() => _button())
