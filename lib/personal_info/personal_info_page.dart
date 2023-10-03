@@ -79,9 +79,9 @@ class PersonalInfoPage extends GetView<PersonalInfoPageController> {
                       InkWell(
                         onTap: controller.selectSchools,
                         child: SizedBox(
-                          height: 150,
+                          height: 120,
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(2.0),
                             child: Row(
                               children: <Widget>[
                                 const SizedBox(
@@ -89,7 +89,7 @@ class PersonalInfoPage extends GetView<PersonalInfoPageController> {
                                 ),
                                 Flexible(
                                     child: Container(
-                                  height: 120,
+                                  height: 80,
                                   decoration: BoxDecoration(
                                     color: ApplicationColors.inputBackground,
                                     borderRadius: BorderRadius.circular(7),
@@ -108,7 +108,7 @@ class PersonalInfoPage extends GetView<PersonalInfoPageController> {
                                   width: 20,
                                 ),
                               ],
-                            ), //
+                            ),
                           ),
                         ),
                       )
