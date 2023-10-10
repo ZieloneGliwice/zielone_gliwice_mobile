@@ -148,6 +148,7 @@ class SchoolsSelectionController extends SessionController
 
   Future<void> loadSchool() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+
     final String schoolName = prefs.getString('school') ?? '';
     if (schoolName != '') {
       selectedSchool.value = schools.indexOf(schoolName);
@@ -160,6 +161,12 @@ class SchoolsSelectionController extends SessionController
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('school', schools[selectedSchool.value]);
     Analytics.updateUserSchool(schools[selectedSchool.value]);
-    Get.back(result: schools[selectedSchool.value]);
+    if (schools[selectedSchool.value].isNotEmpty &&
+        schools[selectedSchool.value] != null &&
+        schools[selectedSchool.value] != '') {
+      Get.back(result: schools[selectedSchool.value]);
+    } else {
+      Get.back(result: '');
+    }
   }
 }
