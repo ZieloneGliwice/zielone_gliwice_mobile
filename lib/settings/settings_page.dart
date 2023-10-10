@@ -294,17 +294,12 @@ class SettingsPageController extends SessionController with StateMixin<bool> {
   Future<void> getData() async {
     change(null, status: RxStatus.loading());
 
-    await loadUser();
     // await getVersion();
 
     try {
       await loadUser();
 
-      if (userName.isNotEmpty && photoURL.isNotEmpty) {
-        change(true, status: RxStatus.success());
-      } else {
-        handleError(CommonError());
-      }
+      change(true, status: RxStatus.success());
     } on UnauthorizedException catch (_) {
       unauthorized();
     } on NoInternetConnectionException catch (_) {

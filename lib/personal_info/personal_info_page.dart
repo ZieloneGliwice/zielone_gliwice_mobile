@@ -155,6 +155,12 @@ class PersonalInfoPage extends GetView<PersonalInfoPageController> {
         width: 100,
         height: 100,
         decoration: BoxDecoration(
+          border: const Border(
+            top: BorderSide(color: ApplicationColors.black),
+            left: BorderSide(color: ApplicationColors.black),
+            right: BorderSide(color: ApplicationColors.black),
+            bottom: BorderSide(color: ApplicationColors.black),
+          ),
           shape: BoxShape.circle,
           image: DecorationImage(
             fit: BoxFit.fill,
@@ -210,12 +216,7 @@ class PersonalInfoPageController extends SessionController
     try {
       await loadUser();
       await loadSchool();
-
-      if (userName.isNotEmpty && photoURL.isNotEmpty) {
-        change(true, status: RxStatus.success());
-      } else {
-        handleError(CommonError());
-      }
+      change(true, status: RxStatus.success());
     } on UnauthorizedException catch (_) {
       unauthorized();
     } on NoInternetConnectionException catch (_) {
