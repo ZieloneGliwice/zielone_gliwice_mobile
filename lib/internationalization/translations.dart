@@ -46,15 +46,18 @@ class ApplicationTranslations extends Translations {
     'tree_description_title': 'Add tree description',
     'tree_description_explanation_1':
         'Enter a tree description below. It can be, for example, a description of its characteristics that distinguish it from other trees of the same species.',
-    'tree_description_explanation_2': 'The description is optional,',
+    'tree_description_explanation_2': 'The description is optional',
     'tree_description_explanation_3':
-        'but we will be glad if you share your observations. Thanks!',
+        ', but we will be glad if you share your observations. Thanks!',
     'tree_description_hint': 'Enter description...',
     'save': 'Save',
     'add_circumference_title': 'Add the perimeter of the tree',
     'add_circumference_description_1':
-        'Measure the circumference of the tree. The easiest way to measure is with',
-    'add_circumference_description_2': 'a standard tape measure.',
+        'Measure the circumference of the tree. The easiest way to measure is with a standard tape measure.',
+    'add_circumference_description_2':
+        'Providing the circumference is optional',
+    'add_circumference_description_3':
+        ', but we will be glad if you do. Thanks!',
     'add_measurement': 'Add measurement',
     'add_tree_condition': 'Add tree condition',
     'add_tree_condition_description':
@@ -195,6 +198,18 @@ a) Wszelkie spory wynikające z uczestnictwa w konkursie będą rozstrzygane prz
 b) Organizator zastrzega sobie prawo do wprowadzenia zmian w regulaminie w trakcie trwania konkursu.
 c) Zaakceptowanie i uczestnictwo w konkursie oznacza akceptację powyższego regulaminu oraz regulaminu dostępnego pod adresem https://t.ly/UZEa3.
 ''',
+    'complete_data': 'Complete data',
+    'invalid_email': 'Invalid email',
+    'account_not_found': 'Account not found',
+    'wrong_password': 'Incorrect password',
+    'log_in': 'Log in',
+    'create_account': 'Create account',
+    'password': 'Password',
+    'email_adress': 'Email adress',
+    'account_created': 'Account created',
+    'email_in_use': 'Email already in use',
+    'weak_password': 'Hasło za słabe',
+    'name': 'Name',
   };
 
   final Map<String, String> _plPL = <String, String>{
@@ -235,15 +250,17 @@ c) Zaakceptowanie i uczestnictwo w konkursie oznacza akceptację powyższego reg
     'tree_description_title': 'Dodaj opis drzewa',
     'tree_description_explanation_1':
         'Wpisz poniżej opis drzewa. Może to być np. opis jego cech charakterystycznych odróżniających go od innych drzew tego samego gatunku.',
-    'tree_description_explanation_2': 'Opis jest nieobowiązkowy,',
+    'tree_description_explanation_2': 'Opis jest nieobowiązkowy',
     'tree_description_explanation_3':
-        'ale będzie nam miło jak podzielisz się swoimi spostrzeżeniami. Dzięki!',
+        ', ale będzie nam miło jak podzielisz się swoimi spostrzeżeniami. Dzięki!',
     'tree_description_hint': 'Wpisz tutaj swój opis...',
     'save': 'Zapisz',
     'add_circumference_title': 'Dodaj obwód drzewa',
     'add_circumference_description_1':
-        'Wykonaj pomiar obwodu drzewa. Pomiar najłatwiej wykonasz.',
-    'add_circumference_description_2': 'standardową taśmą miarniczą.',
+        'Wykonaj pomiar obwodu drzewa. Pomiar najłatwiej wykonasz standardową taśmą miarniczą.',
+    'add_circumference_description_2': 'Podanie obwodu jest nieobowiązkowe',
+    'add_circumference_description_3':
+        ', ale będzie nam miło, jeśli to zrobisz. Dzięki!',
     'add_measurement': 'Dodaj pomiar',
     'add_tree_condition': 'Dodaj stan drzewa',
     'add_tree_condition_description':
@@ -388,5 +405,17 @@ a) Wszelkie spory wynikające z uczestnictwa w konkursie będą rozstrzygane prz
 b) Organizator zastrzega sobie prawo do wprowadzenia zmian w regulaminie w trakcie trwania konkursu.
 c) Zaakceptowanie i uczestnictwo w konkursie oznacza akceptację powyższego regulaminu oraz regulaminu dostępnego pod adresem https://t.ly/UZEa3.
 ''',
+    'complete_data': 'Uzupełnij dane',
+    'invalid_email': 'Niepoprawny email',
+    'account_not_found': 'Nie znaleziono konta',
+    'wrong_password': 'Niepoprawne hasło',
+    'log_in': 'Zaloguj się',
+    'create_account': 'Utwórz konto',
+    'password': 'Hasło',
+    'email_adress': 'Adres email',
+    'account_created': 'Utworzono konto',
+    'email_in_use': 'Email jest w użyciu',
+    'weak_password': 'Hasło jest za słabe',
+    'name': 'Imię i nazwisko',
   };
 }
