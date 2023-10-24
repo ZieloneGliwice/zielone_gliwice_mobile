@@ -64,7 +64,7 @@ class ChallengesPage extends GetView<ChallengesPageController> {
   Widget _textPoints({int? points}) {
     return RichText(
       text: TextSpan(
-        text: 'Masz '.tr,
+        text: 'challenges_1'.tr,
         style: ApplicationTextStyles.challengesRegularContentTextStyle,
         children: <TextSpan>[
           TextSpan(
@@ -72,7 +72,7 @@ class ChallengesPage extends GetView<ChallengesPageController> {
             style: ApplicationTextStyles.challengesGreenContentTextStyle,
           ),
           TextSpan(
-            text: ' punkty.'.tr,
+            text: 'challenges_2'.tr,
             style: ApplicationTextStyles.challengesGreenContentTextStyle,
           ),
         ],
@@ -83,7 +83,7 @@ class ChallengesPage extends GetView<ChallengesPageController> {
   Widget _textPosition({int? position}) {
     return RichText(
       text: TextSpan(
-        text: 'Znajdujesz się na '.tr,
+        text: 'challenges_3'.tr,
         style: ApplicationTextStyles.challengesRegularContentTextStyle,
         children: <TextSpan>[
           TextSpan(
@@ -91,7 +91,7 @@ class ChallengesPage extends GetView<ChallengesPageController> {
             style: ApplicationTextStyles.challengesBoldContentTextStyle,
           ),
           TextSpan(
-            text: ' miejscu w rankingu.'.tr,
+            text: 'challenges_4'.tr,
             style: ApplicationTextStyles.challengesBoldContentTextStyle,
           ),
         ],
@@ -129,7 +129,7 @@ class ChallengesPage extends GetView<ChallengesPageController> {
           color: ApplicationColors.green,
           child: Center(
             child: Text(
-              'Graj!'.tr,
+              'play'.tr,
               style: ApplicationTextStyles.challengesButtonContentTextStyle,
             ),
           ),
