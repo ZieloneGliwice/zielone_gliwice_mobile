@@ -15,7 +15,12 @@ import 'add_tree_condition/add_tree_condition_bind.dart';
 import 'add_tree_condition/add_tree_condition_page.dart';
 import 'camera/camera_page.dart';
 import 'camera/camera_page_bind.dart';
+import 'challenges/challenges_bind.dart';
 import 'challenges/challenges_page.dart';
+import 'email_create_account/email_create_account_page.dart';
+import 'email_create_account/email_create_account_page_bind.dart';
+import 'email_log_in/email_log_in_page.dart';
+import 'email_log_in/email_log_in_page_bind.dart';
 import 'internationalization/translations.dart';
 import 'log_in/log_in_page.dart';
 import 'log_in/log_in_page_bind.dart';
@@ -64,7 +69,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Zielone Gliwice',
       translations: ApplicationTranslations(),
-      locale: Get.deviceLocale,
+      // locale: Get.deviceLocale,
+      locale: const Locale('pl', 'PL'),
+
       fallbackLocale: const Locale('en', 'US'),
       theme: ThemeData(),
       getPages: <GetPage<StatelessWidget>>[
@@ -82,9 +89,9 @@ class MyApp extends StatelessWidget {
             page: () => const MyTreeDetailsPage(),
             binding: MyTreeDetailsPageBind()),
         GetPage<ChallengesPage>(
-          name: ChallengesPage.path,
-          page: () => const ChallengesPage(),
-        ),
+            name: ChallengesPage.path,
+            page: () => const ChallengesPage(),
+            binding: ChallengesPageBind()),
         GetPage<AddTreePage>(
             name: AddTreePage.path,
             page: () => const AddTreePage(),
@@ -141,6 +148,14 @@ class MyApp extends StatelessWidget {
             name: RulesPage.path,
             page: () => const RulesPage(),
             binding: RulesBind()),
+        GetPage<EmailLogInPage>(
+            name: EmailLogInPage.path,
+            page: () => const EmailLogInPage(),
+            binding: EmailLogInPageBind()),
+        GetPage<EmailCreateAccountPage>(
+            name: EmailCreateAccountPage.path,
+            page: () => const EmailCreateAccountPage(),
+            binding: EmailCreateAccountPageBind()),
       ],
       initialRoute: LogInPage.path,
       initialBinding: LogInPageBind(),
