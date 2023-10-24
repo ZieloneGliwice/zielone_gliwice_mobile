@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
@@ -9,6 +10,7 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../analytics/analytics.dart';
 import '../api.dart';
+import '../email_log_in/email_log_in_page.dart';
 import '../model/session.dart';
 import '../model/signed_user.dart';
 import '../model/user_data.dart';
@@ -18,7 +20,6 @@ import '../ui/primary_button.dart';
 import '../ui/styles.dart';
 import '../utils/session_storage.dart';
 import 'social_authentication_provider.dart';
-
 
 class LogInPage extends GetView<LogInPageController> {
   const LogInPage({super.key});
@@ -30,44 +31,61 @@ class LogInPage extends GetView<LogInPageController> {
     Analytics.visitedScreen(LogInPage.path);
     return Scaffold(
         body: Column(
-          children: <Widget>[
-            Expanded(child: _logo()),
-            Expanded(child: controller.obx((bool? isLoading) {
-              if (isLoading ?? false) {
-                return const ActivityIndicator();
-              } else {
-                return _buttons();
-              }
-            },
-              onLoading: const ActivityIndicator(),
-            )
-            ),
-          ],
-        ));
+      children: <Widget>[
+        Expanded(child: _logo()),
+        Expanded(
+            child: controller.obx(
+          (bool? isLoading) {
+            if (isLoading ?? false) {
+              return const ActivityIndicator();
+            } else {
+              return _buttons();
+            }
+          },
+          onLoading: const ActivityIndicator(),
+        )),
+      ],
+    ));
   }
 
   Widget _buttons() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text('log_in_using_account'.tr, style: ApplicationTextStyles.placeholderHeaderTextStyle, textAlign: TextAlign.center,),
-        const SizedBox(height: 30,),
+        Text(
+          'log_in_using_account'.tr,
+          style: ApplicationTextStyles.placeholderHeaderTextStyle,
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(
+          height: 30,
+        ),
         SignInButton(
           Buttons.Google,
-          onPressed: (){
+          onPressed: () {
             controller.googleLogIn();
           },
         ),
-        const SizedBox(height: 30,),
-        if (Platform.isIOS) ... {
+        const SizedBox(
+          height: 10,
+        ),
+        if (Platform.isIOS) ...{
           SignInButton(
             Buttons.AppleDark,
-            onPressed: (){
+            onPressed: () {
               controller.appleLogIn();
             },
           ),
-        }
-
+          const SizedBox(
+            height: 10,
+          ),
+        },
+        // SignInButton(
+        //   Buttons.Email,
+        //   onPressed: () {
+        //     Get.toNamed(EmailLogInPage.path);
+        //   },
+        // ),
       ],
     );
   }
@@ -76,11 +94,11 @@ class LogInPage extends GetView<LogInPageController> {
     const String assetName = 'assets/images/full_logo.png';
     return const Image(image: AssetImage(assetName));
   }
-
 }
 
 class LogInPageController extends GetxController with StateMixin<bool> {
-  LogInPageController(this.socialAuthenticationProvider, this.googleSignIn, this.sessionStorage);
+  LogInPageController(this.socialAuthenticationProvider, this.googleSignIn,
+      this.sessionStorage);
 
   final GoogleSignIn googleSignIn;
   final SocialAuthenticationProvider socialAuthenticationProvider;
@@ -116,14 +134,16 @@ class LogInPageController extends GetxController with StateMixin<bool> {
     try {
       change(null, status: RxStatus.loading());
       final GoogleSignInAccount? user = await googleSignIn.signIn();
-      final GoogleSignInAuthentication? authentication = await user?.authentication;
+      final GoogleSignInAuthentication? authentication =
+          await user?.authentication;
       final String? idToken = authentication?.idToken;
 
-      final Session session = await socialAuthenticationProvider.googleAuthenticate(idToken, user?.serverAuthCode);
-      await storeSession(session, user?.displayName, user?.photoUrl, user?.email);
+      final Session session = await socialAuthenticationProvider
+          .googleAuthenticate(idToken, user?.serverAuthCode);
+      await storeSession(
+          session, user?.displayName, user?.photoUrl, user?.email);
       Analytics.loginWithGoogle();
       Get.offAllNamed(MyTreesPage.path);
-
     } on SocketException catch (_) {
       noInternetConnection();
     } catch (error) {
@@ -136,22 +156,21 @@ class LogInPageController extends GetxController with StateMixin<bool> {
 
     try {
       final AuthorizationCredentialAppleID credential =
-      await SignInWithApple.getAppleIDCredential(
-          scopes: <AppleIDAuthorizationScopes>[
+          await SignInWithApple.getAppleIDCredential(
+              scopes: <AppleIDAuthorizationScopes>[
             AppleIDAuthorizationScopes.email,
             AppleIDAuthorizationScopes.fullName,
           ],
-          webAuthenticationOptions: WebAuthenticationOptions(
-              clientId: 'pl.zielonegliwice.zgid',
-
-              redirectUri: Uri.parse(
-                  'https://fa-greengliwice-prod.azurewebsites.net/.auth/login/apple/callback'))
-      );
+              webAuthenticationOptions: WebAuthenticationOptions(
+                  clientId: 'pl.zielonegliwice.zgid',
+                  redirectUri: Uri.parse(
+                      'https://fa-greengliwice-prod.azurewebsites.net/.auth/login/apple/callback')));
 
       final String? idToken = credential.identityToken;
       final String authCode = credential.authorizationCode;
 
-      final Session session = await socialAuthenticationProvider.appleAuthenticate(idToken, authCode);
+      final Session session = await socialAuthenticationProvider
+          .appleAuthenticate(idToken, authCode);
       await storeSession(session, credential.givenName, null, credential.email);
       Analytics.loginWithApple();
       Get.offAllNamed(MyTreesPage.path);
@@ -162,7 +181,8 @@ class LogInPageController extends GetxController with StateMixin<bool> {
     }
   }
 
-  Future<void> storeSession(Session session, String? userName, String? photoUrl, String? email) async {
+  Future<void> storeSession(Session session, String? userName, String? photoUrl,
+      String? email) async {
     final UserData userData = UserData(userName, photoUrl, email);
     final SignedUser signedUser = SignedUser(session, userData);
 
@@ -170,12 +190,30 @@ class LogInPageController extends GetxController with StateMixin<bool> {
   }
 
   void noInternetConnection() {
-    Get.defaultDialog(title: 'error'.tr, middleText: 'no_internet_connection'.tr, confirm: PrimaryButton(title: 'ok'.tr, isEnabled: true, onTap: () { Get.back(); },));
+    Get.defaultDialog(
+        title: 'error'.tr,
+        middleText: 'no_internet_connection'.tr,
+        confirm: PrimaryButton(
+          title: 'ok'.tr,
+          isEnabled: true,
+          onTap: () {
+            Get.back();
+          },
+        ));
     change(false, status: RxStatus.success());
   }
 
   void failedToLogIn() {
-    Get.defaultDialog(title: 'error'.tr, middleText: 'authorization_failed'.tr, confirm: PrimaryButton(title: 'ok'.tr, isEnabled: true, onTap: () { Get.back(); },));
+    Get.defaultDialog(
+        title: 'error'.tr,
+        middleText: 'authorization_failed'.tr,
+        confirm: PrimaryButton(
+          title: 'ok'.tr,
+          isEnabled: true,
+          onTap: () {
+            Get.back();
+          },
+        ));
     Analytics.loginFailed();
     change(false, status: RxStatus.success());
   }

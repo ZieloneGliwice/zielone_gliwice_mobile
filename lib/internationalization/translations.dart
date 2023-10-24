@@ -208,8 +208,9 @@ c) Zaakceptowanie i uczestnictwo w konkursie oznacza akceptację powyższego reg
     'email_adress': 'Email adress',
     'account_created': 'Account created',
     'email_in_use': 'Email already in use',
-    'weak_password': 'Hasło za słabe',
+    'weak_password': 'Password is too weak',
     'name': 'Name',
+    'start': 'Start',
   };
 
   final Map<String, String> _plPL = <String, String>{
@@ -417,5 +418,6 @@ c) Zaakceptowanie i uczestnictwo w konkursie oznacza akceptację powyższego reg
     'email_in_use': 'Email jest w użyciu',
     'weak_password': 'Hasło jest za słabe',
     'name': 'Imię i nazwisko',
+    'start': '   Start   ',
   };
 }
