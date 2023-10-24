@@ -69,8 +69,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Zielone Gliwice',
       translations: ApplicationTranslations(),
-      // locale: Get.deviceLocale,
-      locale: const Locale('pl', 'PL'),
+      locale: Get.deviceLocale,
+      // locale: const Locale('pl', 'PL'),
 
       fallbackLocale: const Locale('en', 'US'),
       theme: ThemeData(),
