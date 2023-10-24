@@ -249,6 +249,30 @@ abstract class ApplicationTextStyles {
       fontWeight: FontWeight.w400,
       fontSize: 16,
       fontFamily: _poppinsFont);
+
+  static const TextStyle challengesRegularContentTextStyle = TextStyle(
+      color: ApplicationColors.black,
+      fontWeight: FontWeight.w500,
+      fontSize: 17,
+      fontFamily: _poppinsFont);
+
+  static const TextStyle challengesGreenContentTextStyle = TextStyle(
+      color: ApplicationColors.green,
+      fontWeight: FontWeight.w500,
+      fontSize: 17,
+      fontFamily: _poppinsFont);
+
+  static const TextStyle challengesBoldContentTextStyle = TextStyle(
+      color: ApplicationColors.black,
+      fontWeight: FontWeight.w700,
+      fontSize: 17,
+      fontFamily: _poppinsFont);
+
+  static const TextStyle challengesButtonContentTextStyle = TextStyle(
+      color: ApplicationColors.white,
+      fontWeight: FontWeight.w600,
+      fontSize: 19,
+      fontFamily: _poppinsFont);
 }
 
 // Colors
