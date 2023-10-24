@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:package_info_plus/package_info_plus.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../about_app/about_app_page.dart';
@@ -35,12 +35,11 @@ class SettingsPage extends GetView<SettingsPageController> {
         onLoading: const ActivityIndicator(),
         onError: (String? error) => _errorView(error),
       ),
-
-      //not working
-      //   bottomNavigationBar: BottomAppBar(
-      //       elevation: 0,
-      //       color: Colors.transparent,
-      //       child: Obx(() => _appVersion())),
+      bottomNavigationBar: BottomAppBar(
+          height: 30,
+          elevation: 0,
+          color: Colors.transparent,
+          child: Obx(() => _appVersion())),
     );
   }
 
@@ -132,20 +131,19 @@ class SettingsPage extends GetView<SettingsPageController> {
     }
   }
 
-  //not working
-  // Widget _appVersion() {
-  //   if (controller.version.value != null &&
-  //       controller.version.value.isNotEmpty) {
-  //     return Text(
-  //       'version'.trParams(
-  //           <String, String>{'current_version': controller.version.value}),
-  //       textAlign: TextAlign.center,
-  //       style: ApplicationTextStyles.settingsVersionTextStyle,
-  //     );
-  //   } else {
-  //     return const Text('');
-  //   }
-  // }
+  Widget _appVersion() {
+    if (controller.version.value != null &&
+        controller.version.value.isNotEmpty) {
+      return Text(
+        'version'.trParams(
+            <String, String>{'current_version': controller.version.value}),
+        textAlign: TextAlign.center,
+        style: ApplicationTextStyles.settingsVersionTextStyle,
+      );
+    } else {
+      return const Text('');
+    }
+  }
 
   Widget _settingsColumn() {
     return Container(
@@ -281,7 +279,7 @@ class SettingsPage extends GetView<SettingsPageController> {
 class SettingsPageController extends SessionController with StateMixin<bool> {
   SettingsPageController(super.sessionStorage, super.photosService);
 
-  // RxString version = ''.obs;
+  RxString version = ''.obs;
   RxString photoURL = ''.obs;
   RxString userName = ''.obs;
 
@@ -294,9 +292,8 @@ class SettingsPageController extends SessionController with StateMixin<bool> {
   Future<void> getData() async {
     change(null, status: RxStatus.loading());
 
-    // await getVersion();
-
     try {
+      await getVersion();
       await loadUser();
 
       change(true, status: RxStatus.success());
@@ -360,9 +357,8 @@ class SettingsPageController extends SessionController with StateMixin<bool> {
     change(null, status: RxStatus.error(error.identifier));
   }
 
-  // to do, appversion on the bottom
-  // Future<void> getVersion() async {
-  //   final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-  //   version.value = packageInfo.version;
-  // }
+  Future<void> getVersion() async {
+    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    version.value = packageInfo.version;
+  }
 }
