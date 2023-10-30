@@ -273,6 +273,12 @@ abstract class ApplicationTextStyles {
       fontWeight: FontWeight.w600,
       fontSize: 19,
       fontFamily: _poppinsFont);
+
+  static const TextStyle challengesLeaderboardTextStyle = TextStyle(
+      color: ApplicationColors.black,
+      fontWeight: FontWeight.w500,
+      fontSize: 14,
+      fontFamily: _poppinsFont);
 }
 
 // Colors
