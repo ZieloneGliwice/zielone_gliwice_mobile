@@ -16,6 +16,7 @@ import '../network/my_trees_provider.dart';
 import '../schools_selection/schools_selection_page.dart';
 import '../services/photos_service.dart';
 import '../ui/activity_indicator.dart';
+import '../ui/bottom_bar.dart';
 import '../ui/date.dart';
 import '../ui/error_view.dart';
 import '../ui/gray_app_bar.dart';
@@ -36,51 +37,51 @@ class MyTreesPage extends GetView<MyTreesController> {
     return Obx(
       () => Scaffold(
         appBar: controller.popupDialogOn.value
-            ? popupWhiteAppBar()
+            ? emptyWhiteAppBar()
             : WhiteAppBar(
                 title: Text('my_trees_title'.tr),
                 photoURL: controller.photoURL,
               ),
+        bottomNavigationBar: controller.popupDialogOn.value
+            ? emptyWhiteBottomBar()
+            : BottomBar(activeId: 0),
         backgroundColor: ApplicationColors.background,
-        body: Padding(
-          padding: const EdgeInsets.only(top: 12.0),
-          child: Stack(
-            children: [
-              controller.obx(
-                (MyTrees? myTrees) {
-                  if (myTrees?.trees?.isNotEmpty ?? false) {
-                    return Stack(
-                      children: [
-                        _myTrees(myTrees!.trees!),
-                        Obx(() => _popupDialog())
-                      ],
-                    );
-                  } else {
-                    return Stack(
-                      children: [_noData(), Obx(() => _popupDialog())],
-                    );
-                  }
-                },
-                onLoading: const ActivityIndicator(),
-                onError: (String? error) => _errorView(error),
-                onEmpty: Stack(
-                  children: [_noData(), Obx(() => _popupDialog())],
-                ),
+        body: Stack(
+          children: [
+            controller.obx(
+              (MyTrees? myTrees) {
+                if (myTrees?.trees?.isNotEmpty ?? false) {
+                  return Stack(
+                    children: [
+                      _myTrees(myTrees!.trees!),
+                      Obx(() => _popupDialog())
+                    ],
+                  );
+                } else {
+                  return Stack(
+                    children: [_noData(), Obx(() => _popupDialog())],
+                  );
+                }
+              },
+              onLoading: const ActivityIndicator(),
+              onError: (String? error) => _errorView(error),
+              onEmpty: Stack(
+                children: [_noData(), Obx(() => _popupDialog())],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: controller.popupDialogOn.value
-            ? floatingActionButtonHidden()
-            : FloatingActionButton(
-                backgroundColor: ApplicationColors.green,
-                foregroundColor: ApplicationColors.white,
-                onPressed: controller.popupDialogOn.value
-                    ? () {}
-                    : controller.addNewTree,
-                child: const Icon(Icons.add),
-              ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        // floatingActionButton: controller.popupDialogOn.value
+        //     ? floatingActionButtonHidden()
+        //     : FloatingActionButton(
+        //         backgroundColor: ApplicationColors.green,
+        //         foregroundColor: ApplicationColors.white,
+        //         onPressed: controller.popupDialogOn.value
+        //             ? () {}
+        //             : controller.addNewTree,
+        //         child: const Icon(Icons.add),
+        //       ),
       ),
     );
   }
@@ -112,6 +113,7 @@ class MyTreesPage extends GetView<MyTreesController> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 14),
       child: ListView.separated(
+          padding: const EdgeInsets.only(top: 12, bottom: 30),
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) => InkWell(
               onTap: controller.popupDialogOn.value
@@ -217,7 +219,7 @@ class MyTreesPage extends GetView<MyTreesController> {
     }
   }
 
-  AppBar popupWhiteAppBar() {
+  AppBar emptyWhiteAppBar() {
     return AppBar(
       backgroundColor: ApplicationColors.background,
       elevation: 0,
@@ -227,6 +229,13 @@ class MyTreesPage extends GetView<MyTreesController> {
           child: Container(color: Colors.transparent),
         ),
       ),
+    );
+  }
+
+  BottomAppBar emptyWhiteBottomBar() {
+    return const BottomAppBar(
+      color: ApplicationColors.background,
+      elevation: 0,
     );
   }
 
