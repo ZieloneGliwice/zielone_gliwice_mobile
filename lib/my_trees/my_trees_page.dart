@@ -44,7 +44,10 @@ class MyTreesPage extends GetView<MyTreesController> {
               ),
         bottomNavigationBar: controller.popupDialogOn.value
             ? emptyWhiteBottomBar()
-            : BottomBar(activeId: 0),
+            : BottomBar(
+                activeId: 0,
+                photosService: controller.photosService,
+              ),
         backgroundColor: ApplicationColors.background,
         body: Stack(
           children: [
@@ -257,7 +260,7 @@ class MyTreesController extends SessionController with StateMixin<MyTrees> {
 
   RxString photoURL = ''.obs;
   RxString userName = ''.obs;
-  RxBool popupDialogOn = true.obs;
+  RxBool popupDialogOn = false.obs;
 
   MyTrees? myTrees;
 
@@ -269,7 +272,7 @@ class MyTreesController extends SessionController with StateMixin<MyTrees> {
 
   Future<void> getData() async {
     await loadUser();
-    await checkPopup();
+    // await checkPopup();
     await getTrees();
   }
 

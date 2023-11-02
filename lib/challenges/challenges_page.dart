@@ -23,7 +23,10 @@ class ChallengesPage extends GetView<ChallengesPageController> {
           title: Text('challenges_title'.tr),
           photoURL: controller.photoURL,
         ),
-        bottomNavigationBar: BottomBar(activeId: 2),
+        bottomNavigationBar: BottomBar(
+          activeId: 2,
+          photosService: controller.photosService,
+        ),
         backgroundColor: ApplicationColors.background,
         body: _body());
   }
