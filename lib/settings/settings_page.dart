@@ -36,10 +36,17 @@ class SettingsPage extends GetView<SettingsPageController> {
         onError: (String? error) => _errorView(error),
       ),
       bottomNavigationBar: BottomAppBar(
-          height: 30,
-          elevation: 0,
-          color: Colors.transparent,
-          child: Obx(() => _appVersion())),
+        height: 30,
+        elevation: 0,
+        color: Colors.transparent,
+        child: controller.obx(
+          (_) => _appVersion(),
+          onLoading: const BottomAppBar(
+            color: ApplicationColors.background,
+            elevation: 0,
+          ),
+        ),
+      ),
     );
   }
 
