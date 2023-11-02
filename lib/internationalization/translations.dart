@@ -53,7 +53,7 @@ class ApplicationTranslations extends Translations {
     'save': 'Save',
     'add_circumference_title': 'Add the perimeter of the tree',
     'add_circumference_description_1':
-        'Measure the circumference of the tree. The easiest way to measure is with a standard tape measure.',
+        'Measure the circumference of the tree. The easiest way to measure is with a standard tape measure. The measurement should be made at a height of 130 cm.',
     'add_circumference_description_2':
         'Providing the circumference is optional',
     'add_circumference_description_3':
@@ -263,7 +263,7 @@ c) Zaakceptowanie i uczestnictwo w konkursie oznacza akceptację powyższego reg
     'save': 'Zapisz',
     'add_circumference_title': 'Dodaj obwód drzewa',
     'add_circumference_description_1':
-        'Wykonaj pomiar obwodu drzewa. Pomiar najłatwiej wykonasz standardową taśmą miarniczą.',
+        'Wykonaj pomiar obwodu drzewa. Pomiar najłatwiej wykonasz standardową taśmą miarniczą.\nPomiaru dokonujemy na wysokości 130cm.',
     'add_circumference_description_2': 'Podanie obwodu jest nieobowiązkowe',
     'add_circumference_description_3':
         ', ale będzie nam miło, jeśli to zrobisz. Dzięki!',
