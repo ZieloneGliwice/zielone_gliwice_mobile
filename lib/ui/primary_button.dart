@@ -21,7 +21,10 @@ class PrimaryButton extends StatelessWidget {
               onPressed: isEnabled ? onTap : null,
               style: GreenOvalButtonStyle(isEnabled: isEnabled),
               clipBehavior: Clip.hardEdge,
-              child: Text(title, style: ApplicationTextStyles.buttonTextStyle,))),
+              child: Text(
+                title,
+                style: ApplicationTextStyles.buttonTextStyle,
+              ))),
     );
   }
 }

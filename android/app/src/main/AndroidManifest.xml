@@ -48,4 +48,10 @@
        <meta-data android:name="com.google.android.geo.API_KEY"
            android:value="${apiKey}"/>
     </application>
+    <queries>
+    <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="mailto" />
+    </intent>
+    </queries>
 </manifest>

@@ -1,6 +1,8 @@
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../add_tree/add_tree_page.dart';
 import '../analytics/analytics.dart';
@@ -11,13 +13,16 @@ import '../model/signed_user.dart';
 import '../my_tree_details/my_tree_details_page.dart';
 import '../network/api_dio.dart';
 import '../network/my_trees_provider.dart';
+import '../schools_selection/schools_selection_page.dart';
 import '../services/photos_service.dart';
 import '../ui/activity_indicator.dart';
+import '../ui/bottom_bar.dart';
 import '../ui/date.dart';
 import '../ui/error_view.dart';
 import '../ui/gray_app_bar.dart';
 import '../ui/no_data_view.dart';
 import '../ui/styles.dart';
+import '../ui/white_app_bar.dart';
 import '../utils/session_controller.dart';
 import '../utils/session_storage.dart';
 
@@ -29,28 +34,57 @@ class MyTreesPage extends GetView<MyTreesController> {
   @override
   Widget build(BuildContext context) {
     Analytics.visitedScreen(MyTreesPage.path);
-    return Scaffold(
-      appBar: GrayAppBar(
-        title: Text('my_trees_title'.tr),
-        photoURL: controller.photoURL.value,
-      ),
-      backgroundColor: ApplicationColors.background,
-      body: controller.obx((MyTrees? myTrees) {
-        if (myTrees?.trees?.isNotEmpty ?? false) {
-          return _myTrees(myTrees!.trees!);
-        } else {
-          return _noData();
-        }
-      },
-          onLoading: const ActivityIndicator(),
-          onError: (String? error) => _errorView(error),
-          onEmpty: _noData()),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: ApplicationColors.green,
-        foregroundColor: ApplicationColors.white,
-        onPressed: controller.addNewTree,
-        child: const Icon(Icons.add),
+    return Obx(
+      () => Scaffold(
+        appBar: controller.popupDialogOn.value
+            ? emptyWhiteAppBar()
+            : WhiteAppBar(
+                title: Text('my_trees_title'.tr),
+                photoURL: controller.photoURL,
+              ),
+        bottomNavigationBar: controller.popupDialogOn.value
+            ? emptyWhiteBottomBar()
+            : BottomBar(
+                activeId: 0,
+                photosService: controller.photosService,
+              ),
+        backgroundColor: ApplicationColors.background,
+        body: Stack(
+          children: [
+            controller.obx(
+              (MyTrees? myTrees) {
+                if (myTrees?.trees?.isNotEmpty ?? false) {
+                  return Stack(
+                    children: [
+                      _myTrees(myTrees!.trees!),
+                      Obx(() => _popupDialog())
+                    ],
+                  );
+                } else {
+                  return Stack(
+                    children: [_noData(), Obx(() => _popupDialog())],
+                  );
+                }
+              },
+              onLoading: const ActivityIndicator(),
+              onError: (String? error) => _errorView(error),
+              onEmpty: Stack(
+                children: [_noData(), Obx(() => _popupDialog())],
+              ),
+            ),
+          ],
+        ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        // floatingActionButton: controller.popupDialogOn.value
+        //     ? floatingActionButtonHidden()
+        //     : FloatingActionButton(
+        //         backgroundColor: ApplicationColors.green,
+        //         foregroundColor: ApplicationColors.white,
+        //         onPressed: controller.popupDialogOn.value
+        //             ? () {}
+        //             : controller.addNewTree,
+        //         child: const Icon(Icons.add),
+        //       ),
       ),
     );
   }
@@ -82,12 +116,16 @@ class MyTreesPage extends GetView<MyTreesController> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 14),
       child: ListView.separated(
+          padding: const EdgeInsets.only(top: 12, bottom: 30),
           shrinkWrap: true,
-          itemBuilder: (BuildContext context, int index) =>
-              InkWell(onTap: () {
-                final MyTree myTree = trees[index];
-                controller.viewDetails(myTree);
-              }, child: _myTree(trees[index])),
+          itemBuilder: (BuildContext context, int index) => InkWell(
+              onTap: controller.popupDialogOn.value
+                  ? () {}
+                  : () {
+                      final MyTree myTree = trees[index];
+                      controller.viewDetails(myTree);
+                    },
+              child: _myTree(trees[index])),
           separatorBuilder: (BuildContext context, int index) => const SizedBox(
                 height: 5,
               ),
@@ -129,23 +167,100 @@ class MyTreesPage extends GetView<MyTreesController> {
                   const SizedBox(
                     height: 8,
                   ),
-                  Date(dateString:  tree.formattedTimeStamp())
+                  Date(dateString: tree.formattedTimeStamp())
                 ],
               ),
               const Spacer(),
-              const Icon(Icons.chevron_right, color: ApplicationColors.gray)
+              const Icon(Icons.chevron_right, color: ApplicationColors.gray),
             ],
           )),
+    );
+  }
+
+  Widget _popupDialog() {
+    if (controller.popupDialogOn.value) {
+      return BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: AlertDialog(
+          shape: const RoundedRectangleBorder(
+            side: BorderSide(color: ApplicationColors.black, width: 2),
+            borderRadius: BorderRadius.all(Radius.circular(25)),
+          ),
+          backgroundColor: ApplicationColors.lightGray,
+          actionsAlignment: MainAxisAlignment.spaceBetween,
+          title: Text(
+            'popup_title'.tr,
+            textAlign: TextAlign.center,
+            style: ApplicationTextStyles.popupDialogTitleTextStyle,
+          ),
+          content: Text(
+            'popup_content'.tr,
+            textAlign: TextAlign.center,
+            style: ApplicationTextStyles.popupDialogContentTextStyle,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => controller.popupSkip(),
+              child: Text(
+                'popup_skip'.tr,
+                textAlign: TextAlign.center,
+                style: ApplicationTextStyles.popupDialogActionTextStyle,
+              ),
+            ),
+            TextButton(
+              onPressed: () => controller.popupChooseSchool(),
+              child: Text(
+                'popup_choose_school'.tr,
+                style: ApplicationTextStyles.popupDialogActionTextStyle,
+              ),
+            )
+          ],
+        ),
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
+  }
+
+  AppBar emptyWhiteAppBar() {
+    return AppBar(
+      backgroundColor: ApplicationColors.background,
+      elevation: 0,
+      flexibleSpace: ClipRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaY: 10, sigmaX: 10),
+          child: Container(color: Colors.transparent),
+        ),
+      ),
+    );
+  }
+
+  BottomAppBar emptyWhiteBottomBar() {
+    return const BottomAppBar(
+      color: ApplicationColors.background,
+      elevation: 0,
+    );
+  }
+
+  FloatingActionButton floatingActionButtonHidden() {
+    return FloatingActionButton(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      foregroundColor: Colors.transparent,
+      onPressed: () {},
     );
   }
 }
 
 class MyTreesController extends SessionController with StateMixin<MyTrees> {
-  MyTreesController(this._myTreesProvider, SessionStorage sessionStorage, PhotosService photosService) : super(sessionStorage, photosService);
+  MyTreesController(this._myTreesProvider, SessionStorage sessionStorage,
+      PhotosService photosService)
+      : super(sessionStorage, photosService);
   final MyTreesProvider _myTreesProvider;
 
   RxString photoURL = ''.obs;
   RxString userName = ''.obs;
+  RxBool popupDialogOn = false.obs;
 
   MyTrees? myTrees;
 
@@ -157,6 +272,7 @@ class MyTreesController extends SessionController with StateMixin<MyTrees> {
 
   Future<void> getData() async {
     await loadUser();
+    // await checkPopup();
     await getTrees();
   }
 
@@ -205,5 +321,27 @@ class MyTreesController extends SessionController with StateMixin<MyTrees> {
   void viewDetails(MyTree myTree) {
     Analytics.buttonPressed('Tree details');
     Get.toNamed(MyTreeDetailsPage.path, arguments: myTree);
+  }
+
+  Future<void> checkPopup() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    // prefs.clear();
+    popupDialogOn.value = prefs.getBool('showPopup') ?? true;
+  }
+
+  Future<void> popupChooseSchool() async {
+    popupDialogOn.value = false;
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('showPopup', false);
+
+    Get.toNamed(SchoolsSelectionPage.path);
+  }
+
+  Future<void> popupSkip() async {
+    popupDialogOn.value = false;
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('showPopup', false);
   }
 }

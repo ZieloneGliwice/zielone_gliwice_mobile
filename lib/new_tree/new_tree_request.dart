@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -26,15 +25,19 @@ class NewTreeRequest {
       'X-ZUMO-AUTH': token,
     };
 
-    final Options options = Options(
-        contentType: 'application/json',
-        headers: headers
-    );
+    final Options options =
+        Options(contentType: 'application/json', headers: headers);
 
-    await _apiDio.dio.post(API.trees, data: body, options: options, onSendProgress: progress);
+    await _apiDio.dio.post(API.trees,
+        data: body, options: options, onSendProgress: progress);
 
-    final String properties = body.fields.map((MapEntry<String, String> field) => field.key).toList().join(', ');
-    Analytics.logEvent('Tree created', parameters: <String, String>{'properties': properties});
+    final String properties = body.fields
+        .map((MapEntry<String, String> field) => field.key)
+        .toList()
+        .join(', ');
+    Analytics.logEvent('Tree created',
+        parameters: <String, String>{'properties': properties});
+    Analytics.treeAdded();
 
     return newTree;
   }

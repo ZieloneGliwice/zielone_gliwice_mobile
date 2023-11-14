@@ -1,6 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 
-
 abstract class Analytics {
   static void visitedScreen(String name) {
     FirebaseAnalytics.instance.logScreenView(screenName: name);
@@ -32,5 +31,14 @@ abstract class Analytics {
 
   static void logEvent(String name, {Map<String, Object>? parameters}) {
     FirebaseAnalytics.instance.logEvent(name: name, parameters: parameters);
+  }
+
+  static void updateUserSchool(String? school) {
+    FirebaseAnalytics.instance
+        .setUserProperty(name: 'user_school', value: school);
+  }
+
+  static void treeAdded() {
+    FirebaseAnalytics.instance.logEvent(name: 'tree_added');
   }
 }

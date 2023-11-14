@@ -27,18 +27,22 @@ class AddTreeCircumferencePage extends GetView<AddTreeCircumferenceController> {
             SliverFillRemaining(
               hasScrollBody: false,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 15),
                 child: Column(
                   children: <Widget>[
                     Text.rich(TextSpan(
                         style: ApplicationTextStyles.descriptionTextStyle,
                         children: <TextSpan>[
                           TextSpan(
-                              text: '${'add_circumference_description_1'.tr} '),
+                              text:
+                                  '${'add_circumference_description_1'.tr}\n\n'),
                           TextSpan(
                               text: 'add_circumference_description_2'.tr,
-                              style:
-                              ApplicationTextStyles.descriptionBoldTextStyle),
+                              style: ApplicationTextStyles
+                                  .descriptionBoldTextStyle),
+                          TextSpan(
+                              text: '${'add_circumference_description_3'.tr} '),
                         ])),
                     TextField(
                       controller: controller.inputController,
@@ -56,14 +60,20 @@ class AddTreeCircumferencePage extends GetView<AddTreeCircumferenceController> {
                     const SizedBox(
                       height: Dimen.marginSmall,
                     ),
-                    const Text('[mm]', style: ApplicationTextStyles.valueInputUnitStyle,),
+                    const Text(
+                      '[cm]',
+                      style: ApplicationTextStyles.valueInputUnitStyle,
+                    ),
                     const Spacer(),
                     const SizedBox(
                       height: Dimen.marginSmall,
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 22),
-                      child: PrimaryButton(title: 'save'.tr, isEnabled: true, onTap: controller.save))
+                        padding: const EdgeInsets.symmetric(horizontal: 22),
+                        child: PrimaryButton(
+                            title: 'save'.tr,
+                            isEnabled: true,
+                            onTap: controller.save))
                   ],
                 ),
               ),
