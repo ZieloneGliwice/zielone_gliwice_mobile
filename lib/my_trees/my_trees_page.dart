@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../add_tree/add_tree_page.dart';
@@ -18,6 +19,7 @@ import '../services/photos_service.dart';
 import '../ui/activity_indicator.dart';
 import '../ui/bottom_bar.dart';
 import '../ui/date.dart';
+import '../ui/dimen.dart';
 import '../ui/error_view.dart';
 import '../ui/gray_app_bar.dart';
 import '../ui/no_data_view.dart';
@@ -42,12 +44,13 @@ class MyTreesPage extends GetView<MyTreesController> {
                 title: Text('my_trees_title'.tr),
                 photoURL: controller.photoURL,
               ),
-        bottomNavigationBar: controller.popupDialogOn.value
-            ? emptyWhiteBottomBar()
-            : BottomBar(
-                activeId: 0,
-                photosService: controller.photosService,
-              ),
+        // // Potrzebne do popup
+        // bottomNavigationBar: controller.popupDialogOn.value
+        //     ? emptyWhiteBottomBar()
+        //     : BottomBar(
+        //         activeId: 0,
+        //         photosService: controller.photosService,
+        //       ),
         backgroundColor: ApplicationColors.background,
         body: Stack(
           children: [
@@ -74,17 +77,17 @@ class MyTreesPage extends GetView<MyTreesController> {
             ),
           ],
         ),
-        // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        // floatingActionButton: controller.popupDialogOn.value
-        //     ? floatingActionButtonHidden()
-        //     : FloatingActionButton(
-        //         backgroundColor: ApplicationColors.green,
-        //         foregroundColor: ApplicationColors.white,
-        //         onPressed: controller.popupDialogOn.value
-        //             ? () {}
-        //             : controller.addNewTree,
-        //         child: const Icon(Icons.add),
-        //       ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButton: controller.popupDialogOn.value
+            ? floatingActionButtonHidden()
+            : FloatingActionButton(
+                backgroundColor: ApplicationColors.green,
+                foregroundColor: ApplicationColors.white,
+                onPressed: controller.popupDialogOn.value
+                    ? () {}
+                    : controller.addNewTree,
+                child: const Icon(Icons.add),
+              ),
       ),
     );
   }
@@ -114,23 +117,53 @@ class MyTreesPage extends GetView<MyTreesController> {
   Widget _myTrees(List<MyTree> trees) {
     Analytics.visitedScreen(MyTreesPage.path);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 14),
-      child: ListView.separated(
-          padding: const EdgeInsets.only(top: 12, bottom: 30),
-          shrinkWrap: true,
-          itemBuilder: (BuildContext context, int index) => InkWell(
-              onTap: controller.popupDialogOn.value
-                  ? () {}
-                  : () {
-                      final MyTree myTree = trees[index];
-                      controller.viewDetails(myTree);
-                    },
-              child: _myTree(trees[index])),
-          separatorBuilder: (BuildContext context, int index) => const SizedBox(
-                height: 5,
+        padding: const EdgeInsets.symmetric(horizontal: 14),
+        child: Column(
+          children: <Widget>[
+            SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: AspectRatio(
+                aspectRatio: 1.65,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: Dimen.marginSmall),
+                  child: ClipRRect(
+                    clipBehavior: Clip.hardEdge,
+                    borderRadius: const BorderRadius.all(Radius.circular(14)),
+                    child: GoogleMap(
+                      myLocationButtonEnabled: false,
+                      mapToolbarEnabled: false,
+                      zoomControlsEnabled: false,
+                      initialCameraPosition: CameraPosition(
+                          target: LatLng(double.parse(trees[0].lat!),
+                              double.parse(trees[0].lon!)),
+                          zoom: 15),
+                      markers: controller.markers,
+                    ),
+                  ),
+                ),
               ),
-          itemCount: trees.length),
-    );
+            ),
+            Expanded(
+              child: ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.only(top: 12, bottom: 30),
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) => InkWell(
+                      onTap: controller.popupDialogOn.value
+                          ? () {}
+                          : () {
+                              final MyTree myTree = trees[index];
+                              controller.viewDetails(myTree);
+                            },
+                      child: _myTree(trees[index])),
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const SizedBox(
+                        height: 5,
+                      ),
+                  itemCount: trees.length),
+            )
+          ],
+        ));
   }
 
   Widget _myTree(MyTree tree) {
@@ -262,6 +295,9 @@ class MyTreesController extends SessionController with StateMixin<MyTrees> {
   RxString userName = ''.obs;
   RxBool popupDialogOn = false.obs;
 
+  Set<Marker> markers = <Marker>{};
+  late LatLng startLocation;
+
   MyTrees? myTrees;
 
   @override
@@ -281,8 +317,8 @@ class MyTreesController extends SessionController with StateMixin<MyTrees> {
 
     try {
       myTrees = await _myTreesProvider.getTrees();
-
       if (myTrees?.trees?.isNotEmpty ?? false) {
+        createLocationMarkers(myTrees!.trees);
         change(myTrees, status: RxStatus.success());
       } else {
         change(null, status: RxStatus.empty());
@@ -343,5 +379,19 @@ class MyTreesController extends SessionController with StateMixin<MyTrees> {
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('showPopup', false);
+  }
+
+  Future<void> createLocationMarkers(List<MyTree>? trees) async {
+    for (int i = 0; i < trees!.length; i++) {
+      final Marker marker = Marker(
+          markerId: MarkerId(i.toString()),
+          position:
+              LatLng(double.parse(trees[i].lat!), double.parse(trees[i].lon!)),
+          icon: await BitmapDescriptor.fromAssetImage(
+              const ImageConfiguration(size: Size(15, 15)),
+              'assets/images/map_marker.png'),
+          onTap: () => viewDetails(trees[i]));
+      markers.add(marker);
+    }
   }
 }

@@ -53,103 +53,109 @@ class MyTreeDetailsPage extends GetView<MyTreeDetailsController> {
 
   Widget _detailsContent(MyTree myTree, TreeDetails details) {
     Analytics.visitedScreen(MyTreeDetailsPage.path);
-    return CustomScrollView(physics: const BouncingScrollPhysics(), slivers: <
-        SliverFillRemaining>[
-      SliverFillRemaining(
-        hasScrollBody: false,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(Dimen.marginNormal),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    myTree.species?.capitalize ?? '',
-                    style: ApplicationTextStyles.bodyTextStyle,
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Date(dateString: myTree.formattedTimeStamp())
-                ],
-              ),
-            ),
-            _imagesCarousel(details),
-            Padding(
-              padding: const EdgeInsets.all(Dimen.marginNormal),
-              child: Row(
-                children: <Widget>[
-                  const SizedBox(
-                    width: 22,
-                    child: Icon(
-                      Icons.pin_drop_outlined,
-                      color: ApplicationColors.black,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: Dimen.marginNormal,
-                  ),
-                  Expanded(
-                    child: Text(
-                      details.address ?? '-',
-                      style: ApplicationTextStyles.bodyTextStyle,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            if (details.location != null) ...<Widget>{
-              AspectRatio(
-                aspectRatio: 1.85,
-                child: Padding(
+    return CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: <SliverFillRemaining>[
+          SliverFillRemaining(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
                   padding: const EdgeInsets.all(Dimen.marginNormal),
-                  child: Container(
-                    clipBehavior: Clip.hardEdge,
-                    decoration: const BoxDecoration(
-                      color: ApplicationColors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                    child: GoogleMap(
-                      myLocationButtonEnabled: false,
-                      initialCameraPosition:
-                          CameraPosition(target: details.location!, zoom: 15),
-                      markers: controller.markers,
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        myTree.species?.capitalize ?? '',
+                        style: ApplicationTextStyles.bodyTextStyle,
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Date(dateString: myTree.formattedTimeStamp())
+                    ],
                   ),
                 ),
-              ),
-            },
-            Container(
-              decoration: const BoxDecoration(color: ApplicationColors.white),
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(Dimen.marginNormal),
-                    child: Text(
-                      details.state?.capitalize ?? '',
-                      style: ApplicationTextStyles.bodyTextStyle,
+                _imagesCarousel(details),
+                Padding(
+                  padding: const EdgeInsets.all(Dimen.marginNormal),
+                  child: Row(
+                    children: <Widget>[
+                      const SizedBox(
+                        width: 22,
+                        child: Icon(
+                          Icons.pin_drop_outlined,
+                          color: ApplicationColors.black,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: Dimen.marginNormal,
+                      ),
+                      Expanded(
+                        child: Text(
+                          details.address ?? '-',
+                          style: ApplicationTextStyles.bodyTextStyle,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                if (details.location != null) ...<Widget>{
+                  AspectRatio(
+                    aspectRatio: 1.85,
+                    child: Padding(
+                      padding: const EdgeInsets.all(Dimen.marginNormal),
+                      child: Container(
+                        clipBehavior: Clip.hardEdge,
+                        decoration: const BoxDecoration(
+                          color: ApplicationColors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                        ),
+                        child: GoogleMap(
+                          myLocationButtonEnabled: false,
+                          mapToolbarEnabled: false,
+                          zoomControlsEnabled: false,
+                          initialCameraPosition: CameraPosition(
+                              target: details.location!, zoom: 15),
+                          markers: controller.markers,
+                        ),
+                      ),
                     ),
                   ),
-                  const Divider(height: 1,),
-                  Padding(
-                    padding: const EdgeInsets.all(Dimen.marginNormal),
-                    child: Text(
-                      details.stateDescription ?? '',
-                      style: ApplicationTextStyles.placeholderHeaderTextStyle,
-                    ),
+                },
+                Container(
+                  decoration:
+                      const BoxDecoration(color: ApplicationColors.white),
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(Dimen.marginNormal),
+                        child: Text(
+                          details.state?.capitalize ?? '',
+                          style: ApplicationTextStyles.bodyTextStyle,
+                        ),
+                      ),
+                      const Divider(
+                        height: 1,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(Dimen.marginNormal),
+                        child: Text(
+                          details.stateDescription ?? '',
+                          style:
+                              ApplicationTextStyles.placeholderHeaderTextStyle,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            )
-          ],
-        ),
-      )
-    ]);
+                )
+              ],
+            ),
+          )
+        ]);
   }
 
   Widget _imagesCarousel(TreeDetails details) {
