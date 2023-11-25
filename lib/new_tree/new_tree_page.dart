@@ -56,7 +56,7 @@ class NewTreePage extends GetView<NewTreeController> {
                       _addTreeConditionWidget(),
                       _addTreeLocationWidget(),
                       const SizedBox(
-                        height: Dimen.enormous,
+                        height: Dimen.marginBig,
                       ),
                       const Spacer(),
                       _button(),
@@ -159,7 +159,8 @@ class NewTreePage extends GetView<NewTreeController> {
   Widget _addTreeConditionWidget() {
     return Obx(() {
       final String title = 'add_tree_condition'.tr;
-      final bool isEnabled = controller.condition.value?.name?.isNotEmpty ?? false;
+      final bool isEnabled =
+          controller.condition.value?.name?.isNotEmpty ?? false;
       return _detailWidget(title, isEnabled, () {
         controller.addCondition();
       });
@@ -215,7 +216,8 @@ class NewTreePage extends GetView<NewTreeController> {
   Widget _button() {
     return Obx(() {
       final bool isEnabled = controller.hasRequiredData();
-      return PrimaryButton(title: 'next'.tr, isEnabled: isEnabled, onTap: proceed);
+      return PrimaryButton(
+          title: 'next'.tr, isEnabled: isEnabled, onTap: proceed);
     });
   }
 
@@ -233,26 +235,42 @@ class NewTreePage extends GetView<NewTreeController> {
   }
 
   Widget _loading() {
-    return Obx(() => Center(child: Padding(
-      padding: const EdgeInsets.all(24.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          LinearProgressIndicator(value: controller.progress.value,
-          color: ApplicationColors.green, backgroundColor: ApplicationColors.disabledGreen,),
-          Text('saving_tree'.tr, style: ApplicationTextStyles.descriptionTextStyle,)
-        ],
-      ),
-    ),));
+    return Obx(() => Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                LinearProgressIndicator(
+                  value: controller.progress.value,
+                  color: ApplicationColors.green,
+                  backgroundColor: ApplicationColors.disabledGreen,
+                ),
+                Text(
+                  'saving_tree'.tr,
+                  style: ApplicationTextStyles.descriptionTextStyle,
+                )
+              ],
+            ),
+          ),
+        ));
   }
 
   void proceed() {
+    if (controller.circumference.value.isEmpty) {
+      controller.circumference.value = '1';
+    }
+    if (controller.description.value.isEmpty) {
+      controller.description.value = ' ';
+    }
     controller.createTree();
   }
 }
 
 class NewTreeController extends SessionController with StateMixin<bool> {
-  NewTreeController(this.addTreePageController, this.newTreeRequest, SessionStorage sessionStorage, PhotosService photosService) : super(sessionStorage, photosService);
+  NewTreeController(this.addTreePageController, this.newTreeRequest,
+      SessionStorage sessionStorage, PhotosService photosService)
+      : super(sessionStorage, photosService);
 
   AddTreePageController addTreePageController;
   NewTreeRequest newTreeRequest;
@@ -269,6 +287,7 @@ class NewTreeController extends SessionController with StateMixin<bool> {
   DictionaryObject? badCondition;
   String? badStateDescription;
   Rxn<LatLng> locationData = Rxn<LatLng>();
+  RxBool isConditionProvided = false.obs;
 
   @override
   void onInit() {
@@ -297,18 +316,21 @@ class NewTreeController extends SessionController with StateMixin<bool> {
   bool hasData() {
     return selectedSpecie.value != null ||
         description.isNotEmpty ||
-        circumference.isNotEmpty || locationData.value != null;
+        circumference.isNotEmpty ||
+        locationData.value != null;
   }
 
   bool hasRequiredData() {
     return selectedSpecie.value != null &&
-        description.isNotEmpty &&
-        circumference.isNotEmpty && locationData.value != null;
+        locationData.value != null &&
+        isConditionProvided.value;
   }
 
   Future<void> selectSpecies() async {
     selectedSpecie.value = await Get.toNamed(SpeciesSelectionPage.path,
-        arguments: <String, DictionaryObject?>{'selected': selectedSpecie.value}) as DictionaryObject?;
+        arguments: <String, DictionaryObject?>{
+          'selected': selectedSpecie.value
+        }) as DictionaryObject?;
   }
 
   Future<void> addDescription() async {
@@ -337,10 +359,17 @@ class NewTreeController extends SessionController with StateMixin<bool> {
     badCondition = response?['badState'] as DictionaryObject?;
     badStateDescription = response?['differentComment'] as String?;
     condition.value = response?['state'] as DictionaryObject?;
+    if (condition.value != null) {
+      isConditionProvided.value = true;
+    } else {
+      isConditionProvided.value = false;
+    }
   }
 
   Future<void> addTreeLocation() async {
-    locationData.value = await Get.toNamed(MapPage.path, arguments: locationData.value) as LatLng?;
+    locationData.value =
+        await Get.toNamed(MapPage.path, arguments: locationData.value)
+            as LatLng?;
   }
 
   Future<void> createTree() async {
@@ -355,12 +384,11 @@ class NewTreeController extends SessionController with StateMixin<bool> {
         bark: bark,
         species: selectedSpecie.value?.id,
         description: description.value,
-        perimeter: int.parse(circumference.value),
+        perimeter: int.tryParse(circumference.value),
         state: condition.value?.id,
         stateDescription: badStateDescription,
         latLon: locationData.value,
-        badState: badCondition?.id
-    );
+        badState: badCondition?.id);
 
     try {
       await newTreeRequest.createTree(newTree, (int count, int total) {
@@ -368,7 +396,6 @@ class NewTreeController extends SessionController with StateMixin<bool> {
           progress.value = count / total;
         }
       });
-
       await photosService.clearCachedPhotos();
       Get.offAllNamed(MyTreesPage.path);
     } on UnauthorizedException catch (_) {
@@ -382,6 +409,14 @@ class NewTreeController extends SessionController with StateMixin<bool> {
 
   void handleError(ZGError error) {
     change(null, status: RxStatus.success());
-    Get.defaultDialog(title: error.title, middleText: error.message, confirm: PrimaryButton(title: 'ok'.tr, isEnabled: true, onTap: () { Get.back(); }));
+    Get.defaultDialog(
+        title: error.title,
+        middleText: error.message,
+        confirm: PrimaryButton(
+            title: 'ok'.tr,
+            isEnabled: true,
+            onTap: () {
+              Get.back();
+            }));
   }
 }
