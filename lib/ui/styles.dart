@@ -279,6 +279,18 @@ abstract class ApplicationTextStyles {
       fontWeight: FontWeight.w500,
       fontSize: 14,
       fontFamily: _poppinsFont);
+
+  static const TextStyle allTreesTextStyle = TextStyle(
+      color: ApplicationColors.black,
+      fontWeight: FontWeight.w500,
+      fontSize: 14,
+      fontFamily: _poppinsFont);
+
+  static const TextStyle allTreesBoldTextStyle = TextStyle(
+      color: ApplicationColors.black,
+      fontWeight: FontWeight.w700,
+      fontSize: 14,
+      fontFamily: _poppinsFont);
 }
 
 // Colors

@@ -54,9 +54,10 @@ class MyTreeDetailsPage extends GetView<MyTreeDetailsController> {
   Widget _detailsContent(MyTree myTree, TreeDetails details) {
     Analytics.visitedScreen(MyTreeDetailsPage.path);
     return CustomScrollView(
+        shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
-        slivers: <SliverFillRemaining>[
-          SliverFillRemaining(
+        slivers: <SliverToBoxAdapter>[
+          SliverToBoxAdapter(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -104,20 +105,27 @@ class MyTreeDetailsPage extends GetView<MyTreeDetailsController> {
                   AspectRatio(
                     aspectRatio: 1.85,
                     child: Padding(
-                      padding: const EdgeInsets.all(Dimen.marginNormal),
-                      child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: Dimen.marginNormal,
+                          vertical: Dimen.marginTiny),
+                      child: ClipRRect(
                         clipBehavior: Clip.hardEdge,
-                        decoration: const BoxDecoration(
-                          color: ApplicationColors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                        ),
-                        child: GoogleMap(
-                          myLocationButtonEnabled: false,
-                          mapToolbarEnabled: false,
-                          zoomControlsEnabled: false,
-                          initialCameraPosition: CameraPosition(
-                              target: details.location!, zoom: 15),
-                          markers: controller.markers,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(12)),
+                        child: SizedBox(
+                          height: 500,
+                          child: GoogleMap(
+                            zoomGesturesEnabled: false,
+                            scrollGesturesEnabled: false,
+                            tiltGesturesEnabled: false,
+                            rotateGesturesEnabled: false,
+                            zoomControlsEnabled: false,
+                            myLocationButtonEnabled: false,
+                            mapToolbarEnabled: false,
+                            initialCameraPosition: CameraPosition(
+                                target: details.location!, zoom: 15),
+                            markers: controller.markers,
+                          ),
                         ),
                       ),
                     ),
@@ -131,24 +139,59 @@ class MyTreeDetailsPage extends GetView<MyTreeDetailsController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(Dimen.marginNormal),
-                        child: Text(
-                          details.state?.capitalize ?? '',
-                          style: ApplicationTextStyles.bodyTextStyle,
+                      _treeDetail(
+                        leftText: 'age'.tr,
+                        rightText:
+                            '${controller.age} ${"years".tr}' ?? 'no_data'.tr,
+                      ),
+                      const Divider(height: 2),
+                      _treeDetail(
+                        leftText: 'tree_circumference'.tr,
+                        rightText: '${controller.details!.perimeter} cm' ??
+                            'no_data'.tr,
+                      ),
+                      const Divider(height: 2),
+                      _treeDetail(
+                        leftText:
+                            '${"tree".tr} ${details.state?.capitalize}' ?? '',
+                      ),
+                      if (details.stateDescription == null ||
+                          details.stateDescription!.isEmpty ||
+                          details.stateDescription == '' ||
+                          details.stateDescription == ' ')
+                        const SizedBox.shrink()
+                      else
+                        _treeDetail(
+                          leftText: details.stateDescription ?? '',
                         ),
+                      const Divider(height: 2),
+                      _treeDetail(
+                          leftText:
+                              '${"consumed_km_1".tr} ${controller.kmConsumed} ${"consumed_km_2".tr}',
+                          rightText: '${controller.fumesConsumed}kg CO2' ??
+                              'no_data'.tr,
+                          rightComment:
+                              '${controller.fumesIncome}zł/${"year".tr}'),
+                      const Divider(height: 2),
+                      _treeDetail(
+                          leftText: 'amount_dirt_cleared'.tr,
+                          rightText:
+                              '${controller.dirtRemoved}kg' ?? 'no_data'.tr,
+                          rightComment: '${controller.dirtIncome}zł/rok'),
+                      const Divider(height: 2),
+                      _treeDetail(
+                          leftText: 'amount_water_stored'.tr,
+                          rightText:
+                              '${controller.waterStored}l' ?? 'no_data'.tr,
+                          rightComment:
+                              '${controller.waterIncome}zł/${"year".tr}'),
+                      const Divider(height: 2),
+                      _treeDetail(
+                        leftText: 'yearly_income'.tr,
+                        rightText:
+                            '${controller.yearlyIncome} zł' ?? 'no_data'.tr,
                       ),
-                      const Divider(
-                        height: 1,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(Dimen.marginNormal),
-                        child: Text(
-                          details.stateDescription ?? '',
-                          style:
-                              ApplicationTextStyles.placeholderHeaderTextStyle,
-                        ),
-                      ),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 )
@@ -191,6 +234,52 @@ class MyTreeDetailsPage extends GetView<MyTreeDetailsController> {
       }).toList(),
     );
   }
+
+  Widget _treeDetail(
+      {String? leftText, String? rightText, String? rightComment}) {
+    return Padding(
+      padding: const EdgeInsets.all(Dimen.marginNormal),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 10,
+            child: Text(
+              leftText ?? '',
+              style: ApplicationTextStyles.bodyTextStyle,
+            ),
+          ),
+          const Expanded(flex: 2, child: SizedBox()),
+          Expanded(
+            flex: 4,
+            child: rightComment == null
+                ? Text(
+                    rightText ?? '',
+                    style: ApplicationTextStyles.bodyBoldTextStyle,
+                  )
+                : Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          rightText ?? '',
+                          style: ApplicationTextStyles.bodyBoldTextStyle,
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          rightComment,
+                          style:
+                              ApplicationTextStyles.placeholderHeaderTextStyle,
+                        ),
+                      )
+                    ],
+                  ),
+          )
+        ],
+      ),
+    );
+  }
 }
 
 class MyTreeDetailsController extends SessionController
@@ -203,6 +292,16 @@ class MyTreeDetailsController extends SessionController
   MyTree? myTree;
   TreeDetails? details;
   Set<Marker> markers = <Marker>{};
+
+  int? age;
+  int? kmConsumed;
+  double? fumesConsumed;
+  double? dirtRemoved;
+  int? waterStored;
+  int? yearlyIncome;
+  int? fumesIncome;
+  int? dirtIncome;
+  int? waterIncome;
 
   @override
   void onInit() {
@@ -220,6 +319,7 @@ class MyTreeDetailsController extends SessionController
 
       if (details != null) {
         await updateLocationMarker();
+        calculateAttributes(details!);
         change(details, status: RxStatus.success());
       } else {
         handleError(CommonError());
@@ -250,5 +350,18 @@ class MyTreeDetailsController extends SessionController
     } else {
       markers = <Marker>{};
     }
+  }
+
+  void calculateAttributes(TreeDetails details) {
+    //Ze wzorów
+    age = 15;
+    kmConsumed = 30;
+    fumesConsumed = 3;
+    fumesIncome = 400;
+    dirtRemoved = 4.45;
+    dirtIncome = 300;
+    waterStored = 43;
+    waterIncome = 230;
+    yearlyIncome = 1200;
   }
 }

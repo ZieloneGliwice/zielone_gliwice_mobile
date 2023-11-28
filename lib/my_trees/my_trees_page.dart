@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../add_tree/add_tree_page.dart';
+import '../all_trees/all_trees_page.dart';
 import '../analytics/analytics.dart';
 import '../model/errors.dart';
 import '../model/my_tree.dart';
@@ -86,6 +87,10 @@ class MyTreesPage extends GetView<MyTreesController> {
                 onPressed: controller.popupDialogOn.value
                     ? () {}
                     : controller.addNewTree,
+                // : () => {
+                //       controller.photosService.clearCachedPhotos(),
+                //       Get.toNamed(AllTreesPage.path)
+                //     },
                 child: const Icon(Icons.add),
               ),
       ),
@@ -177,16 +182,17 @@ class MyTreesPage extends GetView<MyTreesController> {
           child: Row(
             children: <Widget>[
               Container(
-                  clipBehavior: Clip.hardEdge,
-                  decoration: const BoxDecoration(
-                    color: ApplicationColors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                  ),
-                  child: Image.network(
-                    tree.treeThumbnailUrl() ?? '',
-                    width: 62,
-                    height: 62,
-                  )),
+                clipBehavior: Clip.hardEdge,
+                decoration: const BoxDecoration(
+                  color: ApplicationColors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                ),
+                child: Image.network(
+                  tree.treeThumbnailUrl() ?? '',
+                  width: 62,
+                  height: 62,
+                ),
+              ),
               const SizedBox(
                 width: 14,
               ),
