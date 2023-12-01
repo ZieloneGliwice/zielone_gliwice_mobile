@@ -230,6 +230,11 @@ c) Zaakceptowanie i uczestnictwo w konkursie oznacza akceptację powyższego reg
     'amount_dirt_cleared': 'The amount of dirt removed from the road',
     'amount_water_stored': 'The amount of water stored in the tree crown',
     'yearly_income': 'Yearly income',
+    'ar_game_title': 'Find the bird',
+    'add_bird': 'Add bird (+3 pts)',
+    'add_bird_dialog_title': 'Attention!',
+    'add_bird_dialog_content':
+        'Points will be added to your account after pinning the tree\n\nProceed to add a tree',
   };
 
   final Map<String, String> _plPL = <String, String>{
@@ -457,5 +462,10 @@ c) Zaakceptowanie i uczestnictwo w konkursie oznacza akceptację powyższego reg
     'amount_dirt_cleared': 'Ilość zanieczyszczeń usuniętych z drogi',
     'amount_water_stored': 'Ilość wody zmagazynowanej w koronie',
     'yearly_income': 'Dochód na rok',
+    'ar_game_title': 'Znajdź ptaka',
+    'add_bird': 'Dodaj ptaka (+3 pkt)',
+    'add_bird_dialog_title': 'Uwaga!',
+    'add_bird_dialog_content':
+        'Punkty zostaną dodane do Twojego konta po zapinowaniu drzewa \n\nPrzejdź dalej aby dodać drzewo',
   };
 }

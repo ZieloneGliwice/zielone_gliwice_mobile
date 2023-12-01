@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../add_tree/add_tree_page.dart';
+import '../ar_game/ar_game_page.dart';
 import '../model/errors.dart';
 import '../model/signed_user.dart';
 import '../network/api_dio.dart';
@@ -116,7 +117,7 @@ class ChallengesPage extends GetView<ChallengesPageController> {
 
   Widget _buttonPlay() {
     return InkWell(
-      onTap: () => Get.toNamed(AddTreePage.path),
+      onTap: () => Get.toNamed(ArGamePage.path),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(25),
         child: Container(
@@ -154,7 +155,7 @@ class ChallengesPage extends GetView<ChallengesPageController> {
     return Row(
       children: [
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Text(
             position.toString(),
             style: ApplicationTextStyles.challengesLeaderboardTextStyle,

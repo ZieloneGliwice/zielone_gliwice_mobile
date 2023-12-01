@@ -291,6 +291,36 @@ abstract class ApplicationTextStyles {
       fontWeight: FontWeight.w700,
       fontSize: 14,
       fontFamily: _poppinsFont);
+
+  static const TextStyle arGameButtonTextStyle = TextStyle(
+      color: ApplicationColors.white,
+      fontWeight: FontWeight.w700,
+      fontSize: 14,
+      fontFamily: _poppinsFont);
+
+  static const TextStyle arGameAlertTitleTextStyle = TextStyle(
+      color: ApplicationColors.black,
+      fontWeight: FontWeight.w600,
+      fontSize: 17,
+      fontFamily: _poppinsFont);
+
+  static const TextStyle arGameAlertContentTextStyle = TextStyle(
+      color: ApplicationColors.black,
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+      fontFamily: _poppinsFont);
+
+  static const TextStyle arGameAlertCancelTextStyle = TextStyle(
+      // color: ApplicationColors.black,
+      fontWeight: FontWeight.w400,
+      fontSize: 17,
+      fontFamily: _poppinsFont);
+
+  static const TextStyle arGameAlertNextTextStyle = TextStyle(
+      // color: ApplicationColors.black,
+      fontWeight: FontWeight.w600,
+      fontSize: 17,
+      fontFamily: _poppinsFont);
 }
 
 // Colors

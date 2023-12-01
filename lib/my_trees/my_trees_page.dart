@@ -45,13 +45,13 @@ class MyTreesPage extends GetView<MyTreesController> {
                 title: Text('my_trees_title'.tr),
                 photoURL: controller.photoURL,
               ),
-        // // Potrzebne do popup
-        // bottomNavigationBar: controller.popupDialogOn.value
-        //     ? emptyWhiteBottomBar()
-        //     : BottomBar(
-        //         activeId: 0,
-        //         photosService: controller.photosService,
-        //       ),
+        // Bottom bar jak będzie ar
+        bottomNavigationBar: controller.popupDialogOn.value
+            ? emptyWhiteBottomBar()
+            : BottomBar(
+                activeId: 0,
+                photosService: controller.photosService,
+              ),
         backgroundColor: ApplicationColors.background,
         body: Stack(
           children: [
@@ -78,21 +78,21 @@ class MyTreesPage extends GetView<MyTreesController> {
             ),
           ],
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: controller.popupDialogOn.value
-            ? floatingActionButtonHidden()
-            : FloatingActionButton(
-                backgroundColor: ApplicationColors.green,
-                foregroundColor: ApplicationColors.white,
-                onPressed: controller.popupDialogOn.value
-                    ? () {}
-                    : controller.addNewTree,
-                // : () => {
-                //       controller.photosService.clearCachedPhotos(),
-                //       Get.toNamed(AllTreesPage.path)
-                //     },
-                child: const Icon(Icons.add),
-              ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        // floatingActionButton: controller.popupDialogOn.value
+        //     ? floatingActionButtonHidden()
+        //     : FloatingActionButton(
+        //         backgroundColor: ApplicationColors.green,
+        //         foregroundColor: ApplicationColors.white,
+        //         onPressed: controller.popupDialogOn.value
+        //             ? () {}
+        //             : controller.addNewTree,
+        //         // : () => {
+        //         //       controller.photosService.clearCachedPhotos(),
+        //         //       Get.toNamed(AllTreesPage.path)
+        //         //     },
+        //         child: const Icon(Icons.add),
+        //       ),
       ),
     );
   }

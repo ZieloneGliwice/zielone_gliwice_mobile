@@ -15,6 +15,8 @@ import 'add_tree_condition/add_tree_condition_bind.dart';
 import 'add_tree_condition/add_tree_condition_page.dart';
 import 'all_trees/all_trees_page.dart';
 import 'all_trees/all_trees_page_bind.dart';
+import 'ar_game/ar_game_page.dart';
+import 'ar_game/ar_game_page_bind.dart';
 import 'camera/camera_page.dart';
 import 'camera/camera_page_bind.dart';
 import 'challenges/challenges_bind.dart';
@@ -71,8 +73,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Zielone Gliwice',
       translations: ApplicationTranslations(),
-      // locale: Get.deviceLocale,
-      locale: const Locale('pl', 'PL'),
+      locale: Get.deviceLocale,
+      // locale: const Locale('pl', 'PL'),
+      // locale: const Locale('en', 'US'),
 
       fallbackLocale: const Locale('en', 'US'),
       theme: ThemeData(),
@@ -162,6 +165,10 @@ class MyApp extends StatelessWidget {
             name: AllTreesPage.path,
             page: () => const AllTreesPage(),
             binding: AllTreesPageBind()),
+        GetPage<ArGamePage>(
+            name: ArGamePage.path,
+            page: () => const ArGamePage(),
+            binding: ArGamePageBind()),
       ],
       initialRoute: LogInPage.path,
       initialBinding: LogInPageBind(),
