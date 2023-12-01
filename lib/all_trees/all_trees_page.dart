@@ -3,30 +3,21 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:ui' as ui;
 
-import '../add_tree/add_tree_page.dart';
-import '../all_trees/all_trees_page.dart';
 import '../analytics/analytics.dart';
 import '../model/errors.dart';
 import '../model/my_tree.dart';
 import '../model/my_trees.dart';
-import '../model/signed_user.dart';
 import '../my_tree_details/my_tree_details_page.dart';
 import '../network/api_dio.dart';
 import '../network/my_trees_provider.dart';
-import '../schools_selection/schools_selection_page.dart';
 import '../services/photos_service.dart';
 import '../ui/activity_indicator.dart';
-import '../ui/bottom_bar.dart';
 import '../ui/date.dart';
 import '../ui/dimen.dart';
 import '../ui/error_view.dart';
 import '../ui/gray_app_bar.dart';
-import '../ui/no_data_view.dart';
 import '../ui/styles.dart';
-import '../ui/white_app_bar.dart';
 import '../utils/session_controller.dart';
 import '../utils/session_storage.dart';
 
@@ -237,7 +228,7 @@ class AllTreesController extends SessionController with StateMixin<MyTrees> {
                   ],
                 ),
                 const Spacer(),
-                seeDetailsButton(tree),
+                seeDetailsButton(tree, context),
                 const SizedBox(
                   height: 30,
                 )
@@ -249,7 +240,8 @@ class AllTreesController extends SessionController with StateMixin<MyTrees> {
     );
   }
 
-  Widget seeDetailsButton(MyTree tree) {
+  Widget seeDetailsButton(MyTree tree, BuildContext context) {
+    Navigator.of(context).pop();
     return ElevatedButton(
       onPressed: () => viewDetails(tree),
       style: ElevatedButton.styleFrom(
@@ -259,7 +251,7 @@ class AllTreesController extends SessionController with StateMixin<MyTrees> {
           borderRadius: BorderRadius.all(Radius.circular(30)),
         ),
       ),
-      child: Text("see_details".tr),
+      child: Text('see_details'.tr),
     );
   }
 }
