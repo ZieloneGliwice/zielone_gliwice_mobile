@@ -161,6 +161,7 @@ class AllTreesController extends SessionController with StateMixin<MyTrees> {
   }
 
   void viewDetails(MyTree myTree) {
+    Navigator.of(Get.context!).pop();
     Analytics.buttonPressed('Tree details');
     Get.toNamed(MyTreeDetailsPage.path, arguments: myTree);
   }
@@ -241,7 +242,6 @@ class AllTreesController extends SessionController with StateMixin<MyTrees> {
   }
 
   Widget seeDetailsButton(MyTree tree, BuildContext context) {
-    Navigator.of(context).pop();
     return ElevatedButton(
       onPressed: () => viewDetails(tree),
       style: ElevatedButton.styleFrom(
