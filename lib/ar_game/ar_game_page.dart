@@ -107,16 +107,16 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
 
   RxBool birdShown = false.obs;
 
-  void onARViewCreated(
+  Future<void> onARViewCreated(
       ARSessionManager arSessionManager,
       ARObjectManager arObjectManager,
       ARAnchorManager arAnchorManager,
-      ARLocationManager arLocationManager) {
+      ARLocationManager arLocationManager) async {
     this.arSessionManager = arSessionManager;
     this.arObjectManager = arObjectManager;
     this.arAnchorManager = arAnchorManager;
 
-    this.arSessionManager.onInitialize(
+    await this.arSessionManager.onInitialize(
           showFeaturePoints: false,
           showPlanes: true,
           customPlaneTexturePath: 'triangle.png',
@@ -197,7 +197,8 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
   Future<void> addNewTree() async {
     Analytics.buttonPressed('Add tree');
     await photosService.clearCachedPhotos();
-    Get.toNamed(AddTreePage.path);
+    arSessionManager.dispose();
+    Get.toNamed(AddTreePage.path, arguments: <String, int>{'points': 3});
   }
 
   Future<void> addNodeInFrontOfUser() async {

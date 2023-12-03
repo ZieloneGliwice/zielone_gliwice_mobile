@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../add_tree/add_tree_page.dart';
 import '../all_trees/all_trees_page.dart';
 import '../analytics/analytics.dart';
+import '../ar_congratulations/ar_congratulations_page.dart';
 import '../model/errors.dart';
 import '../model/my_tree.dart';
 import '../model/my_trees.dart';
@@ -78,21 +79,21 @@ class MyTreesPage extends GetView<MyTreesController> {
             ),
           ],
         ),
-        // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        // floatingActionButton: controller.popupDialogOn.value
-        //     ? floatingActionButtonHidden()
-        //     : FloatingActionButton(
-        //         backgroundColor: ApplicationColors.green,
-        //         foregroundColor: ApplicationColors.white,
-        //         onPressed: controller.popupDialogOn.value
-        //             ? () {}
-        //             : controller.addNewTree,
-        //         // : () => {
-        //         //       controller.photosService.clearCachedPhotos(),
-        //         //       Get.toNamed(AllTreesPage.path)
-        //         //     },
-        //         child: const Icon(Icons.add),
-        //       ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButton: controller.popupDialogOn.value
+            ? floatingActionButtonHidden()
+            : FloatingActionButton(
+                backgroundColor: ApplicationColors.green,
+                foregroundColor: ApplicationColors.white,
+                onPressed: controller.popupDialogOn.value
+                    ? () {}
+                    // : controller.addNewTree,
+                    : () => {
+                          controller.photosService.clearCachedPhotos(),
+                          Get.toNamed(ArCongratulationsPage.path)
+                        },
+                child: const Icon(Icons.add),
+              ),
       ),
     );
   }

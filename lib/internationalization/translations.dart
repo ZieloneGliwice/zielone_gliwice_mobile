@@ -235,6 +235,12 @@ c) Zaakceptowanie i uczestnictwo w konkursie oznacza akceptację powyższego reg
     'add_bird_dialog_title': 'Attention!',
     'add_bird_dialog_content':
         'Points will be added to your account after pinning the tree\n\nProceed to add a tree',
+    'ar_congratulations_title': 'My points',
+    'bravo_name': 'Well done @name!',
+    'added_bird': "You've added another bird to your collection",
+    'you_get': 'You get bonus ',
+    'points': ' points',
+    'check_score': 'Check your score',
   };
 
   final Map<String, String> _plPL = <String, String>{
@@ -467,5 +473,11 @@ c) Zaakceptowanie i uczestnictwo w konkursie oznacza akceptację powyższego reg
     'add_bird_dialog_title': 'Uwaga!',
     'add_bird_dialog_content':
         'Punkty zostaną dodane do Twojego konta po zapinowaniu drzewa \n\nPrzejdź dalej aby dodać drzewo',
+    'ar_congratulations_title': 'Moje punkty',
+    'bravo_name': 'Brawo @name!',
+    'added_bird': 'Dodałeś kolejnego ptaka do swojej kolekcji',
+    'you_get': 'Otrzymujesz dodatkowe ',
+    'points': ' punkty',
+    'check_score': 'Sprawdź swoje wyniki',
   };
 }

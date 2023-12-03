@@ -10,6 +10,7 @@ import '../add_circumference_page/add_circumference_page.dart';
 import '../add_tree/add_tree_page.dart';
 import '../add_tree_condition/add_tree_condition_page.dart';
 import '../analytics/analytics.dart';
+import '../ar_congratulations/ar_congratulations_page.dart';
 import '../map/map_page.dart';
 import '../model/dictionary_object.dart';
 import '../model/errors.dart';
@@ -289,6 +290,8 @@ class NewTreeController extends SessionController with StateMixin<bool> {
   Rxn<LatLng> locationData = Rxn<LatLng>();
   RxBool isConditionProvided = false.obs;
 
+  dynamic args = Get.arguments;
+
   @override
   void onInit() {
     super.onInit();
@@ -397,7 +400,13 @@ class NewTreeController extends SessionController with StateMixin<bool> {
         }
       });
       await photosService.clearCachedPhotos();
-      Get.offAllNamed(MyTreesPage.path);
+
+      if (args != null) {
+        //przesyłać informację o zdobyciu args['points'] punktów
+        Get.offAllNamed(ArCongratulationsPage.path, arguments: args);
+      } else {
+        Get.offAllNamed(MyTreesPage.path);
+      }
     } on UnauthorizedException catch (_) {
       unauthorized();
     } on NoInternetConnectionException catch (_) {

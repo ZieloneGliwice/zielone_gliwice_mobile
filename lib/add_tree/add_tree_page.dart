@@ -28,47 +28,48 @@ class AddTreePage extends GetView<AddTreePageController> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: Dimen.marginNormal),
         child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: <SliverFillRemaining>[
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: Column(
-                children: <Widget>[
-                  const SizedBox(
-                    height: Dimen.marginNormalPlus,
-                  ),
-                  Text.rich(TextSpan(
-                      style: ApplicationTextStyles.descriptionTextStyle,
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: 'add_tree_photos_description_1'.tr),
-                        TextSpan(
-                            text: 'add_tree_photos_description_2'.tr,
-                            style:
-                            ApplicationTextStyles.descriptionBoldTextStyle),
-                        TextSpan(text: 'add_tree_photos_description_3'.tr),
-                        TextSpan(
-                            text: 'add_tree_photos_description_4'.tr,
-                            style:
-                            ApplicationTextStyles.descriptionBoldTextStyle),
-                      ])),
-                  _space(),
-                  PhotoPickerWidget(TreePhotoType.tree, 'take_tree_photo_title'.tr, 'take_tree_photo_body'.tr),
-                  _space(),
-                  PhotoPickerWidget(TreePhotoType.leaf, 'take_leaf_photo_title'.tr, 'take_leaf_photo_body'.tr),
-                  _space(),
-                  PhotoPickerWidget(TreePhotoType.bark, 'take_bark_photo_title'.tr, 'take_bark_photo_body'.tr),
-                  _space(),
-                  const Spacer(),
-                  _button(),
-                  const SizedBox(
-                    height: Dimen.marginNormalPlus,
-                  ),
-                ],
-              ),
-            )
-          ]
-        ),
+            physics: const BouncingScrollPhysics(),
+            slivers: <SliverFillRemaining>[
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Column(
+                  children: <Widget>[
+                    const SizedBox(
+                      height: Dimen.marginNormalPlus,
+                    ),
+                    Text.rich(TextSpan(
+                        style: ApplicationTextStyles.descriptionTextStyle,
+                        children: <TextSpan>[
+                          TextSpan(text: 'add_tree_photos_description_1'.tr),
+                          TextSpan(
+                              text: 'add_tree_photos_description_2'.tr,
+                              style: ApplicationTextStyles
+                                  .descriptionBoldTextStyle),
+                          TextSpan(text: 'add_tree_photos_description_3'.tr),
+                          TextSpan(
+                              text: 'add_tree_photos_description_4'.tr,
+                              style: ApplicationTextStyles
+                                  .descriptionBoldTextStyle),
+                        ])),
+                    _space(),
+                    PhotoPickerWidget(TreePhotoType.tree,
+                        'take_tree_photo_title'.tr, 'take_tree_photo_body'.tr),
+                    _space(),
+                    PhotoPickerWidget(TreePhotoType.leaf,
+                        'take_leaf_photo_title'.tr, 'take_leaf_photo_body'.tr),
+                    _space(),
+                    PhotoPickerWidget(TreePhotoType.bark,
+                        'take_bark_photo_title'.tr, 'take_bark_photo_body'.tr),
+                    _space(),
+                    const Spacer(),
+                    _button(),
+                    const SizedBox(
+                      height: Dimen.marginNormalPlus,
+                    ),
+                  ],
+                ),
+              )
+            ]),
       ),
     );
   }
@@ -80,14 +81,18 @@ class AddTreePage extends GetView<AddTreePageController> {
   Widget _button() {
     return Obx(() {
       final bool isEnabled = controller.hasRequiredPhotos();
-      return PrimaryButton(title: 'next'.tr, isEnabled: isEnabled, onTap: proceed,);
+      return PrimaryButton(
+        title: 'next'.tr,
+        isEnabled: isEnabled,
+        onTap: proceed,
+      );
     });
   }
 
   void proceed() {
     Analytics.buttonPressed('Proceed');
     Analytics.logEvent('${AddTreePage.path}: Proceed');
-    Get.toNamed(NewTreePage.path);
+    Get.toNamed(NewTreePage.path, arguments: controller.args);
   }
 }
 
@@ -95,6 +100,8 @@ class AddTreePageController extends GetxController {
   Rxn<File> treePhoto = Rxn<File>();
   Rxn<File> leafPhoto = Rxn<File>();
   Rxn<File> barkPhoto = Rxn<File>();
+
+  dynamic args = Get.arguments;
 
   bool hasRequiredPhotos() {
     return treePhoto.value != null && leafPhoto.value != null;

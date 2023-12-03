@@ -311,15 +311,25 @@ abstract class ApplicationTextStyles {
       fontFamily: _poppinsFont);
 
   static const TextStyle arGameAlertCancelTextStyle = TextStyle(
-      // color: ApplicationColors.black,
-      fontWeight: FontWeight.w400,
-      fontSize: 17,
-      fontFamily: _poppinsFont);
+      fontWeight: FontWeight.w400, fontSize: 17, fontFamily: _poppinsFont);
 
   static const TextStyle arGameAlertNextTextStyle = TextStyle(
-      // color: ApplicationColors.black,
-      fontWeight: FontWeight.w600,
-      fontSize: 17,
+      fontWeight: FontWeight.w600, fontSize: 17, fontFamily: _poppinsFont);
+
+  static const TextStyle arCongratulationsBravoTextStyle = TextStyle(
+      color: ApplicationColors.black,
+      fontWeight: FontWeight.w400,
+      fontSize: 24,
+      fontFamily: _poppinsFont);
+  static const TextStyle arCongratulationsDescriptionTextStyle = TextStyle(
+      color: ApplicationColors.gray,
+      fontWeight: FontWeight.w500,
+      fontSize: 14,
+      fontFamily: _poppinsFont);
+  static const TextStyle arCongratulationsBoldDescriptionTextStyle = TextStyle(
+      color: ApplicationColors.gray,
+      fontWeight: FontWeight.w700,
+      fontSize: 14,
       fontFamily: _poppinsFont);
 }
 
