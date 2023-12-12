@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import '../add_tree/add_tree_page.dart';
+import '../analytics/analytics.dart';
 import '../ar_game/ar_game_page.dart';
+import '../model/challenges_entry.dart';
 import '../model/errors.dart';
 import '../model/signed_user.dart';
 import '../network/api_dio.dart';
+import '../ui/activity_indicator.dart';
 import '../ui/bottom_bar.dart';
 import '../ui/dimen.dart';
+import '../ui/error_view.dart';
 import '../ui/styles.dart';
 import '../ui/white_app_bar.dart';
 import '../utils/session_controller.dart';
@@ -20,16 +24,21 @@ class ChallengesPage extends GetView<ChallengesPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: WhiteAppBar(
-          title: Text('challenges_title'.tr),
-          photoURL: controller.photoURL,
-        ),
-        bottomNavigationBar: BottomBar(
-          activeId: 2,
-          photosService: controller.photosService,
-        ),
-        backgroundColor: ApplicationColors.background,
-        body: _body());
+      appBar: WhiteAppBar(
+        title: Text('challenges_title'.tr),
+        photoURL: controller.photoURL,
+      ),
+      bottomNavigationBar: BottomBar(
+        activeId: 2,
+        photosService: controller.photosService,
+      ),
+      backgroundColor: ApplicationColors.background,
+      body: controller.obx(
+        (_) => _body(),
+        onLoading: const ActivityIndicator(),
+        onError: (String? error) => _errorView(error),
+      ),
+    );
   }
 
   Widget _body() {
@@ -39,8 +48,8 @@ class ChallengesPage extends GetView<ChallengesPageController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const SizedBox(height: 10),
-          _textPoints(points: 133),
-          _textPosition(position: 2),
+          _textPoints(points: controller.userPoints.value),
+          _textPosition(position: controller.userPosition.value - 1),
           const SizedBox(height: 10),
           Stack(
             children: [
@@ -56,6 +65,13 @@ class ChallengesPage extends GetView<ChallengesPageController> {
         ],
       ),
     );
+  }
+
+  Widget _errorView(String? error) {
+    Analytics.visitedErrorScreen(ChallengesPage.path);
+    final ZGError zgError = ZGError.from(error);
+
+    return ErrorView.from(zgError, controller.getData);
   }
 
   Widget _textPoints({int? points}) {
@@ -137,27 +153,30 @@ class ChallengesPage extends GetView<ChallengesPageController> {
 
   Widget _allStats() {
     return Expanded(
-        child: ListView.separated(
-      padding: const EdgeInsets.only(top: 12, bottom: 30, left: 20, right: 20),
-      shrinkWrap: true,
-      itemBuilder: (BuildContext context, int index) =>
-          _userStats(index + 1, 'Grzegorz Gżegżółka', 145),
-      // child: _myTree(trees[index])
-
-      separatorBuilder: (BuildContext context, int index) =>
-          const Divider(thickness: 1, color: ApplicationColors.white),
-      // itemCount: trees.length
-      itemCount: 300,
-    ));
+      child: ScrollablePositionedList.separated(
+        initialScrollIndex: controller.userPosition.value < 5
+            ? 0
+            : controller.userPosition.value - 1,
+        initialAlignment: controller.userPosition.value < 5 ? 0 : 0.5,
+        padding:
+            const EdgeInsets.only(top: 12, bottom: 30, left: 20, right: 20),
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int index) =>
+            _userStats(controller.leaderBoard[index]),
+        separatorBuilder: (BuildContext context, int index) =>
+            const Divider(thickness: 1, color: ApplicationColors.white),
+        itemCount: controller.leaderBoard.length,
+      ),
+    );
   }
 
-  Widget _userStats(int position, String name, int points) {
+  Widget _userStats(ChallengesEntry entry) {
     return Row(
       children: [
         Expanded(
           flex: 2,
           child: Text(
-            position.toString(),
+            entry.position.toString(),
             style: ApplicationTextStyles.challengesLeaderboardTextStyle,
           ),
         ),
@@ -174,7 +193,7 @@ class ChallengesPage extends GetView<ChallengesPageController> {
         Expanded(
           flex: 7,
           child: Text(
-            name,
+            entry.name,
             textAlign: TextAlign.left,
             style: ApplicationTextStyles.challengesLeaderboardTextStyle,
           ),
@@ -182,7 +201,7 @@ class ChallengesPage extends GetView<ChallengesPageController> {
         Expanded(
           flex: 5,
           child: Text(
-            '$points pkt',
+            '${entry.points} pkt',
             textAlign: TextAlign.right,
             style: ApplicationTextStyles.challengesLeaderboardTextStyle,
           ),
@@ -198,6 +217,15 @@ class ChallengesPageController extends SessionController with StateMixin<bool> {
   RxString photoURL = ''.obs;
   RxString userName = ''.obs;
 
+  RxList<ChallengesEntry> leaderBoard = <ChallengesEntry>[].obs;
+  RxInt userPosition = 1.obs;
+  RxInt userPoints = 0.obs;
+
+  late ItemScrollController itemScrollController;
+  late ScrollOffsetController scrollOffsetController;
+  late ItemPositionsListener itemPositionsListener;
+  late ScrollOffsetListener scrollOffsetListener;
+
   @override
   void onInit() {
     super.onInit();
@@ -209,6 +237,7 @@ class ChallengesPageController extends SessionController with StateMixin<bool> {
 
     try {
       await loadUser();
+      await loadLeaderBoard();
       change(true, status: RxStatus.success());
     } on UnauthorizedException catch (_) {
       unauthorized();
@@ -224,6 +253,15 @@ class ChallengesPageController extends SessionController with StateMixin<bool> {
 
     userName.value = signedUser?.details.name ?? '';
     photoURL.value = signedUser?.details.photoUrl ?? '';
+  }
+
+  Future<void> loadLeaderBoard() async {
+    //pobierane z bazy będzie danych wszystkich uczestników i pozycji użytkownika
+    for (int i = 0; i < 300; i++) {
+      leaderBoard.add(ChallengesEntry(i + 1, 'Grzegorz Gżegżółka', 144));
+    }
+    userPosition.value = 24;
+    userPoints.value = leaderBoard[userPosition.value - 1].points;
   }
 
   void handleError(ZGError error) {
