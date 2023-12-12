@@ -198,7 +198,8 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
     Analytics.buttonPressed('Add tree');
     await photosService.clearCachedPhotos();
     arSessionManager.dispose();
-    Get.toNamed(AddTreePage.path, arguments: <String, int>{'points': 3});
+    Get.toNamed(AddTreePage.path, arguments: <String, int>{'points': 3})!
+        .then((_) => Get.back());
   }
 
   Future<void> addNodeInFrontOfUser() async {
@@ -211,13 +212,23 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
 
       //Rotacja jednostkowego wektoru, aby był skierowany prostopadle do kamery
       forwardVector.applyMatrix3(cameraPose.getRotation());
+      cameraPose.getTranslation();
 
       //Odległość od aparatu
       const double distance = 10;
 
       //Pozycja celu
-      final Vector3 newPosition =
-          cameraPose.getTranslation() + forwardVector * distance;
+      final Vector3 cameraPosition = cameraPose.getTranslation();
+      final Vector3 newPosition = cameraPosition + forwardVector * distance;
+
+      //Obrót celu
+      final Vector3 newRotation = cameraPose.matrixEulerAngles;
+
+      //wartości domyślne by ptak patrzył na kamerę
+      newRotation.add(Vector3(110 * pi / 180, 0, -10 * pi / 180));
+
+      //Usunięcie odchylenia obrotowego
+      newRotation[1] = 0;
 
       //Podnieś cel
       newPosition.add(Vector3(0, 3, 0));
@@ -227,7 +238,8 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
           uri: 'assets/ar/Chicken_01/Chicken_01.gltf',
           scale: Vector3(0.6, 0.6, 0.6),
           position: newPosition,
-          eulerAngles: Vector3(110 * pi / 180, 0, -10 * pi / 180),
+          // rotation: newRotation,
+          eulerAngles: newRotation, //,
           name: 'Kura${nodes.length}');
 
       arObjectManager.addNode(myNode);
