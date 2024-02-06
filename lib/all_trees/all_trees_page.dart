@@ -9,6 +9,7 @@ import '../model/errors.dart';
 import '../model/my_tree.dart';
 import '../model/my_trees.dart';
 import '../my_tree_details/my_tree_details_page.dart';
+import '../network/all_trees_provider.dart';
 import '../network/api_dio.dart';
 import '../network/my_trees_provider.dart';
 import '../services/photos_service.dart';
@@ -98,10 +99,8 @@ class AllTreesPage extends GetView<AllTreesController> {
                     myLocationButtonEnabled: false,
                     mapToolbarEnabled: false,
                     zoomControlsEnabled: false,
-                    initialCameraPosition: CameraPosition(
-                        target: LatLng(double.parse(trees[11].lat!),
-                            double.parse(trees[11].lon!)),
-                        zoom: 14),
+                    initialCameraPosition: const CameraPosition(
+                        target: LatLng(50.294216, 18.664531), zoom: 14),
                     markers: controller.markers,
                   ),
                 ),
@@ -115,10 +114,10 @@ class AllTreesPage extends GetView<AllTreesController> {
 }
 
 class AllTreesController extends SessionController with StateMixin<MyTrees> {
-  AllTreesController(this._myTreesProvider, SessionStorage sessionStorage,
+  AllTreesController(this._allTreesProvider, SessionStorage sessionStorage,
       PhotosService photosService)
       : super(sessionStorage, photosService);
-  final MyTreesProvider _myTreesProvider;
+  final AllTreesProvider _allTreesProvider;
 
   Set<Marker> markers = <Marker>{};
   late LatLng startLocation;
@@ -140,7 +139,7 @@ class AllTreesController extends SessionController with StateMixin<MyTrees> {
     change(null, status: RxStatus.loading());
 
     try {
-      myTrees = await _myTreesProvider.getTrees();
+      myTrees = await _allTreesProvider.getTrees();
       if (myTrees?.trees?.isNotEmpty ?? false) {
         createLocationMarkers(myTrees!.trees);
         change(myTrees, status: RxStatus.success());

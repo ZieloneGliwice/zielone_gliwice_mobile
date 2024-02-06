@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../network/all_trees_provider.dart';
 import '../network/api_dio.dart';
 import '../network/my_trees_provider.dart';
 import '../services/photos_service.dart';
@@ -12,7 +13,7 @@ class AllTreesPageBind extends Bindings {
     Get.lazyPut(() => PhotosService(), fenix: true);
     Get.lazyPut(() => SessionStorage(), fenix: true);
     Get.lazyPut(() => ApiDio(), fenix: true);
-    Get.lazyPut(() => MyTreesProvider(Get.find(), Get.find()), fenix: true);
+    Get.lazyPut(() => AllTreesProvider(Get.find(), Get.find()), fenix: true);
     Get.lazyPut(() => AllTreesController(Get.find(), Get.find(), Get.find()),
         fenix: true);
   }

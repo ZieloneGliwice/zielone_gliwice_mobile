@@ -1,5 +1,6 @@
 class API {
-  static const String baseURL = 'https://fa-greengliwice-prod.azurewebsites.net/';
+  static const String baseURL =
+      'https://fa-greengliwice-prod.azurewebsites.net/';
   static const String _baseAPIURL = 'api/';
 
   // Authorization
@@ -11,6 +12,7 @@ class API {
 
   // Trees
   static const String trees = '${_baseAPIURL}users/me/trees';
+  static const String allTrees = '${_baseAPIURL}trees';
 
   // Dictionaries
   static const String dicts = '${_baseAPIURL}dicts/';
