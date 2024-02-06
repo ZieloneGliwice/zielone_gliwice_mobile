@@ -90,9 +90,9 @@ class MyTreesPage extends GetView<MyTreesController> {
                     // : controller.addNewTree,
                     : () => {
                           controller.photosService.clearCachedPhotos(),
-                          Get.toNamed(ArCongratulationsPage.path)
+                          Get.toNamed(AllTreesPage.path),
                         },
-                child: const Icon(Icons.add),
+                child: const Icon(Icons.map_rounded),
               ),
       ),
     );
