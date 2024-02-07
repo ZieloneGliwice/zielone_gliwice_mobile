@@ -52,6 +52,8 @@ import 'species_selection/species_selection_page.dart';
 import 'species_selection/species_selection_page_bind.dart';
 import 'tree_description/tree_description_bind.dart';
 import 'tree_description/tree_description_page.dart';
+import 'tree_details/tree_details_page.dart';
+import 'tree_details/tree_details_page_bind.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -75,9 +77,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Zielone Gliwice',
       translations: ApplicationTranslations(),
-      // locale: Get.deviceLocale,
+      locale: Get.deviceLocale,
       // locale: const Locale('pl', 'PL'),
-      locale: const Locale('en', 'US'),
+      // locale: const Locale('en', 'US'),
 
       fallbackLocale: const Locale('en', 'US'),
       theme: ThemeData(),
@@ -175,6 +177,10 @@ class MyApp extends StatelessWidget {
             name: ArCongratulationsPage.path,
             page: () => const ArCongratulationsPage(),
             binding: ArCongratulationsPageBind()),
+        GetPage<TreeDetailsPage>(
+            name: TreeDetailsPage.path,
+            page: () => const TreeDetailsPage(),
+            binding: TreeDetailsPageBind()),
       ],
       initialRoute: LogInPage.path,
       initialBinding: LogInPageBind(),

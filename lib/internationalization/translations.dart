@@ -241,6 +241,7 @@ c) Zaakceptowanie i uczestnictwo w konkursie oznacza akceptację powyższego reg
     'you_get': 'You get bonus ',
     'points': ' points',
     'check_score': 'Check your score',
+    'tree_title': 'Tree',
   };
 
   final Map<String, String> _plPL = <String, String>{
@@ -479,5 +480,6 @@ c) Zaakceptowanie i uczestnictwo w konkursie oznacza akceptację powyższego reg
     'you_get': 'Otrzymujesz dodatkowe ',
     'points': ' punkty',
     'check_score': 'Sprawdź swoje wyniki',
+    'tree_title': 'Drzewo',
   };
 }

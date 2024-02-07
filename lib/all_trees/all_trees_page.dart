@@ -8,11 +8,10 @@ import '../analytics/analytics.dart';
 import '../model/errors.dart';
 import '../model/my_tree.dart';
 import '../model/my_trees.dart';
-import '../my_tree_details/my_tree_details_page.dart';
 import '../network/all_trees_provider.dart';
 import '../network/api_dio.dart';
-import '../network/my_trees_provider.dart';
 import '../services/photos_service.dart';
+import '../tree_details/tree_details_page.dart';
 import '../ui/activity_indicator.dart';
 import '../ui/date.dart';
 import '../ui/dimen.dart';
@@ -162,7 +161,7 @@ class AllTreesController extends SessionController with StateMixin<MyTrees> {
   void viewDetails(MyTree myTree) {
     Navigator.of(Get.context!).pop();
     Analytics.buttonPressed('Tree details');
-    Get.toNamed(MyTreeDetailsPage.path, arguments: myTree);
+    Get.toNamed(TreeDetailsPage.path, arguments: myTree);
   }
 
   Future<void> createLocationMarkers(List<MyTree>? trees) async {
