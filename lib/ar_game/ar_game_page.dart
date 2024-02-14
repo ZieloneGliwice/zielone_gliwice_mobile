@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:ar_flutter_plugin/datatypes/node_types.dart';
@@ -104,6 +105,7 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
   ARNode? localObjectNode;
   ARNode? webObjectNode;
   List<ARNode> nodes = <ARNode>[];
+  Timer? timer;
 
   RxBool birdShown = false.obs;
 
@@ -127,6 +129,8 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
 
     this.arObjectManager.onInitialize();
     this.arObjectManager.onNodeTap = handleTap;
+
+    startLookingForBird();
   }
 
   void handleTap(List<String> nodeNames) {
@@ -246,5 +250,14 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
       nodes.add(myNode);
       birdShown.value = true;
     }
+  }
+
+  void startLookingForBird() {
+    timer =
+        Timer.periodic(const Duration(seconds: 15), (Timer t) => birdFound());
+  }
+
+  void birdFound() {
+    addNodeInFrontOfUser();
   }
 }
