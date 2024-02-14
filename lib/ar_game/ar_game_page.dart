@@ -235,8 +235,12 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
       //Rotate target
       final Vector3 newRotation = cameraPose.matrixEulerAngles;
 
-      //Values so bird will look directly at user
+      //Target looks to user
       newRotation.add(Vector3(110 * pi / 180, 0, -10 * pi / 180));
+
+      //Randomize rotation
+      newRotation.add(Vector3(randomDoubleBetween(-80, 40) * pi / 180, 0,
+          randomDoubleBetween(-3, 3) * pi / 180));
 
       //Remove rotational deviation
       newRotation[1] = 0;
@@ -244,10 +248,13 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
       //Raise target
       newPosition.add(Vector3(0, 3, 0));
 
+      //Randomize target size
+      final double size = randomDoubleBetween(0.5, 0.7);
+
       final ARNode myNode = ARNode(
           type: NodeType.localGLTF2,
           uri: 'assets/ar/Chicken_01/Chicken_01.gltf',
-          scale: Vector3(0.6, 0.6, 0.6),
+          scale: Vector3(size, size, size),
           position: newPosition,
           // rotation: newRotation,
           eulerAngles: newRotation, //,
@@ -304,5 +311,9 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
 
   void birdFound() {
     addNodeInFrontOfUser();
+  }
+
+  double randomDoubleBetween(double min, double max) {
+    return min + rng.nextDouble() * (max - min);
   }
 }
