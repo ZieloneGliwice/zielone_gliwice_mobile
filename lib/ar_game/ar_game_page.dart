@@ -66,7 +66,7 @@ class ArGamePage extends GetView<ArGameController> {
                     onPressed: () {
                       controller.addNodeInFrontOfUser();
                     },
-                    child: const Text('Pokaż ptaka (tymczasowe)'),
+                    child: Obx((() => Text(controller.test.value))),
                   ),
                 ),
                 const SizedBox(width: 20),
@@ -106,8 +106,16 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
   ARNode? webObjectNode;
   List<ARNode> nodes = <ARNode>[];
   Timer? timer;
+  Random rng = Random();
+  late Vector3 startPosition;
+  late Vector3 currentPosition;
+  RxString test = ''.obs;
 
+  //variables necessary for looking for the birds
   RxBool birdShown = false.obs;
+  final double minimalDistance = 5.0; //in meters
+  final int chanceToFind = 3; // 1/chanceToFind
+  final int lookInterval = 5; //in seconds
 
   Future<void> onARViewCreated(
       ARSessionManager arSessionManager,
@@ -207,34 +215,33 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
   }
 
   Future<void> addNodeInFrontOfUser() async {
-    // Pobieranie pozy kamery
+    // Get current camera pose
     final Matrix4? cameraPose = await arSessionManager.getCameraPose();
 
     if (cameraPose != null) {
-      //Wektor jednostkowy do odległości
+      //Create unit vector
       final Vector3 forwardVector = Vector3(0.0, 0.0, -1.0);
 
-      //Rotacja jednostkowego wektoru, aby był skierowany prostopadle do kamery
+      //Rotate the unit vector to point perpendicular to the camera
       forwardVector.applyMatrix3(cameraPose.getRotation());
-      cameraPose.getTranslation();
 
-      //Odległość od aparatu
+      //Distance from camera
       const double distance = 10;
 
-      //Pozycja celu
+      //Target position
       final Vector3 cameraPosition = cameraPose.getTranslation();
       final Vector3 newPosition = cameraPosition + forwardVector * distance;
 
-      //Obrót celu
+      //Rotate target
       final Vector3 newRotation = cameraPose.matrixEulerAngles;
 
-      //wartości domyślne by ptak patrzył na kamerę
+      //Values so bird will look directly at user
       newRotation.add(Vector3(110 * pi / 180, 0, -10 * pi / 180));
 
-      //Usunięcie odchylenia obrotowego
+      //Remove rotational deviation
       newRotation[1] = 0;
 
-      //Podnieś cel
+      //Raise target
       newPosition.add(Vector3(0, 3, 0));
 
       final ARNode myNode = ARNode(
@@ -252,9 +259,47 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
     }
   }
 
-  void startLookingForBird() {
-    timer =
-        Timer.periodic(const Duration(seconds: 15), (Timer t) => birdFound());
+  Future<void> startLookingForBird() async {
+    final Matrix4? cameraPose = await arSessionManager.getCameraPose();
+    startPosition = cameraPose!.getTranslation();
+
+    //Look for the bird every lookInterval seconds
+    timer = Timer.periodic(
+      Duration(seconds: lookInterval),
+      (Timer t) => lookForBird(),
+    );
+  }
+
+  Future<void> lookForBird() async {
+    //Check if bird is already found
+    if (birdShown.value) {
+      return;
+    }
+
+    //Check if user is moving (at least minimalDistance meters from his starting position)
+    final Matrix4? cameraPose = await arSessionManager.getCameraPose();
+    currentPosition = cameraPose!.getTranslation();
+    final double distanceWalked =
+        calculateDistance(startPosition, currentPosition);
+    test.value = distanceWalked.toString();
+    if (distanceWalked < minimalDistance) {
+      return;
+    }
+    startPosition = currentPosition;
+
+    //Random chance to find bird (1 in chanceToFind)
+    if (rng.nextInt(chanceToFind) == 1) {
+      birdFound();
+    }
+  }
+
+  double calculateDistance(Vector3 start, Vector3 now) {
+    double distance = 0;
+    distance = sqrt(pow(now[0] - start[0], 2) +
+        pow(now[1] - start[1], 2) +
+        pow(now[2] - start[2], 2));
+
+    return distance;
   }
 
   void birdFound() {
