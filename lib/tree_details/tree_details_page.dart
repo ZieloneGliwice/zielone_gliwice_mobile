@@ -356,7 +356,9 @@ class TreeDetailsController extends SessionController
 
   void calculateAttributes(TreeDetails details) {
     //Ze wzorów
-    age = 15;
+    final double ageTemp = details.perimeter! * 0.4;
+    age = ageTemp.toInt(); //obwód*0.4
+
     kmConsumed = 30;
     fumesConsumed = 3;
     fumesIncome = 400;
