@@ -34,16 +34,18 @@ class LogInPage extends GetView<LogInPageController> {
       children: <Widget>[
         Expanded(child: _logo()),
         Expanded(
-            child: controller.obx(
-          (bool? isLoading) {
-            if (isLoading ?? false) {
-              return const ActivityIndicator();
-            } else {
-              return _buttons();
-            }
-          },
-          onLoading: const ActivityIndicator(),
-        )),
+          child: controller.obx(
+            (bool? isLoading) {
+              if (isLoading ?? false) {
+                return const ActivityIndicator();
+              } else {
+                return _buttons();
+              }
+            },
+            onLoading: const ActivityIndicator(),
+          ),
+        ),
+        _activeCitizen(),
       ],
     ));
   }
@@ -92,6 +94,11 @@ class LogInPage extends GetView<LogInPageController> {
 
   Widget _logo() {
     const String assetName = 'assets/images/full_logo.png';
+    return const Image(image: AssetImage(assetName));
+  }
+
+  Widget _activeCitizen() {
+    const String assetName = 'assets/images/active-citizen-logo.png';
     return const Image(image: AssetImage(assetName));
   }
 }
