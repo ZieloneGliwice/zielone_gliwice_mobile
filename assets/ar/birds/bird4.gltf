@@ -1,0 +1,405 @@
+{
+  "asset": {
+    "copyright": "Copyright 2022 Omabuarts Studio. For more info, visit https://omabuarts.com/license",
+    "generator": "Khronos glTF Blender I/O v3.3.32",
+    "version": "2.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Scene",
+      "nodes": [
+        9
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "tail.01",
+      "rotation": [
+        -0.892564594745636,
+        -5.375379785732548E-08,
+        -1.0640204806122711E-07,
+        0.45091980695724487
+      ],
+      "scale": [
+        1,
+        0.99999994039535522,
+        0.99999982118606567
+      ],
+      "translation": [
+        2.1664851601599366E-07,
+        -0.34208828210830688,
+        -0.48443195223808289
+      ]
+    },
+    {
+      "name": "tail.02",
+      "rotation": [
+        -0.88891184329986572,
+        -5.99443268356481E-08,
+        -1.1130381949442381E-07,
+        0.45807826519012451
+      ],
+      "scale": [
+        1,
+        1,
+        1.0000001192092896
+      ],
+      "translation": [
+        1.9808527440545731E-07,
+        -0.43848830461502075,
+        -0.39207980036735535
+      ]
+    },
+    {
+      "name": "wing.L",
+      "rotation": [
+        0.32170590758323669,
+        0.40555045008659363,
+        -0.83339381217956543,
+        0.19362056255340576
+      ],
+      "scale": [
+        0.99999994039535522,
+        0.99999970197677612,
+        1
+      ],
+      "translation": [
+        0.54938250780105591,
+        0.18801790475845337,
+        0.18236184120178223
+      ]
+    },
+    {
+      "name": "wing.R",
+      "rotation": [
+        0.32170569896698,
+        -0.40555059909820557,
+        0.83339387178421021,
+        0.19362029433250427
+      ],
+      "scale": [
+        1.0000001192092896,
+        1,
+        1.0000001192092896
+      ],
+      "translation": [
+        -0.54938262701034546,
+        0.18801790475845337,
+        0.18236157298088074
+      ]
+    },
+    {
+      "name": "feet.L",
+      "rotation": [
+        4.3312579123266914E-07,
+        0,
+        -1,
+        0
+      ],
+      "translation": [
+        0.20284959673881531,
+        -0.36694544553756714,
+        0.21678781509399414
+      ]
+    },
+    {
+      "name": "feet.R",
+      "rotation": [
+        -1.9470721213110664E-07,
+        0,
+        -1,
+        0
+      ],
+      "translation": [
+        -0.20284968614578247,
+        -0.36694544553756714,
+        0.21678772568702698
+      ]
+    },
+    {
+      "children": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "name": "body",
+      "rotation": [
+        0.7071068286895752,
+        8.4293695579162886E-08,
+        8.4293695579162886E-08,
+        0.7071068286895752
+      ],
+      "translation": [
+        3.9656729322964205E-17,
+        0.21853007376194,
+        0.94832319021224976
+      ]
+    },
+    {
+      "children": [
+        6
+      ],
+      "name": "root",
+      "rotation": [
+        -0.7071068286895752,
+        0,
+        0,
+        0.7071068286895752
+      ]
+    },
+    {
+      "mesh": 0,
+      "name": "Mesh",
+      "skin": 0
+    },
+    {
+      "children": [
+        8,
+        7
+      ],
+      "name": "Rig",
+      "scale": [
+        0.39999997615814209,
+        0.39999997615814209,
+        0.39999997615814209
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "M_AndeanCondor",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.5
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "extras": {
+        "targetNames": [
+          "eyes.blink",
+          "eyes.happy",
+          "eyes.sad",
+          "eyes.sleep",
+          "eyes.annoyed",
+          "eyes.squint",
+          "eyes.shrink",
+          "eyes.dead",
+          "eyes.lookOut",
+          "eyes.lookIn",
+          "eyes.lookUp",
+          "eyes.lookDown",
+          "eyes.excited-1",
+          "eyes.excited-2",
+          "eyes.rabid",
+          "eyes.spin-1",
+          "eyes.spin-2",
+          "eyes.spin-3",
+          "eyes.cry-1",
+          "eyes.cry-2",
+          "eyes.trauma",
+          "teardrop-1.L",
+          "teardrop-2.L",
+          "sweat-1.L",
+          "sweat-2.L",
+          "teardrop-1.R",
+          "teardrop-2.R",
+          "sweat-1.R",
+          "sweat-2.R"
+        ]
+      },
+      "name": "AndeanCondor_LOD0",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TEXCOORD_0": 2,
+            "JOINTS_0": 3,
+            "WEIGHTS_0": 4
+          },
+          "indices": 5,
+          "material": 0
+        }
+      ],
+      "weights": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ],
+  "images": [
+    {
+      "name": "T_AndeanCondor",
+      "uri": "bird4_image0.png"
+    }
+  ],
+  "skins": [
+    {
+      "inverseBindMatrices": 6,
+      "joints": [
+        7,
+        6,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "name": "Rig"
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 2629,
+      "max": [
+        0.461020827293396,
+        0.91991305351257324,
+        0.26158198714256287
+      ],
+      "min": [
+        -0.46102076768875122,
+        0,
+        -0.5414394736289978
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 2629,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 2629,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5121,
+      "count": 2629,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 4,
+      "componentType": 5126,
+      "count": 2629,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 5,
+      "componentType": 5123,
+      "count": 14256,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 6,
+      "componentType": 5126,
+      "count": 8,
+      "type": "MAT4"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 31548,
+      "byteOffset": 0,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 31548,
+      "byteOffset": 31548,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 21032,
+      "byteOffset": 63096,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 10516,
+      "byteOffset": 84128,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 42064,
+      "byteOffset": 94644,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 28512,
+      "byteOffset": 136708,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 512,
+      "byteOffset": 165220
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 165732,
+      "uri": "bird4.bin"
+    }
+  ]
+}

@@ -1,0 +1,442 @@
+{
+  "asset": {
+    "copyright": "Copyright 2022 Omabuarts Studio. For more info, visit https://omabuarts.com/license",
+    "generator": "Khronos glTF Blender I/O v3.3.32",
+    "version": "2.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Scene",
+      "nodes": [
+        11
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "tail.01",
+      "rotation": [
+        -0.84678524732589722,
+        -6.3411548012481944E-08,
+        -1.0094469615751223E-07,
+        0.53193509578704834
+      ],
+      "translation": [
+        2.7062844765168848E-07,
+        -0.19766652584075928,
+        -0.71084034442901611
+      ]
+    },
+    {
+      "name": "tail.02",
+      "rotation": [
+        -0.85103094577789307,
+        -6.69946018660994E-08,
+        -1.0545465300992873E-07,
+        0.5251154899597168
+      ],
+      "scale": [
+        1,
+        1.0000001192092896,
+        1.0000002384185791
+      ],
+      "translation": [
+        2.6131408503715647E-07,
+        -0.30109569430351257,
+        -0.65728080272674561
+      ]
+    },
+    {
+      "name": "hair.01",
+      "rotation": [
+        -0.77250123023986816,
+        -0.00063124805456027389,
+        -0.00056633225176483393,
+        0.63501274585723877
+      ],
+      "scale": [
+        1,
+        0.99999994039535522,
+        0.99999988079071045
+      ],
+      "translation": [
+        5.9573725508244024E-08,
+        1.0385479927062988,
+        0.0513777919113636
+      ]
+    },
+    {
+      "name": "hair.02",
+      "rotation": [
+        -0.79230380058288574,
+        -0.00036333102616481483,
+        -0.00060116243548691273,
+        0.61012643575668335
+      ],
+      "scale": [
+        0.99999994039535522,
+        1,
+        1
+      ],
+      "translation": [
+        1.202382691189996E-07,
+        0.92225795984268188,
+        0.01721302792429924
+      ]
+    },
+    {
+      "name": "wing.L",
+      "rotation": [
+        0.35160088539123535,
+        0.30856966972351074,
+        -0.84319561719894409,
+        0.26492041349411011
+      ],
+      "scale": [
+        0.99999988079071045,
+        0.99999994039535522,
+        0.99999994039535522
+      ],
+      "translation": [
+        0.48398739099502563,
+        0.33243459463119507,
+        0.090533971786499023
+      ]
+    },
+    {
+      "name": "wing.R",
+      "rotation": [
+        0.35160067677497864,
+        -0.30856966972351074,
+        0.84319573640823364,
+        0.26492032408714294
+      ],
+      "scale": [
+        0.99999964237213135,
+        0.9999997615814209,
+        0.99999994039535522
+      ],
+      "translation": [
+        -0.48398745059967041,
+        0.33243459463119507,
+        0.090533755719661713
+      ]
+    },
+    {
+      "name": "feet.L",
+      "rotation": [
+        1.947071694985425E-07,
+        0,
+        -1,
+        0
+      ],
+      "translation": [
+        0.2028496265411377,
+        -0.30448457598686218,
+        0.043359991163015366
+      ]
+    },
+    {
+      "name": "feet.R",
+      "rotation": [
+        4.37113598650285E-08,
+        0,
+        -1,
+        0
+      ],
+      "translation": [
+        -0.20284965634346008,
+        -0.30448457598686218,
+        0.043359894305467606
+      ]
+    },
+    {
+      "children": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "name": "body",
+      "rotation": [
+        0.7071068286895752,
+        8.4293695579162886E-08,
+        8.4293695579162886E-08,
+        0.7071068286895752
+      ],
+      "translation": [
+        0,
+        0.049095932394266129,
+        0.7814251184463501
+      ]
+    },
+    {
+      "children": [
+        8
+      ],
+      "name": "root",
+      "rotation": [
+        -0.7071068286895752,
+        0,
+        0,
+        0.7071068286895752
+      ]
+    },
+    {
+      "mesh": 0,
+      "name": "Mesh",
+      "skin": 0
+    },
+    {
+      "children": [
+        10,
+        9
+      ],
+      "name": "Rig",
+      "scale": [
+        0.39999997615814209,
+        0.39999997615814209,
+        0.39999997615814209
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "M_ArchersBuzzard",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.5
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "extras": {
+        "targetNames": [
+          "eyes.blink",
+          "eyes.happy",
+          "eyes.sad",
+          "eyes.sleep",
+          "eyes.annoyed",
+          "eyes.squint",
+          "eyes.shrink",
+          "eyes.dead",
+          "eyes.lookOut",
+          "eyes.lookIn",
+          "eyes.lookUp",
+          "eyes.lookDown",
+          "eyes.excited-1",
+          "eyes.excited-2",
+          "eyes.rabid",
+          "eyes.spin-1",
+          "eyes.spin-2",
+          "eyes.spin-3",
+          "eyes.cry-1",
+          "eyes.cry-2",
+          "eyes.trauma",
+          "teardrop-1.L",
+          "teardrop-2.L",
+          "sweat-1.L",
+          "sweat-2.L",
+          "teardrop-1.R",
+          "teardrop-2.R",
+          "sweat-1.R",
+          "sweat-2.R"
+        ]
+      },
+      "name": "ArchersBuzzard_LOD0",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TEXCOORD_0": 2,
+            "JOINTS_0": 3,
+            "WEIGHTS_0": 4
+          },
+          "indices": 5,
+          "material": 0
+        }
+      ],
+      "weights": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ],
+  "images": [
+    {
+      "name": "T_ArchersBuzzard",
+      "uri": "bird5_image0.png"
+    }
+  ],
+  "skins": [
+    {
+      "inverseBindMatrices": 6,
+      "joints": [
+        9,
+        8,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "name": "Rig"
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 2858,
+      "max": [
+        0.490561842918396,
+        0.79360467195510864,
+        0.257717490196228
+      ],
+      "min": [
+        -0.490561842918396,
+        1.4284663682263725E-18,
+        -0.65080010890960693
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 2858,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 2858,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5121,
+      "count": 2858,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 4,
+      "componentType": 5126,
+      "count": 2858,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 5,
+      "componentType": 5123,
+      "count": 15336,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 6,
+      "componentType": 5126,
+      "count": 10,
+      "type": "MAT4"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 34296,
+      "byteOffset": 0,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 34296,
+      "byteOffset": 34296,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 22864,
+      "byteOffset": 68592,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 11432,
+      "byteOffset": 91456,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 45728,
+      "byteOffset": 102888,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 30672,
+      "byteOffset": 148616,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 640,
+      "byteOffset": 179288
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 179928,
+      "uri": "bird5.bin"
+    }
+  ]
+}

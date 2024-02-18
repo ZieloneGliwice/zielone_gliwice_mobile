@@ -66,7 +66,7 @@ class ArGamePage extends GetView<ArGameController> {
                     onPressed: () {
                       controller.addNodeInFrontOfUser();
                     },
-                    child: Obx((() => Text(controller.test.value))),
+                    child: Obx(() => Text(controller.test.value)),
                   ),
                 ),
                 const SizedBox(width: 20),
@@ -113,7 +113,7 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
 
   //variables necessary for looking for the birds
   RxBool birdShown = false.obs;
-  final double minimalDistance = 5.0; //in meters
+  final double minimalDistance = 10.0; //in meters
   final int chanceToFind = 3; // 1/chanceToFind
   final int lookInterval = 5; //in seconds
 
