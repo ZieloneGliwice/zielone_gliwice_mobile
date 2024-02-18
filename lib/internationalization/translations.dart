@@ -147,6 +147,8 @@ The location of the tree can be entered by:
 All collected data are processed exclusively in the Application. The acquired tree information is possible to be processed and analyzed by third parties.
 The tree description does not contain personal data of Users.
 
+Upon acceptance of the regulations, the user enters tree pins and all data on a volunteer basis in the open source application belonging to the Fundacja Media 3.0.
+
 § 5 Contact
 In matters concerning the manner and scope of processing of your data, as well as about your rights, please write to: kontakt@media30.pl.
 
@@ -384,6 +386,8 @@ b. w przypadku urządzenia mobilnego z systemem iOS z AppStore
 • skorzystanie z przycisku geolokalizacji, pod warunkiem włączenia GPS i obecności w danym miejscu.
 7. Wszystkie zgromadzone dane przetwarzane są wyłącznie w Aplikacji. Pozyskane informacje dotyczące drzew możliwe są do przetwarzania i analizowania przez strony trzecie.
 8. Opis drzewa nie zawiera danych osobowych Użytkowników.
+
+Użytkownik z chwilą akceptacji regulaminu piny drzew i wszelkie dane wprowadza na zasadach wolontariatu w aplikacji open source należącej do Fundacji Media 3.0
 
 § 5 Kontakt
 
