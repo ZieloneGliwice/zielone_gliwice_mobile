@@ -14,6 +14,10 @@ class API {
   static const String trees = '${_baseAPIURL}users/me/trees';
   static const String allTrees = '${_baseAPIURL}trees';
 
+  //AR
+  static const String createEntry = '${_baseAPIURL}leaderboard/new';
+  static const String allEntries = '${_baseAPIURL}leaderboard';
+
   // Dictionaries
   static const String dicts = '${_baseAPIURL}dicts/';
   static const String species = '${dicts}species/';

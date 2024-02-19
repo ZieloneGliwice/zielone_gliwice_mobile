@@ -64,7 +64,7 @@ class ArGamePage extends GetView<ArGameController> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      controller.addNodeInFrontOfUser();
+                      controller.birdFound();
                     },
                     child: Obx(() => Text(controller.test.value)),
                   ),
@@ -214,7 +214,7 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
         .then((_) => Get.back());
   }
 
-  Future<void> addNodeInFrontOfUser() async {
+  Future<void> addNodeInFrontOfUser(String name) async {
     // Get current camera pose
     final Matrix4? cameraPose = await arSessionManager.getCameraPose();
 
@@ -236,10 +236,10 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
       final Vector3 newRotation = cameraPose.matrixEulerAngles;
 
       //Target looks to user
-      newRotation.add(Vector3(110 * pi / 180, 0, -10 * pi / 180));
+      newRotation.add(Vector3(0 * pi / 180, 0, -10 * pi / 180));
 
       //Randomize rotation
-      newRotation.add(Vector3(randomDoubleBetween(-80, 40) * pi / 180, 0,
+      newRotation.add(Vector3(randomDoubleBetween(-80, 80) * pi / 180, 0,
           randomDoubleBetween(-3, 3) * pi / 180));
 
       //Remove rotational deviation
@@ -249,16 +249,16 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
       newPosition.add(Vector3(0, 3, 0));
 
       //Randomize target size
-      final double size = randomDoubleBetween(0.5, 0.7);
+      final double size = randomDoubleBetween(2.0, 3.0);
 
       final ARNode myNode = ARNode(
           type: NodeType.localGLTF2,
-          uri: 'assets/ar/Chicken_01/Chicken_01.gltf',
+          uri: 'assets/ar/birds/$name.gltf',
           scale: Vector3(size, size, size),
           position: newPosition,
           // rotation: newRotation,
           eulerAngles: newRotation, //,
-          name: 'Kura${nodes.length}');
+          name: 'bird${nodes.length}');
 
       arObjectManager.addNode(myNode);
       nodes.add(myNode);
@@ -279,11 +279,13 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
 
   Future<void> lookForBird() async {
     //Check if bird is already found
-    if (birdShown.value) {
-      return;
-    }
+
+    // if (birdShown.value) {
+    //   return;
+    // }
 
     //Check if user is moving (at least minimalDistance meters from his starting position)
+
     final Matrix4? cameraPose = await arSessionManager.getCameraPose();
     currentPosition = cameraPose!.getTranslation();
     final double distanceWalked =
@@ -295,9 +297,10 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
     startPosition = currentPosition;
 
     //Random chance to find bird (1 in chanceToFind)
-    if (rng.nextInt(chanceToFind) == 1) {
-      birdFound();
-    }
+
+    // if (rng.nextInt(chanceToFind) == 1) {
+    birdFound();
+    // }
   }
 
   double calculateDistance(Vector3 start, Vector3 now) {
@@ -310,7 +313,8 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
   }
 
   void birdFound() {
-    addNodeInFrontOfUser();
+    int rndBirdId = rng.nextInt(7) + 1;
+    addNodeInFrontOfUser('bird$rndBirdId');
   }
 
   double randomDoubleBetween(double min, double max) {

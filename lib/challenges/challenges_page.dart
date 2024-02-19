@@ -5,9 +5,12 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../analytics/analytics.dart';
 import '../ar_game/ar_game_page.dart';
 import '../model/challenges_entry.dart';
+import '../model/entries.dart';
+import '../model/entry.dart';
 import '../model/errors.dart';
 import '../model/signed_user.dart';
 import '../network/api_dio.dart';
+import '../network/leaderboard_entries_provider.dart';
 import '../ui/activity_indicator.dart';
 import '../ui/bottom_bar.dart';
 import '../ui/dimen.dart';
@@ -19,7 +22,7 @@ import '../utils/session_controller.dart';
 class ChallengesPage extends GetView<ChallengesPageController> {
   const ChallengesPage({super.key});
 
-  static const String path = '/challengess_page';
+  static const String path = '/challenges_page';
 
   @override
   Widget build(BuildContext context) {
@@ -180,16 +183,16 @@ class ChallengesPage extends GetView<ChallengesPageController> {
             style: ApplicationTextStyles.challengesLeaderboardTextStyle,
           ),
         ),
-        const Expanded(
-          flex: 4,
-          child: SizedBox(
-            height: 40,
-            child: Icon(
-              Icons.account_circle_rounded,
-              size: 32,
-            ),
-          ),
-        ),
+        // const Expanded(
+        //   flex: 4,
+        //   child: SizedBox(
+        //     height: 40,
+        //     child: Icon(
+        //       Icons.account_circle_rounded,
+        //       size: 32,
+        //     ),
+        //   ),
+        // ),
         Expanded(
           flex: 7,
           child: Text(
@@ -205,6 +208,9 @@ class ChallengesPage extends GetView<ChallengesPageController> {
             textAlign: TextAlign.right,
             style: ApplicationTextStyles.challengesLeaderboardTextStyle,
           ),
+        ),
+        const SizedBox(
+          height: 40,
         )
       ],
     );
@@ -212,7 +218,10 @@ class ChallengesPage extends GetView<ChallengesPageController> {
 }
 
 class ChallengesPageController extends SessionController with StateMixin<bool> {
-  ChallengesPageController(super.sessionStorage, super.photosService);
+  ChallengesPageController(
+      this._entriesProvider, super.sessionStorage, super.photosService);
+
+  final EntriesProvider _entriesProvider;
 
   RxString photoURL = ''.obs;
   RxString userName = ''.obs;
@@ -225,6 +234,8 @@ class ChallengesPageController extends SessionController with StateMixin<bool> {
   late ScrollOffsetController scrollOffsetController;
   late ItemPositionsListener itemPositionsListener;
   late ScrollOffsetListener scrollOffsetListener;
+
+  late Entries allEntries;
 
   @override
   void onInit() {
@@ -256,12 +267,16 @@ class ChallengesPageController extends SessionController with StateMixin<bool> {
   }
 
   Future<void> loadLeaderBoard() async {
-    //pobierane z bazy będzie danych wszystkich uczestników i pozycji użytkownika
-    for (int i = 0; i < 300; i++) {
-      leaderBoard.add(ChallengesEntry(i + 1, 'Grzegorz Gżegżółka', 144));
+    allEntries = await _entriesProvider.getEntries();
+
+    for (int i = 0; i < allEntries.entries!.length; i++) {
+      final Entry currentEntry = allEntries.entries![i];
+
+      leaderBoard.add(
+        ChallengesEntry(i + 1, currentEntry.userName ?? 'Jan Kowalski',
+            currentEntry.points ?? 0),
+      );
     }
-    userPosition.value = 24;
-    userPoints.value = leaderBoard[userPosition.value - 1].points;
   }
 
   void handleError(ZGError error) {

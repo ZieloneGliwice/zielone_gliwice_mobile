@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../network/leaderboard_entries_provider.dart';
 import '../services/photos_service.dart';
 import '../utils/session_storage.dart';
 import 'challenges_page.dart';
@@ -9,7 +10,10 @@ class ChallengesPageBind extends Bindings {
   void dependencies() {
     Get.lazyPut(() => PhotosService(), fenix: true);
     Get.lazyPut(() => SessionStorage(), fenix: true);
-    Get.lazyPut(() => ChallengesPageController(Get.find(), Get.find()),
+    Get.lazyPut(() => EntriesProvider(Get.find(), Get.find()), fenix: true);
+
+    Get.lazyPut(
+        () => ChallengesPageController(Get.find(), Get.find(), Get.find()),
         fenix: true);
   }
 }

@@ -29,7 +29,7 @@ class BottomBar extends BottomAppBar {
               ),
               Expanded(
                 child: item(Icons.star_border_rounded, 'challenges_title'.tr,
-                    activeId == 2, '/challengess_page', photosService),
+                    activeId == 2, '/challenges_page', photosService),
               ),
             ],
           ),

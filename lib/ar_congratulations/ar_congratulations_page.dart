@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../analytics/analytics.dart';
+import '../ar_congratulations/new_entry_request.dart';
 import '../challenges/challenges_page.dart';
 import '../model/errors.dart';
+import '../model/new_entry.dart';
 import '../model/signed_user.dart';
 import '../network/api_dio.dart';
 import '../ui/activity_indicator.dart';
@@ -111,7 +114,9 @@ class ArCongratulationsPage extends GetView<ArCongratulationsController> {
 
 class ArCongratulationsController extends SessionController
     with StateMixin<bool> {
-  ArCongratulationsController(super.sessionStorage, super.photosService);
+  ArCongratulationsController(
+      this.newEntryRequest, super.sessionStorage, super.photosService);
+  NewEntryRequest newEntryRequest;
 
   RxString photoURL = ''.obs;
   RxString userName = ''.obs;
@@ -124,6 +129,7 @@ class ArCongratulationsController extends SessionController
   void onInit() {
     super.onInit();
     getData();
+    createEntry();
   }
 
   Future<void> getData() async {
@@ -146,6 +152,24 @@ class ArCongratulationsController extends SessionController
 
     userName.value = signedUser?.details.name ?? '';
     photoURL.value = signedUser?.details.photoUrl ?? '';
+  }
+
+  Future<void> createEntry() async {
+    //to do pytanie o nazwę
+    final NewEntry newEntry = NewEntry(
+      userName: 'Nazwa',
+      points: 56,
+    );
+
+    try {
+      await newEntryRequest.createEntry(newEntry);
+    } on UnauthorizedException catch (_) {
+      unauthorized();
+    } on NoInternetConnectionException catch (_) {
+      handleError(ConnectionError());
+    } catch (_) {
+      handleError(CommonError());
+    }
   }
 
   void handleError(ZGError error) {
