@@ -13,6 +13,7 @@ import '../api.dart';
 import '../email_log_in/email_log_in_page.dart';
 import '../model/session.dart';
 import '../model/signed_user.dart';
+import '../ui/dimen.dart';
 import '../model/user_data.dart';
 import '../my_trees/my_trees_page.dart';
 import '../ui/activity_indicator.dart';
@@ -99,7 +100,12 @@ class LogInPage extends GetView<LogInPageController> {
 
   Widget _activeCitizen() {
     const String assetName = 'assets/images/active-citizen-logo.png';
-    return const Image(image: AssetImage(assetName));
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: Dimen.marginBig),
+      child: Image(
+        image: AssetImage(assetName),
+      ),
+    );
   }
 }
 
