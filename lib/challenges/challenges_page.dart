@@ -145,7 +145,8 @@ class ChallengesPage extends GetView<ChallengesPageController> {
 
   Widget _buttonPlay() {
     return InkWell(
-      onTap: () => Get.toNamed(ArGamePage.path),
+      onTap: () => Get.toNamed(ArGamePage.path,
+          arguments: <String, dynamic>{'hasEntry': controller.hasEntry.value}),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(25),
         child: Container(
@@ -174,7 +175,8 @@ class ChallengesPage extends GetView<ChallengesPageController> {
             const EdgeInsets.only(top: 12, bottom: 30, left: 20, right: 20),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) =>
-            index == controller.userPosition.value - 1
+            controller.hasEntry.value &&
+                    index == controller.userPosition.value - 1
                 ? _myStats(controller.leaderBoard[index])
                 : _userStats(controller.leaderBoard[index]),
         separatorBuilder: (BuildContext context, int index) =>
@@ -285,6 +287,8 @@ class ChallengesPageController extends SessionController with StateMixin<bool> {
   RxInt userPosition = 0.obs;
   RxInt userPoints = 0.obs;
 
+  dynamic args = Get.arguments;
+
   late ItemScrollController itemScrollController;
   late ScrollOffsetController scrollOffsetController;
   late ItemPositionsListener itemPositionsListener;
@@ -349,7 +353,7 @@ class ChallengesPageController extends SessionController with StateMixin<bool> {
   Future<void> loadMyEntry() async {
     myEntries = await _myEntryProvider.getEntries();
 
-    if (myEntries.entries!.isEmpty) {
+    if (myEntries == null || myEntries.entries!.isEmpty) {
       return;
     }
 

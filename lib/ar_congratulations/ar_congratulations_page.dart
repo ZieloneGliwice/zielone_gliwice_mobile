@@ -123,19 +123,21 @@ class ArCongratulationsController extends SessionController
   RxBool popupDialogOn = false.obs;
 
   dynamic args = Get.arguments;
-  RxInt pointsAmount = 2.obs;
+  RxInt pointsAmount = 3.obs;
+  RxBool hasEntry = false.obs;
 
   @override
   void onInit() {
     super.onInit();
     getData();
-    createEntry();
+    addPoints();
   }
 
   Future<void> getData() async {
     change(null, status: RxStatus.loading());
     try {
       pointsAmount.value = args['points'] as int;
+      hasEntry.value = args['hasEntry'] as bool;
       await loadUser();
       change(true, status: RxStatus.success());
     } on UnauthorizedException catch (_) {
@@ -154,11 +156,17 @@ class ArCongratulationsController extends SessionController
     photoURL.value = signedUser?.details.photoUrl ?? '';
   }
 
-  Future<void> createEntry() async {
+  Future<void> addPoints() async {
     //to do pytanie o nazwę
+    if (hasEntry.value) {
+      //add points
+      return;
+    }
+
+    //add new entry
     final NewEntry newEntry = NewEntry(
-      userName: 'Nazwa',
-      points: 56,
+      userName: 'Bakłażan',
+      points: pointsAmount.value,
     );
 
     try {

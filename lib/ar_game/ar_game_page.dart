@@ -111,6 +111,9 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
   late Vector3 currentPosition;
   RxString test = ''.obs;
 
+  dynamic args = Get.arguments;
+  bool hasEntry = false;
+
   //variables necessary for looking for the birds
   RxBool birdShown = false.obs;
   final double minimalDistance = 10.0; //in meters
@@ -137,6 +140,7 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
 
     this.arObjectManager.onInitialize();
     this.arObjectManager.onNodeTap = handleTap;
+    hasEntry = args['hasEntry'] as bool;
 
     startLookingForBird();
   }
@@ -210,7 +214,8 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
     Analytics.buttonPressed('Add tree');
     await photosService.clearCachedPhotos();
     arSessionManager.dispose();
-    Get.toNamed(AddTreePage.path, arguments: <String, int>{'points': 3})!
+    Get.toNamed(AddTreePage.path,
+            arguments: <String, dynamic>{'points': 3, 'hasEntry': hasEntry})!
         .then((_) => Get.back());
   }
 

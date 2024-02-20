@@ -402,7 +402,6 @@ class NewTreeController extends SessionController with StateMixin<bool> {
       await photosService.clearCachedPhotos();
 
       if (args != null) {
-        //przesyłać informację o zdobyciu args['points'] punktów
         Get.offAllNamed(ArCongratulationsPage.path, arguments: args);
       } else {
         Get.offAllNamed(MyTreesPage.path);
