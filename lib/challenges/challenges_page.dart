@@ -79,6 +79,10 @@ class ChallengesPage extends GetView<ChallengesPageController> {
   }
 
   Widget _textPoints({int? points}) {
+    if (!controller.hasEntry.value) {
+      return const SizedBox.shrink();
+    }
+
     return RichText(
       text: TextSpan(
         text: 'challenges_1'.tr,
@@ -98,6 +102,10 @@ class ChallengesPage extends GetView<ChallengesPageController> {
   }
 
   Widget _textPosition({int? position}) {
+    if (!controller.hasEntry.value) {
+      return const SizedBox.shrink();
+    }
+
     return RichText(
       text: TextSpan(
         text: 'challenges_3'.tr,
@@ -166,7 +174,9 @@ class ChallengesPage extends GetView<ChallengesPageController> {
             const EdgeInsets.only(top: 12, bottom: 30, left: 20, right: 20),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) =>
-            _userStats(controller.leaderBoard[index]),
+            index == controller.userPosition.value - 1
+                ? _myStats(controller.leaderBoard[index])
+                : _userStats(controller.leaderBoard[index]),
         separatorBuilder: (BuildContext context, int index) =>
             const Divider(thickness: 1, color: ApplicationColors.white),
         itemCount: controller.leaderBoard.length,
@@ -208,6 +218,49 @@ class ChallengesPage extends GetView<ChallengesPageController> {
             '${entry.points} pkt',
             textAlign: TextAlign.right,
             style: ApplicationTextStyles.challengesLeaderboardTextStyle,
+          ),
+        ),
+        const SizedBox(
+          height: 40,
+        )
+      ],
+    );
+  }
+
+  Widget _myStats(ChallengesEntry entry) {
+    return Row(
+      children: [
+        Expanded(
+          flex: 2,
+          child: Text(
+            entry.position.toString(),
+            style: ApplicationTextStyles.challengesMyLeaderboardTextStyle,
+          ),
+        ),
+        // const Expanded(
+        //   flex: 4,
+        //   child: SizedBox(
+        //     height: 40,
+        //     child: Icon(
+        //       Icons.account_circle_rounded,
+        //       size: 32,
+        //     ),
+        //   ),
+        // ),
+        Expanded(
+          flex: 7,
+          child: Text(
+            entry.name,
+            textAlign: TextAlign.left,
+            style: ApplicationTextStyles.challengesMyLeaderboardTextStyle,
+          ),
+        ),
+        Expanded(
+          flex: 5,
+          child: Text(
+            '${entry.points} pkt',
+            textAlign: TextAlign.right,
+            style: ApplicationTextStyles.challengesMyLeaderboardTextStyle,
           ),
         ),
         const SizedBox(
@@ -302,7 +355,8 @@ class ChallengesPageController extends SessionController with StateMixin<bool> {
 
     hasEntry.value = true;
 
-    final Entry myEntry = allEntries.entries![0];
+    //in case of more entires with same user id always take first
+    final Entry myEntry = myEntries.entries![0];
 
     userPoints.value = myEntry.points!;
 
