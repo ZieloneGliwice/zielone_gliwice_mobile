@@ -17,6 +17,7 @@ class API {
   //AR
   static const String createEntry = '${_baseAPIURL}leaderboard/new';
   static const String allEntries = '${_baseAPIURL}leaderboard';
+  static const String myEntry = '${_baseAPIURL}users/me/leaderboard';
 
   // Dictionaries
   static const String dicts = '${_baseAPIURL}dicts/';
