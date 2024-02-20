@@ -269,11 +269,15 @@ class ChallengesPageController extends SessionController with StateMixin<bool> {
   Future<void> loadLeaderBoard() async {
     allEntries = await _entriesProvider.getEntries();
 
+    //sort entries
+    allEntries.entries!
+        .sort((Entry a, Entry b) => b.points!.compareTo(a.points!));
+
     for (int i = 0; i < allEntries.entries!.length; i++) {
       final Entry currentEntry = allEntries.entries![i];
 
       leaderBoard.add(
-        ChallengesEntry(i + 1, currentEntry.userName ?? 'Jan Kowalski',
+        ChallengesEntry(i + 1, currentEntry.userName ?? 'Jan Nowak',
             currentEntry.points ?? 0),
       );
     }
