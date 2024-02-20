@@ -11,6 +11,7 @@ import '../model/errors.dart';
 import '../model/signed_user.dart';
 import '../network/api_dio.dart';
 import '../network/leaderboard_entries_provider.dart';
+import '../network/my_leaderboard_entry_provider.dart';
 import '../ui/activity_indicator.dart';
 import '../ui/bottom_bar.dart';
 import '../ui/dimen.dart';
@@ -52,7 +53,7 @@ class ChallengesPage extends GetView<ChallengesPageController> {
         children: <Widget>[
           const SizedBox(height: 10),
           _textPoints(points: controller.userPoints.value),
-          _textPosition(position: controller.userPosition.value - 1),
+          _textPosition(position: controller.userPosition.value),
           const SizedBox(height: 10),
           Stack(
             children: [
@@ -218,16 +219,17 @@ class ChallengesPage extends GetView<ChallengesPageController> {
 }
 
 class ChallengesPageController extends SessionController with StateMixin<bool> {
-  ChallengesPageController(
-      this._entriesProvider, super.sessionStorage, super.photosService);
+  ChallengesPageController(this._allEntriesProvider, this._myEntryProvider,
+      super.sessionStorage, super.photosService);
 
-  final EntriesProvider _entriesProvider;
+  final EntriesProvider _allEntriesProvider;
+  final MyEntryProvider _myEntryProvider;
 
   RxString photoURL = ''.obs;
   RxString userName = ''.obs;
 
   RxList<ChallengesEntry> leaderBoard = <ChallengesEntry>[].obs;
-  RxInt userPosition = 1.obs;
+  RxInt userPosition = 0.obs;
   RxInt userPoints = 0.obs;
 
   late ItemScrollController itemScrollController;
@@ -236,6 +238,9 @@ class ChallengesPageController extends SessionController with StateMixin<bool> {
   late ScrollOffsetListener scrollOffsetListener;
 
   late Entries allEntries;
+  late Entries myEntries;
+
+  RxBool hasEntry = false.obs;
 
   @override
   void onInit() {
@@ -267,7 +272,12 @@ class ChallengesPageController extends SessionController with StateMixin<bool> {
   }
 
   Future<void> loadLeaderBoard() async {
-    allEntries = await _entriesProvider.getEntries();
+    await loadAllEntries();
+    await loadMyEntry();
+  }
+
+  Future<void> loadAllEntries() async {
+    allEntries = await _allEntriesProvider.getEntries();
 
     //sort entries
     allEntries.entries!
@@ -280,6 +290,28 @@ class ChallengesPageController extends SessionController with StateMixin<bool> {
         ChallengesEntry(i + 1, currentEntry.userName ?? 'Jan Nowak',
             currentEntry.points ?? 0),
       );
+    }
+  }
+
+  Future<void> loadMyEntry() async {
+    myEntries = await _myEntryProvider.getEntries();
+
+    if (myEntries.entries!.isEmpty) {
+      return;
+    }
+
+    hasEntry.value = true;
+
+    final Entry myEntry = allEntries.entries![0];
+
+    userPoints.value = myEntry.points!;
+
+    for (int i = 0; i < allEntries.entries!.length; i++) {
+      final Entry currentEntry = allEntries.entries![i];
+      if (myEntry.userName == currentEntry.userName &&
+          myEntry.points == currentEntry.points) {
+        userPosition.value = i + 1;
+      }
     }
   }
 
