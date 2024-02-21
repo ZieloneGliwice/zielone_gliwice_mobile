@@ -14,6 +14,7 @@ import '../ui/error_view.dart';
 import '../ui/styles.dart';
 import '../ui/white_app_bar.dart';
 import '../utils/session_controller.dart';
+import 'increment_points_request.dart';
 
 class ArCongratulationsPage extends GetView<ArCongratulationsController> {
   const ArCongratulationsPage({super.key});
@@ -34,7 +35,7 @@ class ArCongratulationsPage extends GetView<ArCongratulationsController> {
       ),
       backgroundColor: ApplicationColors.background,
       body: controller.obx(
-        (_) => _body(),
+        (_) => controller.hasEntry.value ? _bodyAddPoints() : _bodyNewEntry(),
         onLoading: const ActivityIndicator(),
         onError: (String? error) => _errorView(error),
       ),
@@ -47,7 +48,7 @@ class ArCongratulationsPage extends GetView<ArCongratulationsController> {
     return ErrorView.from(zgError, controller.getData);
   }
 
-  Widget _body() {
+  Widget _bodyAddPoints() {
     Analytics.visitedScreen(ArCongratulationsPage.path);
     return SingleChildScrollView(
       child: Padding(
@@ -110,13 +111,84 @@ class ArCongratulationsPage extends GetView<ArCongratulationsController> {
       ),
     );
   }
+
+  Widget _bodyNewEntry() {
+    Analytics.visitedScreen(ArCongratulationsPage.path);
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 14),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const SizedBox(width: double.infinity),
+            const SizedBox(height: 40),
+            const Image(
+              image: AssetImage('assets/images/bird1.png'),
+            ),
+            const SizedBox(height: 30),
+            Text(
+              'bravo_name'.trParams(<String, String>{
+                'name': controller.userName.value.split(' ').first
+              }),
+              textAlign: TextAlign.center,
+              style: ApplicationTextStyles.arCongratulationsBravoTextStyle,
+            ),
+            const SizedBox(height: 30),
+            Text(
+              'added_first_bird'.tr,
+              textAlign: TextAlign.center,
+              style:
+                  ApplicationTextStyles.arCongratulationsDescriptionTextStyle,
+            ),
+            Text(
+              'choose_name'.tr,
+              textAlign: TextAlign.center,
+              style:
+                  ApplicationTextStyles.arCongratulationsDescriptionTextStyle,
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: TextFormField(
+                controller: controller.nameController,
+                style: const TextStyle(fontSize: 18),
+                decoration: InputDecoration(
+                  floatingLabelStyle:
+                      const TextStyle(color: ApplicationColors.green),
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: ApplicationColors.green),
+                  ),
+                  label: Text('scoreboard_name'.tr),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                controller.addNewEntry();
+                Get.offAllNamed(ChallengesPage.path);
+              },
+              style: GreenOvalButtonStyle(),
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  'save_score'.tr,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class ArCongratulationsController extends SessionController
     with StateMixin<bool> {
-  ArCongratulationsController(
-      this.newEntryRequest, super.sessionStorage, super.photosService);
+  ArCongratulationsController(this.newEntryRequest, this.incrementPointsRequest,
+      super.sessionStorage, super.photosService);
   NewEntryRequest newEntryRequest;
+  IncrementPointsRequest incrementPointsRequest;
 
   RxString photoURL = ''.obs;
   RxString userName = ''.obs;
@@ -126,11 +198,16 @@ class ArCongratulationsController extends SessionController
   RxInt pointsAmount = 3.obs;
   RxBool hasEntry = false.obs;
 
+  final TextEditingController nameController = TextEditingController();
+
   @override
   void onInit() {
     super.onInit();
     getData();
-    addPoints();
+
+    if (hasEntry.value) {
+      addPoints();
+    }
   }
 
   Future<void> getData() async {
@@ -154,18 +231,25 @@ class ArCongratulationsController extends SessionController
 
     userName.value = signedUser?.details.name ?? '';
     photoURL.value = signedUser?.details.photoUrl ?? '';
+
+    nameController.text = userName.value;
   }
 
   Future<void> addPoints() async {
-    //to do pytanie o nazwę
-    if (hasEntry.value) {
-      //add points
-      return;
+    try {
+      await incrementPointsRequest.incrementPoints(pointsAmount.value);
+    } on UnauthorizedException catch (_) {
+      unauthorized();
+    } on NoInternetConnectionException catch (_) {
+      handleError(ConnectionError());
+    } catch (_) {
+      handleError(CommonError());
     }
+  }
 
-    //add new entry
+  Future<void> addNewEntry() async {
     final NewEntry newEntry = NewEntry(
-      userName: 'Bakłażan',
+      userName: nameController.text,
       points: pointsAmount.value,
     );
 

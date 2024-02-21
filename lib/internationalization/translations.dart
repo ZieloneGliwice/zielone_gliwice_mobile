@@ -244,6 +244,10 @@ c) Zaakceptowanie i uczestnictwo w konkursie oznacza akceptację powyższego reg
     'points': ' points',
     'check_score': 'Check your score',
     'tree_title': 'Tree',
+    'added_first_bird': "You've added another bird to your collection",
+    'choose_name': 'Choose a name for the scoreboard',
+    'save_score': 'Save score',
+    'scoreboard_name': 'Name in the scoreboard'
   };
 
   final Map<String, String> _plPL = <String, String>{
@@ -485,5 +489,9 @@ c) Zaakceptowanie i uczestnictwo w konkursie oznacza akceptację powyższego reg
     'points': ' punkty',
     'check_score': 'Sprawdź swoje wyniki',
     'tree_title': 'Drzewo',
+    'added_first_bird': 'Dodałeś pierwszego ptaka do swojej kolekcji',
+    'choose_name': 'Wybierz nazwę do rankingu',
+    'save_score': 'Zapisz wyniki',
+    'scoreboard_name': 'Nazwa w rankingu',
   };
 }

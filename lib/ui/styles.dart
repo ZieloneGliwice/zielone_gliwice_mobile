@@ -280,6 +280,12 @@ abstract class ApplicationTextStyles {
       fontSize: 14,
       fontFamily: _poppinsFont);
 
+  static const TextStyle challengesMyLeaderboardTextStyle = TextStyle(
+      color: ApplicationColors.black,
+      fontWeight: FontWeight.w700,
+      fontSize: 14,
+      fontFamily: _poppinsFont);
+
   static const TextStyle allTreesTextStyle = TextStyle(
       color: ApplicationColors.black,
       fontWeight: FontWeight.w500,

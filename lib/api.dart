@@ -18,6 +18,8 @@ class API {
   static const String createEntry = '${_baseAPIURL}leaderboard/new';
   static const String allEntries = '${_baseAPIURL}leaderboard';
   static const String myEntry = '${_baseAPIURL}users/me/leaderboard';
+  static const String leaderboardIncrementPoints =
+      '${_baseAPIURL}users/me/leaderboard/increment';
 
   // Dictionaries
   static const String dicts = '${_baseAPIURL}dicts/';
