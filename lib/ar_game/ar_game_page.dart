@@ -116,9 +116,11 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
 
   //variables necessary for looking for the birds
   RxBool birdShown = false.obs;
-  final double minimalDistance = 10.0; //in meters
+  final double minimalDistance = 5.0; //in meters
   final int chanceToFind = 3; // 1/chanceToFind
   final int lookInterval = 5; //in seconds
+
+  final int speciesAmount = 22;
 
   Future<void> onARViewCreated(
       ARSessionManager arSessionManager,
@@ -253,6 +255,10 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
       //Raise target
       newPosition.add(Vector3(0, 3, 0));
 
+      //Randomly move target horizontally and vertically
+      newPosition.add(
+          Vector3(randomDoubleBetween(-5, 5), randomDoubleBetween(-1, 3), 0));
+
       //Randomize target size
       final double size = randomDoubleBetween(2.0, 3.0);
 
@@ -303,9 +309,9 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
 
     //Random chance to find bird (1 in chanceToFind)
 
-    // if (rng.nextInt(chanceToFind) == 1) {
-    birdFound();
-    // }
+    if (rng.nextInt(chanceToFind) == 1) {
+      birdFound();
+    }
   }
 
   double calculateDistance(Vector3 start, Vector3 now) {
@@ -318,7 +324,7 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
   }
 
   void birdFound() {
-    int rndBirdId = rng.nextInt(7) + 1;
+    final int rndBirdId = rng.nextInt(speciesAmount) + 1;
     addNodeInFrontOfUser('bird$rndBirdId');
   }
 
