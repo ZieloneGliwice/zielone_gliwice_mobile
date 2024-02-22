@@ -129,3 +129,4 @@ google-services.json
 /ios/Flutter/Debug.xcconfig
 /ios/Flutter/Release.xcconfig
 firebase_app_id_file.json
+local.properties

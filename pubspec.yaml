@@ -1,7 +1,7 @@
 name: zielone_gliwice_mobile
 description: Mobile application for Zielone Gliwice
 
-version: 1.0.4+16
+version: 1.0.7+19
 
 environment:
   sdk: ">=2.17.0 <3.3.2"
@@ -32,16 +32,24 @@ dependencies:
   package_info_plus: ^4.1.0
   shared_preferences: ^2.0.6
   url_launcher: ^6.1.14
+  ar_flutter_plugin: ^0.7.3
+  vector_math: ^2.1.4
+  scrollable_positioned_list: ^0.3.8
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.1
+  file: ^6.1.4
 
 flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/ar/
+    - assets/ar/birds/
+
+
   fonts:
     - family: Poppins
       fonts:
