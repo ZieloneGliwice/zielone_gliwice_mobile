@@ -1,0 +1,400 @@
+{
+  "asset": {
+    "copyright": "Copyright 2022 Omabuarts Studio. For more info, visit https://omabuarts.com/license",
+    "generator": "Khronos glTF Blender I/O v3.3.32",
+    "version": "2.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Scene",
+      "nodes": [
+        9
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "tail.01",
+      "rotation": [
+        -1.4103559919931286E-07,
+        -0.50061452388763428,
+        0.86567032337188721,
+        2.1882556211494375E-08
+      ],
+      "scale": [
+        1,
+        1.0000002384185791,
+        1.0000001192092896
+      ],
+      "translation": [
+        4.1784460336202756E-08,
+        0.15491050481796265,
+        -0.35051333904266357
+      ]
+    },
+    {
+      "name": "tail.02",
+      "rotation": [
+        -6.61361667653182E-08,
+        0.48230919241905212,
+        -0.87600106000900269,
+        9.3909065412844939E-08
+      ],
+      "translation": [
+        3.8004010605163785E-08,
+        0.02916407585144043,
+        -0.3188006579875946
+      ]
+    },
+    {
+      "name": "wing.L",
+      "rotation": [
+        0.25177785754203796,
+        0.43646848201751709,
+        -0.79892629384994507,
+        0.32835957407951355
+      ],
+      "scale": [
+        1.0000001192092896,
+        1.0000001192092896,
+        1
+      ],
+      "translation": [
+        0.40333613753318787,
+        0.16563236713409424,
+        0.082995519042015076
+      ]
+    },
+    {
+      "name": "wing.R",
+      "rotation": [
+        0.25177764892578125,
+        -0.43646860122680664,
+        0.79892635345458984,
+        0.32835936546325684
+      ],
+      "scale": [
+        1.0000001192092896,
+        1.0000001192092896,
+        1
+      ],
+      "translation": [
+        -0.40333613753318787,
+        0.16563236713409424,
+        0.082995429635047913
+      ]
+    },
+    {
+      "name": "feet.L",
+      "rotation": [
+        -1.5893242277797981E-08,
+        0,
+        -1,
+        0
+      ],
+      "translation": [
+        0.16735093295574188,
+        -0.13751766085624695,
+        0.077767513692379
+      ]
+    },
+    {
+      "name": "feet.R",
+      "rotation": [
+        -1.5893242277797981E-08,
+        0,
+        -1,
+        0
+      ],
+      "translation": [
+        -0.16735096275806427,
+        -0.13751766085624695,
+        0.077767468988895416
+      ]
+    },
+    {
+      "children": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "name": "body",
+      "rotation": [
+        0.7071068286895752,
+        4.2146862000436158E-08,
+        4.2146862000436158E-08,
+        0.7071068286895752
+      ],
+      "translation": [
+        -3.35753272379764E-17,
+        0.16069644689559937,
+        0.53688645362854
+      ]
+    },
+    {
+      "children": [
+        6
+      ],
+      "name": "root",
+      "rotation": [
+        -0.7071068286895752,
+        0,
+        0,
+        0.7071068286895752
+      ]
+    },
+    {
+      "mesh": 0,
+      "name": "Mesh",
+      "skin": 0
+    },
+    {
+      "children": [
+        8,
+        7
+      ],
+      "name": "Rig",
+      "scale": [
+        0.39999997615814209,
+        0.39999997615814209,
+        0.39999997615814209
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "M_Cardinal",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.5
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "extras": {
+        "targetNames": [
+          "eyes.blink",
+          "eyes.happy",
+          "eyes.sad",
+          "eyes.sleep",
+          "eyes.annoyed",
+          "eyes.squint",
+          "eyes.shrink",
+          "eyes.dead",
+          "eyes.lookOut",
+          "eyes.lookIn",
+          "eyes.lookUp",
+          "eyes.lookDown",
+          "eyes.excited-1",
+          "eyes.excited-2",
+          "eyes.rabid",
+          "eyes.spin-1",
+          "eyes.spin-2",
+          "eyes.spin-3",
+          "eyes.cry-1",
+          "eyes.cry-2",
+          "eyes.trauma",
+          "teardrop-1.L",
+          "teardrop-2.L",
+          "sweat-1.L",
+          "sweat-2.L",
+          "teardrop-1.R",
+          "teardrop-2.R",
+          "sweat-1.R",
+          "sweat-2.R"
+        ]
+      },
+      "name": "Cardinal_LOD0",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TEXCOORD_0": 2,
+            "JOINTS_0": 3,
+            "WEIGHTS_0": 4
+          },
+          "indices": 5,
+          "material": 0
+        }
+      ],
+      "weights": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ],
+  "images": [
+    {
+      "name": "T_Cardinal",
+      "uri": "bird14_image0.png"
+    }
+  ],
+  "skins": [
+    {
+      "inverseBindMatrices": 6,
+      "joints": [
+        7,
+        6,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "name": "Rig"
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 1867,
+      "max": [
+        0.32815682888031006,
+        0.60996240377426147,
+        0.2814088761806488
+      ],
+      "min": [
+        -0.32815682888031006,
+        -0.0011046837316825986,
+        -0.46814709901809692
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 1867,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 1867,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5121,
+      "count": 1867,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 4,
+      "componentType": 5126,
+      "count": 1867,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 5,
+      "componentType": 5123,
+      "count": 9996,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 6,
+      "componentType": 5126,
+      "count": 8,
+      "type": "MAT4"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 22404,
+      "byteOffset": 0,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 22404,
+      "byteOffset": 22404,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 14936,
+      "byteOffset": 44808,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 7468,
+      "byteOffset": 59744,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 29872,
+      "byteOffset": 67212,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 19992,
+      "byteOffset": 97084,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 512,
+      "byteOffset": 117076
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 117588,
+      "uri": "bird14.bin"
+    }
+  ]
+}

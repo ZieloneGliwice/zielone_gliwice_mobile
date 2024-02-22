@@ -1,0 +1,453 @@
+{
+  "asset": {
+    "copyright": "Copyright 2022 Omabuarts Studio. For more info, visit https://omabuarts.com/license",
+    "generator": "Khronos glTF Blender I/O v3.3.32",
+    "version": "2.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Scene",
+      "nodes": [
+        12
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "tail.01",
+      "rotation": [
+        -0.85249614715576172,
+        -6.2314697402143793E-08,
+        -1.0162550978520812E-07,
+        0.52273362874984741
+      ],
+      "scale": [
+        1,
+        1,
+        1.0000001192092896
+      ],
+      "translation": [
+        2.0040847914515325E-07,
+        -0.18557381629943848,
+        -0.45167112350463867
+      ]
+    },
+    {
+      "name": "tail.02",
+      "rotation": [
+        -0.85812228918075562,
+        -6.6087743277876143E-08,
+        -1.0717648279978675E-07,
+        0.51344543695449829
+      ],
+      "scale": [
+        1,
+        0.99999988079071045,
+        0.9999997615814209
+      ],
+      "translation": [
+        1.9697084496783646E-07,
+        -0.2972690761089325,
+        -0.42396807670593262
+      ]
+    },
+    {
+      "name": "hair.01",
+      "rotation": [
+        -0.40284395217895508,
+        -7.8498907374324745E-10,
+        -9.6830497398059379E-08,
+        0.91526871919631958
+      ],
+      "translation": [
+        -4.6999417691040435E-09,
+        0.69181573390960693,
+        0.29585710167884827
+      ]
+    },
+    {
+      "name": "hair.02",
+      "rotation": [
+        -0.40487253665924072,
+        2.7197863712168265E-14,
+        -9.6529134907541447E-08,
+        0.91437315940856934
+      ],
+      "translation": [
+        5.9908913385697815E-08,
+        0.65856015682220459,
+        0.22679203748703003
+      ]
+    },
+    {
+      "name": "wing.L",
+      "rotation": [
+        0.18654073774814606,
+        0.37106746435165405,
+        -0.83045560121536255,
+        0.37128832936286926
+      ],
+      "scale": [
+        1.0000001192092896,
+        1.0000001192092896,
+        1
+      ],
+      "translation": [
+        0.303038626909256,
+        -3.2842159271240234E-05,
+        0.16047978401184082
+      ]
+    },
+    {
+      "name": "wing.R",
+      "rotation": [
+        0.18654054403305054,
+        -0.37106746435165405,
+        0.83045566082000732,
+        0.37128838896751404
+      ],
+      "scale": [
+        0.99999964237213135,
+        0.99999964237213135,
+        0.99999982118606567
+      ],
+      "translation": [
+        -0.30303868651390076,
+        -3.2842159271240234E-05,
+        0.16047964990139008
+      ]
+    },
+    {
+      "name": "feet.L",
+      "rotation": [
+        1.9470718370939721E-07,
+        0,
+        -1,
+        0
+      ],
+      "translation": [
+        0.14467012882232666,
+        -0.27802452445030212,
+        0.085869021713733673
+      ]
+    },
+    {
+      "name": "feet.R",
+      "rotation": [
+        4.3711381181310571E-08,
+        0,
+        -1,
+        0
+      ],
+      "translation": [
+        -0.14467015862464905,
+        -0.27802452445030212,
+        0.0858689472079277
+      ]
+    },
+    {
+      "name": "hair.03",
+      "rotation": [
+        -0.50332784652709961,
+        -1.0300819752728785E-07,
+        -6.0001340784765489E-08,
+        0.86409550905227661
+      ],
+      "translation": [
+        -3.827651440246882E-08,
+        0.62022793292999268,
+        0.16054335236549377
+      ]
+    },
+    {
+      "children": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "name": "body",
+      "rotation": [
+        0.7071068286895752,
+        8.4293695579162886E-08,
+        8.4293695579162886E-08,
+        0.7071068286895752
+      ],
+      "translation": [
+        -4.5397591075931282E-18,
+        0.08998405933380127,
+        0.72176766395568848
+      ]
+    },
+    {
+      "children": [
+        9
+      ],
+      "name": "root",
+      "rotation": [
+        -0.7071068286895752,
+        0,
+        0,
+        0.7071068286895752
+      ]
+    },
+    {
+      "mesh": 0,
+      "name": "Mesh",
+      "skin": 0
+    },
+    {
+      "children": [
+        11,
+        10
+      ],
+      "name": "Rig",
+      "scale": [
+        0.39999997615814209,
+        0.39999997615814209,
+        0.39999997615814209
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "M_CommonScimitarbil",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.5
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "extras": {
+        "targetNames": [
+          "eyes.blink",
+          "eyes.happy",
+          "eyes.sad",
+          "eyes.sleep",
+          "eyes.annoyed",
+          "eyes.squint",
+          "eyes.shrink",
+          "eyes.dead",
+          "eyes.lookOut",
+          "eyes.lookIn",
+          "eyes.lookUp",
+          "eyes.lookDown",
+          "eyes.excited-1",
+          "eyes.excited-2",
+          "eyes.rabid",
+          "eyes.spin-1",
+          "eyes.spin-2",
+          "eyes.spin-3",
+          "eyes.cry-1",
+          "eyes.cry-2",
+          "eyes.trauma",
+          "teardrop-1.L",
+          "teardrop-2.L",
+          "sweat-1.L",
+          "sweat-2.L",
+          "teardrop-1.R",
+          "teardrop-2.R",
+          "sweat-1.R",
+          "sweat-2.R"
+        ]
+      },
+      "name": "CommonScimitarbil_LOD0",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TEXCOORD_0": 2,
+            "JOINTS_0": 3,
+            "WEIGHTS_0": 4
+          },
+          "indices": 5,
+          "material": 0
+        }
+      ],
+      "weights": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ],
+  "images": [
+    {
+      "name": "T_CommonScimitarbil",
+      "uri": "bird18_image0.png"
+    }
+  ],
+  "skins": [
+    {
+      "inverseBindMatrices": 6,
+      "joints": [
+        10,
+        9,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "name": "Rig"
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 2730,
+      "max": [
+        0.30183702707290649,
+        0.6006959080696106,
+        0.33526238799095154
+      ],
+      "min": [
+        -0.30183702707290649,
+        0,
+        -0.43276017904281616
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 2730,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 2730,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5121,
+      "count": 2730,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 4,
+      "componentType": 5126,
+      "count": 2730,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 5,
+      "componentType": 5123,
+      "count": 13620,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 6,
+      "componentType": 5126,
+      "count": 11,
+      "type": "MAT4"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 32760,
+      "byteOffset": 0,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 32760,
+      "byteOffset": 32760,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 21840,
+      "byteOffset": 65520,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 10920,
+      "byteOffset": 87360,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 43680,
+      "byteOffset": 98280,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 27240,
+      "byteOffset": 141960,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 704,
+      "byteOffset": 169200
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 169904,
+      "uri": "bird18.bin"
+    }
+  ]
+}

@@ -150,6 +150,7 @@ class ArCongratulationsPage extends GetView<ArCongratulationsController> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: TextFormField(
+                maxLength: 30,
                 controller: controller.nameController,
                 style: const TextStyle(fontSize: 18),
                 decoration: InputDecoration(
@@ -160,22 +161,30 @@ class ArCongratulationsPage extends GetView<ArCongratulationsController> {
                   ),
                   label: Text('scoreboard_name'.tr),
                 ),
+                onChanged: (String text) {
+                  controller.checkNameSize(text);
+                },
               ),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                controller.addNewEntry();
-                Get.offAllNamed(ChallengesPage.path);
-              },
-              style: GreenOvalButtonStyle(),
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Text(
-                  'save_score'.tr,
+            Obx(
+              () => ElevatedButton(
+                onPressed: controller.hasMinimalSize.value
+                    ? () {
+                        controller.addNewEntry();
+                        Get.offAllNamed(ChallengesPage.path);
+                      }
+                    : null,
+                style: GreenOvalButtonStyle(
+                    isEnabled: controller.hasMinimalSize.value),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    'save_score'.tr,
+                  ),
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),
@@ -197,6 +206,9 @@ class ArCongratulationsController extends SessionController
   dynamic args = Get.arguments;
   RxInt pointsAmount = 3.obs;
   RxBool hasEntry = false.obs;
+
+  final int nameMinimalSize = 3;
+  RxBool hasMinimalSize = true.obs;
 
   final TextEditingController nameController = TextEditingController();
 
@@ -232,7 +244,12 @@ class ArCongratulationsController extends SessionController
     userName.value = signedUser?.details.name ?? '';
     photoURL.value = signedUser?.details.photoUrl ?? '';
 
-    nameController.text = userName.value;
+    checkNameSize(userName.value);
+  }
+
+  void checkNameSize(String newName) {
+    nameController.text = newName;
+    hasMinimalSize.value = nameController.text.trim().length >= nameMinimalSize;
   }
 
   Future<void> addPoints() async {

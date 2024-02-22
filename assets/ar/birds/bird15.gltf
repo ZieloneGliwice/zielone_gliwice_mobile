@@ -1,0 +1,405 @@
+{
+  "asset": {
+    "copyright": "Copyright 2022 Omabuarts Studio. For more info, visit https://omabuarts.com/license",
+    "generator": "Khronos glTF Blender I/O v3.3.32",
+    "version": "2.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Scene",
+      "nodes": [
+        9
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "tail.01",
+      "rotation": [
+        -0.839907169342041,
+        -6.4698433277499134E-08,
+        -1.00124808000146E-07,
+        0.54273009300231934
+      ],
+      "scale": [
+        1,
+        1,
+        1.0000001192092896
+      ],
+      "translation": [
+        2.4893319050534046E-07,
+        -0.074800014495849609,
+        -0.65519863367080688
+      ]
+    },
+    {
+      "name": "tail.02",
+      "rotation": [
+        -0.84582483768463135,
+        -6.9707340344393742E-08,
+        -1.0694406427091963E-07,
+        0.53346073627471924
+      ],
+      "scale": [
+        1,
+        0.99999994039535522,
+        0.99999994039535522
+      ],
+      "translation": [
+        2.298703805081459E-07,
+        -0.21319842338562012,
+        -0.56195878982543945
+      ]
+    },
+    {
+      "name": "wing.L",
+      "rotation": [
+        0.10898006707429886,
+        0.42510432004928589,
+        -0.82239043712615967,
+        0.3620547354221344
+      ],
+      "scale": [
+        1.0000001192092896,
+        1.0000001192092896,
+        0.99999994039535522
+      ],
+      "translation": [
+        0.421296089887619,
+        0.067546486854553223,
+        0.24517805874347687
+      ]
+    },
+    {
+      "name": "wing.R",
+      "rotation": [
+        0.10897983610630035,
+        -0.42510446906089783,
+        0.82239049673080444,
+        0.3620544970035553
+      ],
+      "scale": [
+        1.0000002384185791,
+        1.0000003576278687,
+        1.0000001192092896
+      ],
+      "translation": [
+        -0.42129620909690857,
+        0.067546486854553223,
+        0.24517786502838135
+      ]
+    },
+    {
+      "name": "feet.L",
+      "rotation": [
+        1.9470718370939721E-07,
+        0,
+        -1,
+        0
+      ],
+      "translation": [
+        0.18594548106193543,
+        -0.27802452445030212,
+        0.08586902916431427
+      ]
+    },
+    {
+      "name": "feet.R",
+      "rotation": [
+        4.3711381181310571E-08,
+        0,
+        -1,
+        0
+      ],
+      "translation": [
+        -0.18594551086425781,
+        -0.27802452445030212,
+        0.0858689397573471
+      ]
+    },
+    {
+      "children": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "name": "body",
+      "rotation": [
+        0.7071068286895752,
+        8.4293695579162886E-08,
+        8.4293695579162886E-08,
+        0.7071068286895752
+      ],
+      "translation": [
+        -4.5397591075931282E-18,
+        0.08998405933380127,
+        0.72176766395568848
+      ]
+    },
+    {
+      "children": [
+        6
+      ],
+      "name": "root",
+      "rotation": [
+        -0.7071068286895752,
+        0,
+        0,
+        0.7071068286895752
+      ]
+    },
+    {
+      "mesh": 0,
+      "name": "Mesh",
+      "skin": 0
+    },
+    {
+      "children": [
+        8,
+        7
+      ],
+      "name": "Rig",
+      "scale": [
+        0.39999997615814209,
+        0.39999997615814209,
+        0.39999997615814209
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "M_Cicadabird",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.5
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "extras": {
+        "targetNames": [
+          "eyes.blink",
+          "eyes.happy",
+          "eyes.sad",
+          "eyes.sleep",
+          "eyes.annoyed",
+          "eyes.squint",
+          "eyes.shrink",
+          "eyes.dead",
+          "eyes.lookOut",
+          "eyes.lookIn",
+          "eyes.lookUp",
+          "eyes.lookDown",
+          "eyes.excited-1",
+          "eyes.excited-2",
+          "eyes.rabid",
+          "eyes.spin-1",
+          "eyes.spin-2",
+          "eyes.spin-3",
+          "eyes.cry-1",
+          "eyes.cry-2",
+          "eyes.trauma",
+          "teardrop-1.L",
+          "teardrop-2.L",
+          "sweat-1.L",
+          "sweat-2.L",
+          "teardrop-1.R",
+          "teardrop-2.R",
+          "sweat-1.R",
+          "sweat-2.R"
+        ]
+      },
+      "name": "Cicadabird_LOD0",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TEXCOORD_0": 2,
+            "JOINTS_0": 3,
+            "WEIGHTS_0": 4
+          },
+          "indices": 5,
+          "material": 0
+        }
+      ],
+      "weights": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ],
+  "images": [
+    {
+      "name": "T_Cicadabird",
+      "uri": "bird15_image0.png"
+    }
+  ],
+  "skins": [
+    {
+      "inverseBindMatrices": 6,
+      "joints": [
+        7,
+        6,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "name": "Rig"
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 2062,
+      "max": [
+        0.3613114058971405,
+        0.63251775503158569,
+        0.2980785071849823
+      ],
+      "min": [
+        -0.3613114058971405,
+        0,
+        -0.47738805413246155
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 2062,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 2062,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5121,
+      "count": 2062,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 4,
+      "componentType": 5126,
+      "count": 2062,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 5,
+      "componentType": 5123,
+      "count": 10728,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 6,
+      "componentType": 5126,
+      "count": 8,
+      "type": "MAT4"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 24744,
+      "byteOffset": 0,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 24744,
+      "byteOffset": 24744,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 16496,
+      "byteOffset": 49488,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 8248,
+      "byteOffset": 65984,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 32992,
+      "byteOffset": 74232,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 21456,
+      "byteOffset": 107224,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 512,
+      "byteOffset": 128680
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 129192,
+      "uri": "bird15.bin"
+    }
+  ]
+}

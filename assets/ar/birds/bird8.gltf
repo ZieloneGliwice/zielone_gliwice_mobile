@@ -1,0 +1,442 @@
+{
+  "asset": {
+    "copyright": "Copyright 2022 Omabuarts Studio. For more info, visit https://omabuarts.com/license",
+    "generator": "Khronos glTF Blender I/O v3.3.32",
+    "version": "2.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Scene",
+      "nodes": [
+        11
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "tail.01",
+      "rotation": [
+        -0.84915906190872192,
+        6.7268768138249724E-14,
+        -2.0245535381491209E-07,
+        0.52813720703125
+      ],
+      "scale": [
+        1,
+        1,
+        1.0000001192092896
+      ],
+      "translation": [
+        2.5359051392115362E-07,
+        -0.16340780258178711,
+        -0.63937795162200928
+      ]
+    },
+    {
+      "name": "tail.02",
+      "rotation": [
+        -0.84432333707809448,
+        -1.3171522539323632E-07,
+        -3.5691498645462616E-09,
+        0.535834014415741
+      ],
+      "translation": [
+        2.4029225187405245E-07,
+        -0.28208634257316589,
+        -0.569108784198761
+      ]
+    },
+    {
+      "name": "hair.01",
+      "rotation": [
+        -0.75115716457366943,
+        -0.000502534385304898,
+        -0.00039773501339368522,
+        0.66012316942214966
+      ],
+      "scale": [
+        1,
+        1,
+        0.99999994039535522
+      ],
+      "translation": [
+        4.2939291233778931E-08,
+        1.0356338024139404,
+        0.12114769220352173
+      ]
+    },
+    {
+      "name": "hair.02",
+      "rotation": [
+        -0.75166916847229,
+        -0.00036121613811701536,
+        -0.00055375747615471482,
+        0.659540057182312
+      ],
+      "scale": [
+        1,
+        0.99999994039535522,
+        1
+      ],
+      "translation": [
+        1.1909617114724824E-07,
+        0.89899915456771851,
+        0.022003350779414177
+      ]
+    },
+    {
+      "name": "wing.L",
+      "rotation": [
+        0.38340887427330017,
+        0.34888800978660583,
+        -0.83100515604019165,
+        0.20175544917583466
+      ],
+      "scale": [
+        1.0000001192092896,
+        1.0000002384185791,
+        1.0000001192092896
+      ],
+      "translation": [
+        0.55683642625808716,
+        0.29640871286392212,
+        0.11260125041007996
+      ]
+    },
+    {
+      "name": "wing.R",
+      "rotation": [
+        0.383408784866333,
+        -0.34888803958892822,
+        0.83100521564483643,
+        0.20175535976886749
+      ],
+      "scale": [
+        1,
+        0.99999994039535522,
+        1
+      ],
+      "translation": [
+        -0.55683642625808716,
+        0.29640871286392212,
+        0.11260098963975906
+      ]
+    },
+    {
+      "name": "feet.L",
+      "rotation": [
+        1.9470718370939721E-07,
+        0,
+        -1,
+        0
+      ],
+      "translation": [
+        0.2028496265411377,
+        -0.30448457598686218,
+        0.043359991163015366
+      ]
+    },
+    {
+      "name": "feet.R",
+      "rotation": [
+        4.3711366970455856E-08,
+        0,
+        -1,
+        0
+      ],
+      "translation": [
+        -0.20284965634346008,
+        -0.30448457598686218,
+        0.043359894305467606
+      ]
+    },
+    {
+      "children": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "name": "body",
+      "rotation": [
+        0.7071068286895752,
+        8.4293695579162886E-08,
+        8.4293695579162886E-08,
+        0.7071068286895752
+      ],
+      "translation": [
+        0,
+        0.049095932394266129,
+        0.7814251184463501
+      ]
+    },
+    {
+      "children": [
+        8
+      ],
+      "name": "root",
+      "rotation": [
+        -0.7071068286895752,
+        0,
+        0,
+        0.7071068286895752
+      ]
+    },
+    {
+      "mesh": 0,
+      "name": "Mesh",
+      "skin": 0
+    },
+    {
+      "children": [
+        10,
+        9
+      ],
+      "name": "Rig",
+      "scale": [
+        0.39999997615814209,
+        0.39999997615814209,
+        0.39999997615814209
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "M_BarbaryFalcon",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.5
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "extras": {
+        "targetNames": [
+          "eyes.blink",
+          "eyes.happy",
+          "eyes.sad",
+          "eyes.sleep",
+          "eyes.annoyed",
+          "eyes.squint",
+          "eyes.shrink",
+          "eyes.dead",
+          "eyes.lookOut",
+          "eyes.lookIn",
+          "eyes.lookUp",
+          "eyes.lookDown",
+          "eyes.excited-1",
+          "eyes.excited-2",
+          "eyes.rabid",
+          "eyes.spin-1",
+          "eyes.spin-2",
+          "eyes.spin-3",
+          "eyes.cry-1",
+          "eyes.cry-2",
+          "eyes.trauma",
+          "teardrop-1.L",
+          "teardrop-2.L",
+          "sweat-1.L",
+          "sweat-2.L",
+          "teardrop-1.R",
+          "teardrop-2.R",
+          "sweat-1.R",
+          "sweat-2.R"
+        ]
+      },
+      "name": "BarbaryFalcon_LOD0",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TEXCOORD_0": 2,
+            "JOINTS_0": 3,
+            "WEIGHTS_0": 4
+          },
+          "indices": 5,
+          "material": 0
+        }
+      ],
+      "weights": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ],
+  "images": [
+    {
+      "name": "T_BarbaryFalcon",
+      "uri": "bird8_image0.png"
+    }
+  ],
+  "skins": [
+    {
+      "inverseBindMatrices": 6,
+      "joints": [
+        9,
+        8,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "name": "Rig"
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 3475,
+      "max": [
+        0.505384087562561,
+        0.79361420869827271,
+        0.26048535108566284
+      ],
+      "min": [
+        -0.505384087562561,
+        1.4284662648287959E-18,
+        -0.65231263637542725
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 3475,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 3475,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5121,
+      "count": 3475,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 4,
+      "componentType": 5126,
+      "count": 3475,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 5,
+      "componentType": 5123,
+      "count": 18492,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 6,
+      "componentType": 5126,
+      "count": 10,
+      "type": "MAT4"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 41700,
+      "byteOffset": 0,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 41700,
+      "byteOffset": 41700,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 27800,
+      "byteOffset": 83400,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 13900,
+      "byteOffset": 111200,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 55600,
+      "byteOffset": 125100,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 36984,
+      "byteOffset": 180700,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 640,
+      "byteOffset": 217684
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 218324,
+      "uri": "bird8.bin"
+    }
+  ]
+}
