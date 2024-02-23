@@ -337,6 +337,23 @@ abstract class ApplicationTextStyles {
       fontWeight: FontWeight.w700,
       fontSize: 14,
       fontFamily: _poppinsFont);
+  static const TextStyle settingsAlertTitleTextStyle = TextStyle(
+      color: ApplicationColors.black,
+      fontWeight: FontWeight.w600,
+      fontSize: 17,
+      fontFamily: _poppinsFont);
+
+  static const TextStyle settingsAlertContentTextStyle = TextStyle(
+      color: ApplicationColors.black,
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+      fontFamily: _poppinsFont);
+
+  static const TextStyle settingsAlertCancelTextStyle = TextStyle(
+      fontWeight: FontWeight.w600, fontSize: 17, fontFamily: _poppinsFont);
+
+  static const TextStyle settingsAlertNextTextStyle = TextStyle(
+      fontWeight: FontWeight.w400, fontSize: 17, fontFamily: _poppinsFont);
 }
 
 // Colors

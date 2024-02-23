@@ -13,6 +13,7 @@ class API {
   // Trees
   static const String trees = '${_baseAPIURL}users/me/trees';
   static const String allTrees = '${_baseAPIURL}trees';
+  static const String deleteTrees = '${_baseAPIURL}users/me/trees/delete';
 
   //AR
   static const String createEntry = '${_baseAPIURL}leaderboard/new';
@@ -20,6 +21,7 @@ class API {
   static const String myEntry = '${_baseAPIURL}users/me/leaderboard';
   static const String leaderboardIncrementPoints =
       '${_baseAPIURL}users/me/leaderboard/increment';
+  static const String deleteEntry = '${_baseAPIURL}users/me/leaderboard/delete';
 
   // Dictionaries
   static const String dicts = '${_baseAPIURL}dicts/';

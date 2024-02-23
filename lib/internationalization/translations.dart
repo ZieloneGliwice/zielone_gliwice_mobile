@@ -245,9 +245,14 @@ c) Zaakceptowanie i uczestnictwo w konkursie oznacza akceptację powyższego reg
     'check_score': 'Check your score',
     'tree_title': 'Tree',
     'added_first_bird': "You've added another bird to your collection",
-    'choose_name': 'Choose a name for the scoreboard',
+    'choose_name': 'Choose a name for the scoreboard (3 - 30)',
     'save_score': 'Save score',
-    'scoreboard_name': 'Name in the scoreboard'
+    'scoreboard_name': 'Name in the scoreboard',
+    'delete_account': 'Delete account',
+    'delete_account_dialog_title': 'Attention!',
+    'delete_account_dialog_content':
+        'Your account will be deleted and your trees with it\n\nContinue to delete your account',
+    'continue': 'Continue',
   };
 
   final Map<String, String> _plPL = <String, String>{
@@ -490,8 +495,13 @@ c) Zaakceptowanie i uczestnictwo w konkursie oznacza akceptację powyższego reg
     'check_score': 'Sprawdź swoje wyniki',
     'tree_title': 'Drzewo',
     'added_first_bird': 'Dodałeś pierwszego ptaka do swojej kolekcji',
-    'choose_name': 'Wybierz nazwę do rankingu',
+    'choose_name': 'Wybierz nazwę do rankingu (3 - 30)',
     'save_score': 'Zapisz wyniki',
     'scoreboard_name': 'Nazwa w rankingu',
+    'delete_account': 'Usuń konto',
+    'delete_account_dialog_title': 'Uwaga!',
+    'delete_account_dialog_content':
+        'Twoje konto zostanie usunięte i wraz z nim Twoje drzewa\n\nPrzejdź dalej aby usunąć konto',
+    'continue': 'Dalej',
   };
 }

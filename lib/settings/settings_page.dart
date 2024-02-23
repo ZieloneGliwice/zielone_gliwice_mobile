@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../about_app/about_app_page.dart';
@@ -10,6 +11,8 @@ import '../analytics/analytics.dart';
 import '../model/errors.dart';
 import '../model/signed_user.dart';
 import '../network/api_dio.dart';
+import '../network/my_leaderboard_entry_delete_provider.dart';
+import '../network/my_trees_delete_provider.dart';
 import '../personal_info/personal_info_page.dart';
 import '../privacy_policy/privacy_policy_page.dart';
 import '../rules/rules_page.dart';
@@ -240,6 +243,28 @@ class SettingsPage extends GetView<SettingsPageController> {
                 ),
               ),
             ),
+          ),
+          _line(),
+          InkWell(
+            onTap: () => showDeleteAccountDialog(),
+            child: SizedBox(
+              height: 50,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: <Widget>[
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Expanded(
+                      child: Text('delete_account'.tr,
+                          style: ApplicationTextStyles.settingsLogoutTextStyle),
+                    ),
+                    const Icon(Icons.arrow_forward_ios_outlined),
+                  ],
+                ),
+              ),
+            ),
           )
         ],
       ),
@@ -281,10 +306,70 @@ class SettingsPage extends GetView<SettingsPageController> {
       color: Colors.black,
     );
   }
+
+  void showDeleteAccountDialog() {
+    final BuildContext context = Get.context!;
+    final Widget cancelButton = TextButton(
+      child: Text(
+        'cancel'.tr,
+        style: ApplicationTextStyles.settingsAlertCancelTextStyle,
+      ),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+    final Widget continueButton = TextButton(
+      child: Text(
+        'continue'.tr,
+        style: ApplicationTextStyles.settingsAlertNextTextStyle,
+      ),
+      onPressed: () {
+        Navigator.of(context).pop();
+        controller.deleteAccount();
+      },
+    );
+
+    final AlertDialog alert = AlertDialog(
+      title: Text(
+        'delete_account_dialog_title'.tr,
+        textAlign: TextAlign.center,
+        style: ApplicationTextStyles.settingsAlertTitleTextStyle,
+      ),
+      titlePadding: const EdgeInsets.only(top: 18),
+      content: Text(
+        'delete_account_dialog_content'.tr,
+        textAlign: TextAlign.center,
+        style: ApplicationTextStyles.settingsAlertContentTextStyle,
+      ),
+      contentPadding:
+          const EdgeInsets.only(top: 6, bottom: 18, left: 6, right: 6),
+      actions: <Widget>[
+        cancelButton,
+        continueButton,
+      ],
+      actionsAlignment: MainAxisAlignment.spaceEvenly,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(18))),
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 }
 
 class SettingsPageController extends SessionController with StateMixin<bool> {
-  SettingsPageController(super.sessionStorage, super.photosService);
+  SettingsPageController(
+      this._myTreesDeleteProvider,
+      this._myLeaderboardEntryDeleteProvider,
+      super.sessionStorage,
+      super.photosService);
+
+  final MyTreesDeleteProvider _myTreesDeleteProvider;
+  final MyLeaderboardEntryDeleteProvider _myLeaderboardEntryDeleteProvider;
 
   RxString version = ''.obs;
   RxString photoURL = ''.obs;
@@ -358,6 +443,17 @@ class SettingsPageController extends SessionController with StateMixin<bool> {
     );
 
     launchUrl(emailUri);
+  }
+
+  Future<void> deleteAccount() async {
+    await _myTreesDeleteProvider.deleteTrees();
+
+    await _myLeaderboardEntryDeleteProvider.deleteEntry();
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+
+    await logout();
   }
 
   void handleError(ZGError error) {
