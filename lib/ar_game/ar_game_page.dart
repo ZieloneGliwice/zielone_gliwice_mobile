@@ -185,12 +185,13 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
         textAlign: TextAlign.center,
         style: ApplicationTextStyles.arGameAlertContentTextStyle,
       ),
-      contentPadding: const EdgeInsets.only(top: 6, bottom: 18),
+      contentPadding:
+          const EdgeInsets.only(top: 6, bottom: 18, left: 6, right: 6),
       actions: <Widget>[
         cancelButton,
         continueButton,
       ],
-      actionsAlignment: MainAxisAlignment.spaceEvenly,
+      actionsAlignment: MainAxisAlignment.spaceAround,
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(18))),
     );
