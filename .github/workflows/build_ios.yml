@@ -8,14 +8,14 @@ jobs:
     steps:
       # Checks-out our repository under $GITHUB_WORKSPACE, so our job can access it
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       # Install flutter
       - name: Flutter get
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.16.9'
-
+          channel: 'stable'
       # Install your project's dependencies
       - run: flutter pub get
 
