@@ -1,5 +1,5 @@
 name: "[DEV] Build and Publish iOS"
-on: workflow_dispatch
+on: push
     
 jobs:
   # Build job
