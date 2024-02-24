@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:ar_flutter_plugin/datatypes/node_types.dart';
-import 'package:ar_flutter_plugin/managers/ar_anchor_manager.dart';
-import 'package:ar_flutter_plugin/managers/ar_location_manager.dart';
-import 'package:ar_flutter_plugin/managers/ar_object_manager.dart';
-import 'package:ar_flutter_plugin/managers/ar_session_manager.dart';
-import 'package:ar_flutter_plugin/models/ar_node.dart';
-import 'package:ar_flutter_plugin/widgets/ar_view.dart';
+import 'package:ar_flutter_plugin_flutterflow/datatypes/node_types.dart';
+import 'package:ar_flutter_plugin_flutterflow/managers/ar_anchor_manager.dart';
+import 'package:ar_flutter_plugin_flutterflow/managers/ar_location_manager.dart';
+import 'package:ar_flutter_plugin_flutterflow/managers/ar_object_manager.dart';
+import 'package:ar_flutter_plugin_flutterflow/managers/ar_session_manager.dart';
+import 'package:ar_flutter_plugin_flutterflow/models/ar_node.dart';
+import 'package:ar_flutter_plugin_flutterflow/widgets/ar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vector_math/vector_math_64.dart';
@@ -116,9 +116,9 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
 
   //variables necessary for looking for the birds
   RxBool birdShown = false.obs;
-  final double minimalDistance = 5.0; //in meters
+  final double minimalDistance = 15.0; //in meters
   final int chanceToFind = 3; // 1/chanceToFind
-  final int lookInterval = 5; //in seconds
+  final int lookInterval = 3; //in seconds
 
   final int speciesAmount = 22;
 
