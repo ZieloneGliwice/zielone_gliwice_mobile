@@ -32,7 +32,7 @@ dependencies:
   package_info_plus: ^4.1.0
   shared_preferences: ^2.0.6
   url_launcher: ^6.1.14
-  ar_flutter_plugin: ^0.7.3
+  ar_flutter_plugin: '0.7.3'
   vector_math: ^2.1.4
   scrollable_positioned_list: ^0.3.8
 
