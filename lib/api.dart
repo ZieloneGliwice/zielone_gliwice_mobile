@@ -13,7 +13,8 @@ class API {
   // Trees
   static const String trees = '${_baseAPIURL}users/me/trees';
   static const String allTrees = '${_baseAPIURL}trees';
-  static const String deleteTrees = '${_baseAPIURL}users/me/trees/delete';
+
+  static const String deleteUser = '${_baseAPIURL}users/me/delete';
 
   //AR
   static const String createEntry = '${_baseAPIURL}leaderboard/new';

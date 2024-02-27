@@ -11,8 +11,7 @@ import '../analytics/analytics.dart';
 import '../model/errors.dart';
 import '../model/signed_user.dart';
 import '../network/api_dio.dart';
-import '../network/my_leaderboard_entry_delete_provider.dart';
-import '../network/my_trees_delete_provider.dart';
+import '../network/my_data_delete_provider.dart';
 import '../personal_info/personal_info_page.dart';
 import '../privacy_policy/privacy_policy_page.dart';
 import '../rules/rules_page.dart';
@@ -363,13 +362,9 @@ class SettingsPage extends GetView<SettingsPageController> {
 
 class SettingsPageController extends SessionController with StateMixin<bool> {
   SettingsPageController(
-      this._myTreesDeleteProvider,
-      this._myLeaderboardEntryDeleteProvider,
-      super.sessionStorage,
-      super.photosService);
+      this._myDataDeleteProvider, super.sessionStorage, super.photosService);
 
-  final MyTreesDeleteProvider _myTreesDeleteProvider;
-  final MyLeaderboardEntryDeleteProvider _myLeaderboardEntryDeleteProvider;
+  final MyDataDeleteProvider _myDataDeleteProvider;
 
   RxString version = ''.obs;
   RxString photoURL = ''.obs;
@@ -446,9 +441,7 @@ class SettingsPageController extends SessionController with StateMixin<bool> {
   }
 
   Future<void> deleteAccount() async {
-    await _myTreesDeleteProvider.deleteTrees();
-
-    await _myLeaderboardEntryDeleteProvider.deleteEntry();
+    await _myDataDeleteProvider.deleteData();
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();
