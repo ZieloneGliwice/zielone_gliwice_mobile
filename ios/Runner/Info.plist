@@ -70,5 +70,11 @@
 	<array>
 	<string>mailto</string>
 	</array>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+    <string>The app requires bluetooth peripheral access for augmented reality to work</string>
+	<key>NSMotionUsageDescription</key>
+    <string>The app requires motion usage access for augmented reality to work</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+    <string>The app requires bluetooth access for augmented reality to work</string>
 </dict>
 </plist>
