@@ -117,7 +117,8 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
   //variables necessary for looking for the birds
   RxBool birdShown = false.obs;
   final double minimalDistance = 15.0; //in meters
-  final int chanceToFind = 3; // 1/chanceToFind
+  int timesWithoutBird = 0;
+  final int chanceToFind = 3; // 1 / (chanceToFind - timesWithoutBird)
   final int lookInterval = 3; //in seconds
 
   final int speciesAmount = 22;
@@ -231,13 +232,22 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
       final Vector3 forwardVector = Vector3(0.0, 0.0, -1.0);
 
       //Rotate the unit vector to point perpendicular to the camera
-      forwardVector.applyMatrix3(cameraPose.getRotation());
+      final Matrix3 cameraRotation = cameraPose.getRotation();
+
+      forwardVector.applyMatrix3(cameraRotation);
+
+      //Spread y axis on x and z so phone facing down wont matter
+      forwardVector[0] += forwardVector[1] / 2;
+      forwardVector[2] += forwardVector[1] / 2;
+
+      forwardVector[1] = 0;
 
       //Distance from camera
-      const double distance = 10;
+      const double distance = 15;
 
       //Target position
       final Vector3 cameraPosition = cameraPose.getTranslation();
+
       final Vector3 newPosition = cameraPosition + forwardVector * distance;
 
       //Rotate target
@@ -254,14 +264,15 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
       newRotation[1] = 0;
 
       //Raise target
-      newPosition.add(Vector3(0, 3, 0));
+      // newPosition.add(Vector3(0, 3, 0));
+      newPosition[1] = 2.5;
 
       //Randomly move target horizontally and vertically
       newPosition.add(
           Vector3(randomDoubleBetween(-5, 5), randomDoubleBetween(-1, 3), 0));
 
       //Randomize target size
-      final double size = randomDoubleBetween(2.0, 3.0);
+      final double size = randomDoubleBetween(2.5, 4.0);
 
       final ARNode myNode = ARNode(
           type: NodeType.localGLTF2,
@@ -292,9 +303,9 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
   Future<void> lookForBird() async {
     //Check if bird is already found
 
-    // if (birdShown.value) {
-    //   return;
-    // }
+    if (birdShown.value) {
+      return;
+    }
 
     //Check if user is moving (at least minimalDistance meters from his starting position)
 
@@ -308,9 +319,9 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
     }
     startPosition = currentPosition;
 
-    //Random chance to find bird (1 in chanceToFind)
+    //Random chance to find bird (1 in (chanceToFind - timesWithoutBird) )
 
-    if (rng.nextInt(chanceToFind) == 1) {
+    if (rng.nextInt(chanceToFind - timesWithoutBird) == 0) {
       birdFound();
     }
   }
