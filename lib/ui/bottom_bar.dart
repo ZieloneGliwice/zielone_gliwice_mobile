@@ -6,33 +6,42 @@ import '../analytics/analytics.dart';
 import '../services/photos_service.dart';
 import 'styles.dart';
 
-class BottomBar extends BottomAppBar {
+class BottomBar extends BottomNavigationBar {
   BottomBar({super.key, int? activeId, required PhotosService photosService})
       : super(
           elevation: 8,
-          height: 80,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            // crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(
-                child: item(Icons.home, 'start'.tr, activeId == 0,
-                    '/my_trees_page', photosService),
-              ),
-              Expanded(
-                child: item(
-                    Icons.add_circle_outline_rounded,
-                    'add_tree_title'.tr,
-                    activeId == 1,
-                    '/add_tree_page',
-                    photosService),
-              ),
-              Expanded(
-                child: item(Icons.star_border_rounded, 'challenges_title'.tr,
-                    activeId == 2, '/challenges_page', photosService),
-              ),
-            ],
-          ),
+          iconSize: 36,
+          selectedFontSize: 16,
+          unselectedFontSize: 14,
+          selectedItemColor: ApplicationColors.green,
+          currentIndex: activeId!,
+          onTap: (int index) {
+            switch (index) {
+              case 0:
+                Get.toNamed('/my_trees_page');
+                break;
+              case 1:
+                addNewTree(photosService);
+                break;
+              case 2:
+                Get.toNamed('/challenges_page');
+                break;
+            }
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.home),
+              label: 'start'.tr,
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.add_circle_outline_rounded),
+              label: 'add_tree_title'.tr,
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.star_border_rounded),
+              label: 'challenges_title'.tr,
+            ),
+          ],
         );
 }
 
@@ -40,41 +49,4 @@ Future<void> addNewTree(PhotosService photosService) async {
   Analytics.buttonPressed('Add tree');
   await photosService.clearCachedPhotos();
   Get.toNamed(AddTreePage.path);
-}
-
-SizedBox item(IconData icon, String labelText, bool isOn, String targetPath,
-    PhotosService photosService) {
-  return SizedBox(
-    child: TextButton.icon(
-      onPressed: () => {
-        if (targetPath == '/add_tree_page')
-          addNewTree(photosService)
-        else
-          Get.toNamed(targetPath)
-      },
-      icon: Column(
-        children: <Widget>[
-          Icon(
-            icon,
-            color: isOn ? ApplicationColors.green : ApplicationColors.gray,
-            size: 30,
-          ),
-          Text(
-            labelText,
-            style: TextStyle(
-                color: isOn ? ApplicationColors.green : ApplicationColors.gray,
-                fontWeight: FontWeight.w500,
-                fontSize: 13,
-                fontFamily: 'Poppins'),
-          ),
-        ],
-      ),
-      label: const Text(
-        '',
-        style: TextStyle(
-          color: ApplicationColors.green,
-        ),
-      ),
-    ),
-  );
 }
