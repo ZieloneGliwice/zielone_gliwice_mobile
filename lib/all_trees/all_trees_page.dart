@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -17,6 +15,8 @@ import '../ui/date.dart';
 import '../ui/dimen.dart';
 import '../ui/error_view.dart';
 import '../ui/gray_app_bar.dart';
+import '../ui/primary_button.dart';
+
 import '../ui/styles.dart';
 import '../utils/session_controller.dart';
 import '../utils/session_storage.dart';
@@ -240,16 +240,9 @@ class AllTreesController extends SessionController with StateMixin<MyTrees> {
   }
 
   Widget seeDetailsButton(MyTree tree, BuildContext context) {
-    return ElevatedButton(
-      onPressed: () => viewDetails(tree),
-      style: ElevatedButton.styleFrom(
-        minimumSize: const Size.fromHeight(50),
-        backgroundColor: ApplicationColors.green,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(30)),
-        ),
-      ),
-      child: Text('see_details'.tr),
-    );
+    return PrimaryButton(
+        title: 'see_details'.tr,
+        isEnabled: true,
+        onTap: () => viewDetails(tree));
   }
 }
