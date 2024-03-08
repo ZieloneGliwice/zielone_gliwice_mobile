@@ -4,13 +4,14 @@ import 'package:get/get.dart';
 import '../add_tree/add_tree_page.dart';
 import '../analytics/analytics.dart';
 import '../services/photos_service.dart';
+import 'dimen.dart';
 import 'styles.dart';
 
 class BottomBar extends BottomNavigationBar {
   BottomBar({super.key, int? activeId, required PhotosService photosService})
       : super(
           elevation: 8,
-          iconSize: 36,
+          iconSize: 32,
           selectedFontSize: 16,
           unselectedFontSize: 14,
           selectedItemColor: ApplicationColors.green,
@@ -28,17 +29,26 @@ class BottomBar extends BottomNavigationBar {
                 break;
             }
           },
-          items: [
+          items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: const Icon(Icons.home),
+              icon: Container(
+                padding: const EdgeInsets.only(top: Dimen.marginTiny),
+                child: const Icon(Icons.home),
+              ),
               label: 'start'.tr,
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.add_circle_outline_rounded),
+              icon: Container(
+                padding: const EdgeInsets.only(top: Dimen.marginTiny),
+                child: const Icon(Icons.add_circle_outline_rounded),
+              ),
               label: 'add_tree_title'.tr,
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.star_border_rounded),
+              icon: Container(
+                padding: const EdgeInsets.only(top: Dimen.marginTiny),
+                child: const Icon(Icons.star_border_rounded),
+              ),
               label: 'challenges_title'.tr,
             ),
           ],
