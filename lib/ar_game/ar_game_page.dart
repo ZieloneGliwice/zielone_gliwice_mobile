@@ -58,20 +58,21 @@ class ArGamePage extends GetView<ArGameController> {
                     )),
               ],
             ),
-            Row(
-              children: <Widget>[
-                const SizedBox(width: 20),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      controller.birdFound();
-                    },
-                    child: Obx(() => Text(controller.test.value)),
-                  ),
-                ),
-                const SizedBox(width: 20),
-              ],
-            ),
+            // Button to spawn birds
+            // Row(
+            //   children: <Widget>[
+            //     const SizedBox(width: 20),
+            //     Expanded(
+            //       child: ElevatedButton(
+            //         onPressed: () {
+            //           controller.birdFound();
+            //         },
+            //         child: Obx(() => Text(controller.test.value)),
+            //       ),
+            //     ),
+            //     const SizedBox(width: 20),
+            //   ],
+            // ),
           ],
         ),
       ),
@@ -116,7 +117,7 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
 
   //variables necessary for looking for the birds
   RxBool birdShown = false.obs;
-  final double minimalDistance = 15.0; //in meters
+  final double minimalDistance = 12.0; //in meters
   int timesWithoutBird = 0;
   final int chanceToFind = 3; // 1 / (chanceToFind - timesWithoutBird)
   final int lookInterval = 3; //in seconds
@@ -302,25 +303,22 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
 
   Future<void> lookForBird() async {
     //Check if bird is already found
-
     if (birdShown.value) {
       return;
     }
 
     //Check if user is moving (at least minimalDistance meters from his starting position)
-
     final Matrix4? cameraPose = await arSessionManager.getCameraPose();
     currentPosition = cameraPose!.getTranslation();
     final double distanceWalked =
         calculateDistance(startPosition, currentPosition);
-    test.value = distanceWalked.toString();
+    //test.value = distanceWalked.toString();
     if (distanceWalked < minimalDistance) {
       return;
     }
     startPosition = currentPosition;
 
     //Random chance to find bird (1 in (chanceToFind - timesWithoutBird) )
-
     if (rng.nextInt(chanceToFind - timesWithoutBird) == 0) {
       birdFound();
     }
@@ -336,6 +334,7 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
   }
 
   void birdFound() {
+    //Randomly pick a bird model
     final int rndBirdId = rng.nextInt(speciesAmount) + 1;
     addNodeInFrontOfUser('bird$rndBirdId');
   }
