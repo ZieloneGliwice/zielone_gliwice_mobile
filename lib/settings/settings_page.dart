@@ -37,18 +37,6 @@ class SettingsPage extends GetView<SettingsPageController> {
         onLoading: const ActivityIndicator(),
         onError: (String? error) => _errorView(error),
       ),
-      bottomNavigationBar: BottomAppBar(
-        height: 30,
-        elevation: 0,
-        color: Colors.transparent,
-        child: controller.obx(
-          (_) => _appVersion(),
-          onLoading: const BottomAppBar(
-            color: ApplicationColors.background,
-            elevation: 0,
-          ),
-        ),
-      ),
     );
   }
 
@@ -66,11 +54,11 @@ class SettingsPage extends GetView<SettingsPageController> {
                   () => _userPhoto(),
                 ),
                 const SizedBox(
-                  height: 15,
+                  height: 10,
                 ),
                 Obx(() => _userName()),
                 const SizedBox(
-                  height: 70,
+                  height: 50,
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -89,6 +77,10 @@ class SettingsPage extends GetView<SettingsPageController> {
                   height: 35,
                 ),
                 _settingsColumn(),
+                const Spacer(),
+                controller.obx(
+                  (_) => _appVersion(),
+                ),
               ],
             ),
           ),
