@@ -253,6 +253,10 @@ c) Zaakceptowanie i uczestnictwo w konkursie oznacza akceptację powyższego reg
     'delete_account_dialog_content':
         'Your account will be deleted and your trees with it\n\nContinue to delete your account',
     'continue': 'Continue',
+    'ar_rules_dialog_title': 'Find the bird',
+    'ar_rules_dialog_content_1':
+        'While walking, move your camera over trees.\nIf a bird appears on them, add the tree to your collection and',
+    'ar_rules_dialog_content_2': ' collect the bird.',
   };
 
   final Map<String, String> _plPL = <String, String>{
@@ -503,5 +507,9 @@ c) Zaakceptowanie i uczestnictwo w konkursie oznacza akceptację powyższego reg
     'delete_account_dialog_content':
         'Twoje konto zostanie usunięte i wraz z nim Twoje drzewa\n\nPrzejdź dalej aby usunąć konto',
     'continue': 'Dalej',
+    'ar_rules_dialog_title': 'Znajdź ptaka',
+    'ar_rules_dialog_content_1':
+        'Spacerując najeżdżaj kamerą na drzewa.\nJeśli pojawi się na nich ptak, dodaj drzewo do kolekcji i',
+    'ar_rules_dialog_content_2': ' zbierz ptaka.',
   };
 }

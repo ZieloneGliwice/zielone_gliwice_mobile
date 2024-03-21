@@ -322,6 +322,12 @@ abstract class ApplicationTextStyles {
       fontSize: 17,
       fontFamily: _poppinsFont);
 
+  static const TextStyle arGameRulesContentTextStyle = TextStyle(
+      color: ApplicationColors.black,
+      fontWeight: FontWeight.w400,
+      fontSize: 17,
+      fontFamily: _poppinsFont);
+
   static const TextStyle arGameAlertNextTextStyle = TextStyle(
       color: ApplicationColors.green,
       fontWeight: FontWeight.w600,

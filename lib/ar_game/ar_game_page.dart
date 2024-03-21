@@ -9,6 +9,7 @@ import 'package:ar_flutter_plugin_flutterflow/managers/ar_session_manager.dart';
 import 'package:ar_flutter_plugin_flutterflow/models/ar_node.dart';
 import 'package:ar_flutter_plugin_flutterflow/widgets/ar_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:vector_math/vector_math_64.dart';
 
@@ -26,6 +27,9 @@ class ArGamePage extends GetView<ArGameController> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     Analytics.visitedScreen(ArGamePage.path);
     return Scaffold(
       appBar: GrayAppBar(
@@ -110,7 +114,7 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
   Random rng = Random();
   late Vector3 startPosition;
   late Vector3 currentPosition;
-  RxString test = ''.obs;
+  //RxString test = ''.obs;
 
   dynamic args = Get.arguments;
   bool hasEntry = false;
@@ -145,6 +149,10 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
     this.arObjectManager.onInitialize();
     this.arObjectManager.onNodeTap = handleTap;
     hasEntry = args['hasEntry'] as bool;
+
+    if (!hasEntry) {
+      showRulesDialog();
+    }
 
     startLookingForBird();
   }
@@ -222,6 +230,56 @@ class ArGameController extends SessionController with StateMixin<MyTrees> {
     Get.toNamed(AddTreePage.path,
             arguments: <String, dynamic>{'points': 3, 'hasEntry': hasEntry})!
         .then((_) => Get.back());
+  }
+
+  void showRulesDialog() {
+    final BuildContext context = Get.context!;
+    final Widget okeyButton = TextButton(
+      child: Text(
+        'ok'.tr,
+        style: ApplicationTextStyles.arGameAlertNextTextStyle,
+      ),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+
+    final AlertDialog alert = AlertDialog(
+      title: Text(
+        'ar_rules_dialog_title'.tr,
+        textAlign: TextAlign.center,
+        style: ApplicationTextStyles.arGameAlertTitleTextStyle,
+      ),
+      titlePadding: const EdgeInsets.only(top: 18),
+      content: RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+          text: 'ar_rules_dialog_content_1'.tr,
+          style: ApplicationTextStyles.arGameRulesContentTextStyle,
+          children: <TextSpan>[
+            TextSpan(
+              text: 'ar_rules_dialog_content_2'.tr,
+              style: ApplicationTextStyles.challengesRegularContentTextStyle,
+            ),
+          ],
+        ),
+      ),
+      contentPadding:
+          const EdgeInsets.only(top: 12, bottom: 6, left: 6, right: 6),
+      actions: <Widget>[
+        okeyButton,
+      ],
+      actionsAlignment: MainAxisAlignment.spaceAround,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(18))),
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
   Future<void> addNodeInFrontOfUser(String name) async {
